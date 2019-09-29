@@ -9,6 +9,7 @@
     "jsx": "react",
     "declaration": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
