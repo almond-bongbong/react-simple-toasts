@@ -14,16 +14,19 @@ npm install --save react-simple-toasts
 
 ```tsx
 import * as React from 'react'
+import toast from 'react-simple-toasts'
 
-import MyComponent from 'react-simple-toasts'
-
-class Example extends React.Component {
+export default class App extends Component {
   render () {
     return (
-      <MyComponent />
+      <div className="example">
+        <button onClick={() => toast('Hello toast!')}>Toast</button>
+      </div>
     )
   }
 }
+
+
 ```
 
 ## License
