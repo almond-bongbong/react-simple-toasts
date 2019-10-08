@@ -4,9 +4,23 @@ import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
 
+interface ConfigArgs {
+  time?: number;
+  className?: string;
+}
+
+const toastComponentList: any[] = [];
 const toastContainer = document.getElementById(styles['toast_container']);
 if (!toastContainer) addRootElement(createElement(styles['toast_container']));
-const toastComponentList: any[] = [];
+const defaultOptions = {
+  time: 3000,
+  className: '',
+};
+
+export const config = (options: ConfigArgs) => {
+  if (options.time) defaultOptions.time = options.time;
+  if (options.className) defaultOptions.className = options.className;
+};
 
 const renderDOM = () => {
   const container = document.getElementById(styles['toast_container']);
@@ -26,10 +40,14 @@ const renderDOM = () => {
 };
 
 interface IToastProps {
+  className: string;
   message: string;
 }
 
-const Toast: React.FunctionComponent<IToastProps> = ({ message }) => {
+const Toast: React.FunctionComponent<IToastProps> = ({
+  className,
+  message,
+}) => {
   const messageDOM: any = useRef();
 
   useLayoutEffect(() => {
@@ -43,22 +61,19 @@ const Toast: React.FunctionComponent<IToastProps> = ({ message }) => {
   }, [messageDOM.current]);
 
   return (
-    <div
-      ref={messageDOM}
-      className={`${styles['toast-message']}`}
-    >
+    <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
       <div className={styles['toast-content']}>{message}</div>
     </div>
   );
 };
 
-const toast = (message: string, time = 3000) => {
+const toast = (message: string, time: number) => {
   renderDOM();
 
   const id = Date.now();
   toastComponentList.push({
     id,
-    component: <Toast message={message} />,
+    component: <Toast message={message} className={defaultOptions.className} />,
   });
 
   renderDOM();
@@ -66,7 +81,7 @@ const toast = (message: string, time = 3000) => {
     const index = toastComponentList.findIndex(t => t.id === id);
     toastComponentList.splice(index, 1);
     renderDOM();
-  }, time);
+  }, time || defaultOptions.time);
 };
 
 export default toast;
