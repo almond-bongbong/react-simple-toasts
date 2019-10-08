@@ -10,11 +10,12 @@ const toastComponentList: any[] = [];
 
 const renderDOM = () => {
   const container = document.getElementById(styles['toast_container']);
+
   ReactDOM.render(
     <div className={styles['toast-list']}>
       <TransitionGroup classnames="list">
         {toastComponentList.map(t => (
-          <CSSTransition key={t.id} timeout={5000} classNames="toast">
+          <CSSTransition key={t.id} timeout={300} classNames="toast">
             {t.component}
           </CSSTransition>
         ))}
