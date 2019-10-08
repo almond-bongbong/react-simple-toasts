@@ -1,8 +1,12 @@
 # react-simple-toasts
 
-> Simple toast popup for React
+> Simple toast for React
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+<p align="center">
+<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1570547628/github/react-simple-toasts-demo_vg6mgs.gif" />
+</p>
 
 ## Install
 
@@ -12,22 +16,23 @@ npm install --save react-simple-toasts
 
 ## Usage
 
-```tsx
-import * as React from 'react'
+a very simple use
+
+`toast('Hello toast')`
+
+```jsx
+import React from 'react'
 import toast from 'react-simple-toasts'
 
-export default class App extends Component {
-  render () {
-    return (
-      <div className="example">
+const Example = () => (
+    <div className="example">
         <button onClick={() => toast('Hello toast!')}>Toast</button>
-      </div>
-    )
-  }
-}
-
-
+        <button onClick={() => toast('This message is displayed for 1 second.', 1000)}>One-second toast</button>
+    </div>
+);
 ```
+
+## [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
 
 ## License
 
