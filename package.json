@@ -52,5 +52,10 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "toast",
+    "simple"
   ]
 }
