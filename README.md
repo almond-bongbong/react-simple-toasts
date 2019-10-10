@@ -20,6 +20,10 @@ a very simple use
 
 `toast('Hello toast')`
 
+If you want to set the time, use the second parameter.
+
+`toast(message, millisecond)`
+
 ```jsx
 import React from 'react'
 import toast from 'react-simple-toasts'
@@ -33,6 +37,25 @@ const Example = () => (
 ```
 
 ## [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
+
+## Default Options
+
+You can set the default settings if you want.
+
+`index.js`
+```$jsx
+import { toastConfig } from 'react-simple-toasts';
+
+toastConfig({
+  time: 5000,
+  className: 'my-toast-message',
+});
+```
+
+| Name         | Type    | Default | Description |
+| ------------ | ------- | ------- | ----------- |
+| time | number | `3000` | The millisecond time that the message is displayed. |
+| className | string | `` | Can be used to customize styles. |
 
 ## License
 

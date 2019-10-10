@@ -17,7 +17,7 @@ const defaultOptions = {
   className: '',
 };
 
-export const config = (options: ConfigArgs) => {
+export const toastConfig = (options: ConfigArgs) => {
   if (options.time) defaultOptions.time = options.time;
   if (options.className) defaultOptions.className = options.className;
 };
