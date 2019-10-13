@@ -56,6 +56,7 @@ toastConfig({
 | ------------ | ------- | ------- | ----------- |
 | time | number | `3000` | The millisecond time that the message is displayed. |
 | className | string | `` | Can be used to customize styles. |
+| position | string | `center` | left, center, right |
 
 ## License
 

@@ -11,10 +11,20 @@
   text-align: center;
   transform: translateX(-50%) translateZ(0);
 }
+.toast-list.left {
+  left: 30px;
+  text-align: left;
+  transform: translateX(0) translateZ(0);
+}
+.toast-list.right {
+  right: 30px;
+  left: auto;
+  text-align: right;
+  transform: translateX(0) translateZ(0);
+}
 .toast-message {
   opacity: 0;
   margin-bottom: 10px;
-  text-align: center;
   font-size: 0;
   transition: height 0.3s, opacity 0.3s, transform 0.3s;
 }
