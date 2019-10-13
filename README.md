@@ -36,7 +36,7 @@ const Example = () => (
 );
 ```
 
-## [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
+### [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
 
 ## Default Options
 
@@ -58,6 +58,8 @@ toastConfig({
 | className | string | `` | Can be used to customize styles. |
 | position | string | `center` | left, center, right |
 
+<br>
+<br>
 ## License
 
 MIT © [almond-bongbong](https://github.com/almond-bongbong)
