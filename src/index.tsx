@@ -3,11 +3,28 @@ import ReactDOM from 'react-dom';
 import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
-import { ConfigArgs, ToastProps } from './index.d';
 
-const toastComponentList: any[] = [];
-const toastContainer = document.getElementById(styles['toast_container']);
-if (!toastContainer) addRootElement(createElement(styles['toast_container']));
+export interface ConfigArgs {
+  time?: number;
+  className?: string;
+  position?: 'left' | 'center' | 'right';
+}
+
+export interface ToastProps {
+  className: string;
+  message: string;
+}
+
+let toastComponentList: any[] = [];
+const init = () => {
+  const toastContainer = document.getElementById(styles['toast_container']);
+  if (!toastContainer) {
+    addRootElement(createElement(styles['toast_container']));
+  }
+  if (!toastComponentList || !Array.isArray(toastComponentList)) {
+    toastComponentList = [];
+  }
+};
 
 const defaultOptions: ConfigArgs = {
   time: 3000,
@@ -60,12 +77,15 @@ const Toast: React.FunctionComponent<ToastProps> = ({ className, message }) => {
 };
 
 const toast = (message: string, time: number) => {
+  init();
   renderDOM();
 
   const id = Date.now();
   toastComponentList.push({
     id,
-    component: <Toast message={message} className={defaultOptions.className || ''} />,
+    component: (
+      <Toast message={message} className={defaultOptions.className || ''} />
+    ),
   });
 
   renderDOM();
