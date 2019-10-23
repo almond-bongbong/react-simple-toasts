@@ -31,15 +31,16 @@
 .toast-content {
   display: inline-block;
   overflow: hidden;
-  min-width: 280px;
-  max-width: 90%;
-  padding: 10px 20px;
-  background: rgba(0, 0, 10, 0.7);
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  min-width: 290px;
+  padding: 12px 22px;
+  background: rgba(0, 0, 10, 0.6);
+  box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
+  line-height: 1.5;
 }
 :global .toast-enter {
   height: 0;

@@ -5,7 +5,7 @@
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 <p align="center">
-<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1570547628/github/react-simple-toasts-demo_vg6mgs.gif" />
+<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1571789442/github/react-simple-toasts_1.1v_e6ql1x.gif" />
 </p>
 
 ## Install
@@ -18,11 +18,11 @@ npm install --save react-simple-toasts
 
 a very simple use
 
-`toast('Hello toast')`
+`toast(message)`
 
-If you want to set the time, use the second parameter.
+or
 
-`toast(message, millisecond)`
+`toast(message, millisecond = 3000)`
 
 ```jsx
 import React from 'react'
@@ -55,11 +55,12 @@ toastConfig({
 | Name         | Type    | Default | Description |
 | ------------ | ------- | ------- | ----------- |
 | time | number | `3000` | The millisecond time that the message is displayed. |
-| className | string | `` | Can be used to customize styles. |
+| className | string | '' | Can be used to customize styles. |
 | position | string | `center` | left, center, right |
 
 <br>
 <br>
+
 ## License
 
 MIT © [almond-bongbong](https://github.com/almond-bongbong)
