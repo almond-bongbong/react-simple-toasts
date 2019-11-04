@@ -76,7 +76,7 @@ const Toast: React.FunctionComponent<ToastProps> = ({ className, message }) => {
   );
 };
 
-const toast = (message: string, time: number) => {
+const toast = (message: string, time?: number) => {
   init();
   renderDOM();
 
