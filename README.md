@@ -5,7 +5,7 @@
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 <p align="center">
-<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1571789442/github/react-simple-toasts_1.1v_e6ql1x.gif" />
+<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1575989735/github/2019-12-10_23-52-52.2019-12-10_23_53_26_ljp6x1.gif" />
 </p>
 
 ## Install
