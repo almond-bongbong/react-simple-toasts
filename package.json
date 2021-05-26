@@ -1,6 +1,6 @@
 {
   "name": "react-simple-toasts",
-  "version": "1.1.0",
+  "version": "1.1.1-rc.0",
   "description": "Simple toast popup for React",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -22,9 +22,9 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.4",
-    "react": "^16.8.0 || ^16.9.3",
-    "react-dom": "^16.8.0 || ^16.9.3"
+    "prop-types": ">=15.5.4",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
