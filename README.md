@@ -1,6 +1,6 @@
 # react-simple-toasts
 
-> Simple toast for React
+> Simple toast message popup for React ⚛️
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -18,11 +18,11 @@ npm install --save react-simple-toasts
 
 a very simple use
 
-`toast(message)`
-
-or
-
-`toast(message, millisecond = 3000)`
+```js
+toast(message)
+// or
+toast(message, millisecond = 3000)
+```
 
 ```jsx
 import React from 'react'
@@ -36,11 +36,37 @@ const Example = () => (
 );
 ```
 
-### [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
+[Live Demo](https://almond-bongbong.github.io/-react-max-modal/)
 
-## Default Options
+## Options
 
-You can set the default settings if you want.
+| Name         | Type    | Default | Description |
+| ------------ | ------- | ------- | ----------- |
+| visible | `boolean` | `false` | |
+| children | `ReactNode` | | |
+| onClose | `() => void` | | |
+| title | `ReactNode` | | |
+| width | `number` | `string` | `520` | |
+| zIndex | `number` | `1000` | |
+| mask | `boolean` | `true` | |
+| closeButton | `ReactNode` | | |
+| showsCloseButton | `boolean` | `true` | |
+| isMaskClosable | `boolean` | `true` | |
+| isEscKeyClosable | `boolean` | `true` | |
+| isCenteredMode | `boolean` | `false` | |
+| isExpandedMode | `boolean` | `false` | |
+| modalClassName | `string` | | |
+| maskClassName | `string` | | |
+| bodyClassName | `string` | | |
+| contentClassName | `string` | | |
+| modalStyle | `CSSProperties` | | |
+| maskStyle | `CSSProperties` | | |
+| bodyStyle | `CSSProperties` | | |
+| contentStyle | `CSSProperties` | | |
+
+## Config Defaults
+
+You can specify config defaults.
 
 `index.js`
 ```$jsx
@@ -55,11 +81,15 @@ toastConfig({
 | Name         | Type    | Default | Description |
 | ------------ | ------- | ------- | ----------- |
 | time | number | `3000` | The millisecond time that the message is displayed. |
-| className | string | '' | Can be used to customize styles. |
+| className | string | `''` | Can be used to customize styles. |
 | position | string | `center` | left, center, right |
 
 <br>
 <br>
+
+## Thanks
+Support it by joining __[stargazers](https://github.com/almond-bongbong/-react-max-modal/stargazers)__ for this repository. :star:
+
 
 ## License
 

@@ -1,17 +1,21 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { ReactElement, SyntheticEvent, useLayoutEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
 
-export interface ConfigArgs {
+export interface ToastOptions {
   time?: number;
   className?: string;
+  clickable?: boolean;
+  onClick?: (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
+}
+
+export interface ConfigArgs extends Pick<ToastOptions, 'time' | 'className'> {
   position?: 'left' | 'center' | 'right';
 }
 
-export interface ToastProps {
-  className: string;
+export interface ToastProps extends Pick<ToastOptions, 'className' | 'clickable' | 'onClick'> {
   message: string;
 }
 
@@ -26,7 +30,7 @@ const init = () => {
   }
 };
 
-const defaultOptions: ConfigArgs = {
+const defaultOptions: Required<ConfigArgs> = {
   time: 3000,
   className: '',
   position: 'center',
@@ -56,7 +60,12 @@ const renderDOM = () => {
   );
 };
 
-const Toast: React.FunctionComponent<ToastProps> = ({ className, message }) => {
+const Toast = ({
+  message,
+  className,
+  clickable,
+  onClick,
+ }: ToastProps): ReactElement => {
   const messageDOM: any = useRef();
 
   useLayoutEffect(() => {
@@ -69,14 +78,39 @@ const Toast: React.FunctionComponent<ToastProps> = ({ className, message }) => {
     }
   }, [messageDOM.current]);
 
+  const contentClassNames = [
+    styles['toast-content'],
+    clickable ? styles['clickable'] : '',
+  ].filter(Boolean).join(' ');
+
+  const clickableProps = {
+    onClick,
+    tabIndex: 0,
+    role: 'button',
+  };
+
   return (
     <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
-      <div className={styles['toast-content']}>{message}</div>
+      <div
+        className={contentClassNames}
+        {...clickable && clickableProps}
+      >
+        {message}
+      </div>
     </div>
   );
 };
 
-const toast = (message: string, time?: number) => {
+function toast(message: string, time?: number): void;
+function toast(message: string, options?: ToastOptions): void;
+function toast(message: string, timeOrOptions?: number | ToastOptions): void {
+  const {
+    time = defaultOptions.time,
+    clickable = false,
+    className = defaultOptions.className,
+    onClick = undefined,
+  } = typeof timeOrOptions === 'number' ? { time: timeOrOptions } : (timeOrOptions || {});
+
   init();
   renderDOM();
 
@@ -84,7 +118,12 @@ const toast = (message: string, time?: number) => {
   toastComponentList.push({
     id,
     component: (
-      <Toast message={message} className={defaultOptions.className || ''} />
+      <Toast
+        message={message}
+        className={className}
+        clickable={clickable}
+        onClick={onClick}
+      />
     ),
   });
 
@@ -93,7 +132,7 @@ const toast = (message: string, time?: number) => {
     const index = toastComponentList.findIndex(t => t.id === id);
     toastComponentList.splice(index, 1);
     renderDOM();
-  }, time || defaultOptions.time);
-};
+  }, time);
+}
 
 export default toast;
