@@ -47,7 +47,7 @@ const Example = () => (
 | time      | number            | `3000`  | The millisecond time that the message is displayed                               |
 | className | string            | `''`    | Can be used to customize styles                                                  |
 | clickable | string            | `false` | Can click the message                                                            |
-| onClick   | `(event) => void` |         | Set the handler to handle click event <br /> Must be used with `clickable: true` |
+| onClick   | (event) => void |         | Set the handler to handle click event <br /> Must be used with `clickable: true` |
 
 ## Config Defaults
 
