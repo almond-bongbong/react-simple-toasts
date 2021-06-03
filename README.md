@@ -1,6 +1,6 @@
 # react-simple-toasts
 
-> Simple toast for React
+> Simple toast message popup for React ⚛️
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -18,31 +18,43 @@ npm install --save react-simple-toasts
 
 a very simple use
 
-`toast(message)`
-
-or
-
-`toast(message, millisecond = 3000)`
+```js
+toast(message);
+// or
+toast(message, (millisecond = 3000));
+// or
+toast(message, { time: 3000, ...options });
+```
 
 ```jsx
-import React from 'react'
-import toast from 'react-simple-toasts'
+import React from 'react';
+import toast from 'react-simple-toasts';
 
 const Example = () => (
-    <div className="example">
-        <button onClick={() => toast('Hello toast!')}>Toast</button>
-        <button onClick={() => toast('This message is displayed for 1 second.', 1000)}>One-second toast</button>
-    </div>
+  <div className="example">
+    <button onClick={() => toast('Hello toast!')}>Toast</button>
+    <button onClick={() => toast('Message', 1000)}>One-second</button>
+  </div>
 );
 ```
 
-### [Demo](https://almond-bongbong.github.io/react-simple-toasts/)
+[Live Demo](https://almond-bongbong.github.io/-react-max-modal/)
 
-## Default Options
+## Options
 
-You can set the default settings if you want.
+| Name      | Type              | Default | Description                                                                      |
+| --------- | ----------------- | ------- | -------------------------------------------------------------------------------- |
+| time      | number            | `3000`  | The millisecond time that the message is displayed                               |
+| className | string            | `''`    | Can be used to customize styles                                                  |
+| clickable | string            | `false` | Can click the message                                                            |
+| onClick   | `(event) => void` |         | Set the handler to handle click event <br /> Must be used with `clickable: true` |
+
+## Config Defaults
+
+You can specify config defaults.
 
 `index.js`
+
 ```$jsx
 import { toastConfig } from 'react-simple-toasts';
 
@@ -52,14 +64,18 @@ toastConfig({
 });
 ```
 
-| Name         | Type    | Default | Description |
-| ------------ | ------- | ------- | ----------- |
-| time | number | `3000` | The millisecond time that the message is displayed. |
-| className | string | '' | Can be used to customize styles. |
-| position | string | `center` | left, center, right |
+| Name      | Type   | Default  | Description                                         |
+| --------- | ------ | -------- | --------------------------------------------------- |
+| time      | number | `3000`   | The millisecond time that the message is displayed. |
+| className | string | `''`     | Can be used to customize styles.                    |
+| position  | string | `center` | left, center, right                                 |
 
 <br>
 <br>
+
+## Thanks
+
+Support it by joining **[stargazers](https://github.com/almond-bongbong/-react-max-modal/stargazers)** for this repository. :star:
 
 ## License
 
