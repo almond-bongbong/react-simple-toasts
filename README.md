@@ -19,20 +19,22 @@ npm install --save react-simple-toasts
 a very simple use
 
 ```js
-toast(message)
+toast(message);
 // or
-toast(message, millisecond = 3000)
+toast(message, (millisecond = 3000));
+// or
+toast(message, { time: 3000, ...options });
 ```
 
 ```jsx
-import React from 'react'
-import toast from 'react-simple-toasts'
+import React from 'react';
+import toast from 'react-simple-toasts';
 
 const Example = () => (
-    <div className="example">
-        <button onClick={() => toast('Hello toast!')}>Toast</button>
-        <button onClick={() => toast('This message is displayed for 1 second.', 1000)}>One-second toast</button>
-    </div>
+  <div className="example">
+    <button onClick={() => toast('Hello toast!')}>Toast</button>
+    <button onClick={() => toast('Message', 1000)}>One-second</button>
+  </div>
 );
 ```
 
@@ -40,35 +42,19 @@ const Example = () => (
 
 ## Options
 
-| Name         | Type    | Default | Description |
-| ------------ | ------- | ------- | ----------- |
-| visible | `boolean` | `false` | |
-| children | `ReactNode` | | |
-| onClose | `() => void` | | |
-| title | `ReactNode` | | |
-| width | `number` | `string` | `520` | |
-| zIndex | `number` | `1000` | |
-| mask | `boolean` | `true` | |
-| closeButton | `ReactNode` | | |
-| showsCloseButton | `boolean` | `true` | |
-| isMaskClosable | `boolean` | `true` | |
-| isEscKeyClosable | `boolean` | `true` | |
-| isCenteredMode | `boolean` | `false` | |
-| isExpandedMode | `boolean` | `false` | |
-| modalClassName | `string` | | |
-| maskClassName | `string` | | |
-| bodyClassName | `string` | | |
-| contentClassName | `string` | | |
-| modalStyle | `CSSProperties` | | |
-| maskStyle | `CSSProperties` | | |
-| bodyStyle | `CSSProperties` | | |
-| contentStyle | `CSSProperties` | | |
+| Name      | Type              | Default | Description                                                                      |
+| --------- | ----------------- | ------- | -------------------------------------------------------------------------------- |
+| time      | number            | `3000`  | The millisecond time that the message is displayed                               |
+| className | string            | `''`    | Can be used to customize styles                                                  |
+| clickable | string            | `false` | Can click the message                                                            |
+| onClick   | `(event) => void` |         | Set the handler to handle click event <br /> Must be used with `clickable: true` |
 
 ## Config Defaults
 
 You can specify config defaults.
 
 `index.js`
+
 ```$jsx
 import { toastConfig } from 'react-simple-toasts';
 
@@ -78,18 +64,18 @@ toastConfig({
 });
 ```
 
-| Name         | Type    | Default | Description |
-| ------------ | ------- | ------- | ----------- |
-| time | number | `3000` | The millisecond time that the message is displayed. |
-| className | string | `''` | Can be used to customize styles. |
-| position | string | `center` | left, center, right |
+| Name      | Type   | Default  | Description                                         |
+| --------- | ------ | -------- | --------------------------------------------------- |
+| time      | number | `3000`   | The millisecond time that the message is displayed. |
+| className | string | `''`     | Can be used to customize styles.                    |
+| position  | string | `center` | left, center, right                                 |
 
 <br>
 <br>
 
 ## Thanks
-Support it by joining __[stargazers](https://github.com/almond-bongbong/-react-max-modal/stargazers)__ for this repository. :star:
 
+Support it by joining **[stargazers](https://github.com/almond-bongbong/-react-max-modal/stargazers)** for this repository. :star:
 
 ## License
 
