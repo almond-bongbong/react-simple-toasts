@@ -1,21 +1,31 @@
-import React, { ReactElement, SyntheticEvent, useLayoutEffect, useRef } from 'react';
+import React, {
+  ReactElement,
+  SyntheticEvent,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
 
+type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
+
 export interface ToastOptions {
   time?: number;
   className?: string;
   clickable?: boolean;
-  onClick?: (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
+  clickClosable?: boolean;
+  onClick?: ClickHandler;
 }
 
-export interface ConfigArgs extends Pick<ToastOptions, 'time' | 'className'> {
+export interface ConfigArgs
+  extends Pick<ToastOptions, 'time' | 'clickClosable' | 'className'> {
   position?: 'left' | 'center' | 'right';
 }
 
-export interface ToastProps extends Pick<ToastOptions, 'className' | 'clickable' | 'onClick'> {
+export interface ToastProps
+  extends Pick<ToastOptions, 'className' | 'clickable' | 'onClick'> {
   message: string;
 }
 
@@ -34,12 +44,15 @@ const defaultOptions: Required<ConfigArgs> = {
   time: 3000,
   className: '',
   position: 'center',
+  clickClosable: false,
 };
 
 export const toastConfig = (options: ConfigArgs) => {
   if (options.time) defaultOptions.time = options.time;
   if (options.className) defaultOptions.className = options.className;
   if (options.position) defaultOptions.position = options.position;
+  if (options.clickClosable)
+    defaultOptions.clickClosable = options.clickClosable;
 };
 
 const renderDOM = () => {
@@ -65,7 +78,7 @@ const Toast = ({
   className,
   clickable,
   onClick,
- }: ToastProps): ReactElement => {
+}: ToastProps): ReactElement => {
   const messageDOM: any = useRef();
 
   useLayoutEffect(() => {
@@ -81,7 +94,9 @@ const Toast = ({
   const contentClassNames = [
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const clickableProps = {
     onClick,
@@ -91,47 +106,63 @@ const Toast = ({
 
   return (
     <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
-      <div
-        className={contentClassNames}
-        {...clickable && clickableProps}
-      >
+      <div className={contentClassNames} {...(clickable && clickableProps)}>
         {message}
       </div>
     </div>
   );
 };
 
+const closeToast = (id: number) => {
+  const index = toastComponentList.findIndex(t => t.id === id);
+  toastComponentList.splice(index, 1);
+  renderDOM();
+};
+
 function toast(message: string, time?: number): void;
 function toast(message: string, options?: ToastOptions): void;
 function toast(message: string, timeOrOptions?: number | ToastOptions): void {
+  let closeTimer: number;
+  const id = Date.now();
   const {
     time = defaultOptions.time,
     clickable = false,
+    clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
     onClick = undefined,
-  } = typeof timeOrOptions === 'number' ? { time: timeOrOptions } : (timeOrOptions || {});
+  } =
+    typeof timeOrOptions === 'number'
+      ? { time: timeOrOptions }
+      : timeOrOptions || {};
 
   init();
   renderDOM();
 
-  const id = Date.now();
+  const handleClick: ClickHandler = (...args) => {
+    if (clickClosable) {
+      if (closeTimer) {
+        clearTimeout(closeTimer);
+      }
+      closeToast(id);
+    }
+    if (onClick) onClick(...args);
+  };
+
   toastComponentList.push({
     id,
     component: (
       <Toast
         message={message}
         className={className}
-        clickable={clickable}
-        onClick={onClick}
+        clickable={clickable || clickClosable}
+        onClick={handleClick}
       />
     ),
   });
 
   renderDOM();
-  setTimeout(() => {
-    const index = toastComponentList.findIndex(t => t.id === id);
-    toastComponentList.splice(index, 1);
-    renderDOM();
+  closeTimer = window.setTimeout(() => {
+    closeToast(id);
   }, time);
 }
 
