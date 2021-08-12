@@ -38,7 +38,7 @@ const Example = () => (
 );
 ```
 
-[Live Demo](https://almond-bongbong.github.io/-react-max-modal/)
+[Live Demo](https://almond-bongbong.github.io/react-simple-toasts/)
 
 ## Options
 
