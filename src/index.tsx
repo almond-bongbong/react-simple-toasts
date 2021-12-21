@@ -1,5 +1,6 @@
 import React, {
   ReactElement,
+  ReactNode,
   SyntheticEvent,
   useLayoutEffect,
   useRef,
@@ -22,6 +23,7 @@ export interface ToastOptions {
 export interface ConfigArgs
   extends Pick<ToastOptions, 'time' | 'clickClosable' | 'className'> {
   position?: 'left' | 'center' | 'right';
+  render?: ((message: string) => ReactNode) | null;
 }
 
 export interface ToastProps
@@ -29,7 +31,11 @@ export interface ToastProps
   message: string;
 }
 
-let toastComponentList: any[] = [];
+let toastComponentList: {
+  id: number;
+  message: string;
+  component: ReactNode;
+}[] = [];
 const init = () => {
   const toastContainer = document.getElementById(styles['toast_container']);
   if (!toastContainer) {
@@ -45,6 +51,7 @@ const defaultOptions: Required<ConfigArgs> = {
   className: '',
   position: 'center',
   clickClosable: false,
+  render: null,
 };
 
 export const toastConfig = (options: ConfigArgs) => {
@@ -53,6 +60,7 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.position) defaultOptions.position = options.position;
   if (options.clickClosable)
     defaultOptions.clickClosable = options.clickClosable;
+  if (options.render) defaultOptions.render = options.render;
 };
 
 const renderDOM = () => {
@@ -106,9 +114,13 @@ const Toast = ({
 
   return (
     <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
-      <div className={contentClassNames} {...(clickable && clickableProps)}>
-        {message}
-      </div>
+      {defaultOptions.render ? (
+        defaultOptions.render(message)
+      ) : (
+        <div className={contentClassNames} {...(clickable && clickableProps)}>
+          {message}
+        </div>
+      )}
     </div>
   );
 };
@@ -150,6 +162,7 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
 
   toastComponentList.push({
     id,
+    message,
     component: (
       <Toast
         message={message}

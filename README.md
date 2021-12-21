@@ -65,12 +65,13 @@ toastConfig({
 });
 ```
 
-| Name          | Type    | Default  | Description                                         |
-| ------------- | ------- | -------- | --------------------------------------------------- |
-| time          | number  | `3000`   | The millisecond time that the message is displayed. |
-| className     | string  | `''`     | Can be used to customize styles.                    |
-| position      | string  | `center` | left, center, right                                 |
-| clickClosable | boolean | `false`  | Whether to close the toast when is clicked          |
+| Name          | Type                           | Default  | Description                                                   |
+| ------------- | ------------------------------ | -------- | ------------------------------------------------------------- |
+| time          | number                         | `3000`   | The millisecond time that the message is displayed.           |
+| className     | string                         | `''`     | Can be used to customize styles.                              |
+| position      | string                         | `center` | left, center, right                                           |
+| clickClosable | boolean                        | `false`  | Whether to close the toast when is clicked                    |
+| render        | (message: string) => ReactNode | `null`   | Renderer of the toast. The return value should be a ReactNode |
 
 <br>
 <br>
