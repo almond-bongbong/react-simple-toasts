@@ -31,6 +31,8 @@ export interface ToastProps
   message: string;
 }
 
+const SET_TIMEOUT_MAX = 2147483647;
+
 let toastComponentList: {
   id: number;
   message: string;
@@ -174,9 +176,12 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
   });
 
   renderDOM();
-  closeTimer = window.setTimeout(() => {
-    closeToast(id);
-  }, time);
+
+  if (time <= SET_TIMEOUT_MAX) {
+    closeTimer = window.setTimeout(() => {
+      closeToast(id);
+    }, time);
+  }
 }
 
 export default toast;
