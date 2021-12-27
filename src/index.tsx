@@ -17,17 +17,20 @@ export interface ToastOptions {
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
+  render?: ((message: string) => ReactNode) | null;
   onClick?: ClickHandler;
 }
 
 export interface ConfigArgs
-  extends Pick<ToastOptions, 'time' | 'clickClosable' | 'className'> {
+  extends Pick<
+    ToastOptions,
+    'time' | 'clickClosable' | 'className' | 'render'
+  > {
   position?: 'left' | 'center' | 'right';
-  render?: ((message: string) => ReactNode) | null;
 }
 
 export interface ToastProps
-  extends Pick<ToastOptions, 'className' | 'clickable' | 'onClick'> {
+  extends Pick<ToastOptions, 'className' | 'clickable' | 'render' | 'onClick'> {
   message: string;
 }
 
@@ -87,6 +90,7 @@ const Toast = ({
   message,
   className,
   clickable,
+  render,
   onClick,
 }: ToastProps): ReactElement => {
   const messageDOM: any = useRef();
@@ -116,8 +120,8 @@ const Toast = ({
 
   return (
     <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
-      {defaultOptions.render ? (
-        defaultOptions.render(message)
+      {render ? (
+        render(message)
       ) : (
         <div className={contentClassNames} {...(clickable && clickableProps)}>
           {message}
@@ -143,6 +147,7 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
     clickable = false,
     clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
+    render = defaultOptions.render,
     onClick = undefined,
   } =
     typeof timeOrOptions === 'number'
@@ -170,6 +175,7 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
         message={message}
         className={className}
         clickable={clickable || clickClosable}
+        render={render}
         onClick={handleClick}
       />
     ),
