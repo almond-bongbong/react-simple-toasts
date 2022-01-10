@@ -79,7 +79,7 @@ toastConfig({
 
 ## Thanks
 
-Support it by joining **[stargazers](https://github.com/almond-bongbong/-react-max-modal/stargazers)** for this repository. :star:
+Support it by joining **[stargazers](https://github.com/almond-bongbong/react-simple-toasts/stargazers)** for this repository. :star:
 
 ## License
 
