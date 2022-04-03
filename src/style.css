@@ -11,6 +11,8 @@
   text-align: center;
   transform: translateX(-50%) translateZ(0);
 }
+.toast-list.center {
+}
 .toast-list.left {
   left: 30px;
   text-align: left;
@@ -42,6 +44,7 @@
   text-align: center;
   line-height: 1.5;
   vertical-align: top;
+  white-space: pre-line;
 }
 .clickable {
   cursor: pointer;

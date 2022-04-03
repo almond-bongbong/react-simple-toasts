@@ -73,15 +73,13 @@ const renderDOM = () => {
   const position = defaultOptions.position || 'center';
 
   ReactDOM.render(
-    <div className={`${styles['toast-list']} ${styles[position]}`}>
-      <TransitionGroup classnames="list">
-        {toastComponentList.map(t => (
-          <CSSTransition key={t.id} timeout={300} classNames="toast">
-            {t.component}
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
-    </div>,
+    <TransitionGroup className={`${styles['toast-list']} ${styles[position]}`}>
+      {toastComponentList.map(t => (
+        <CSSTransition key={t.id} timeout={300} classNames="toast">
+          {t.component}
+        </CSSTransition>
+      ))}
+    </TransitionGroup>,
     container,
   );
 };
