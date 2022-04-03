@@ -44,6 +44,7 @@
   text-align: center;
   line-height: 1.5;
   vertical-align: top;
+  white-space: pre-line;
 }
 .clickable {
   cursor: pointer;
