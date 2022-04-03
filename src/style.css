@@ -11,6 +11,8 @@
   text-align: center;
   transform: translateX(-50%) translateZ(0);
 }
+.toast-list.center {
+}
 .toast-list.left {
   left: 30px;
   text-align: left;
