@@ -61,5 +61,8 @@
     "message",
     "notification",
     "mobile message"
-  ]
+  ],
+  "dependencies": {
+    "react-syntax-highlighter": "^15.5.0"
+  }
 }
