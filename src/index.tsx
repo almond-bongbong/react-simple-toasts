@@ -5,10 +5,11 @@ import React, {
   useLayoutEffect,
   useRef,
 } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
+import { isBrowser } from './lib/environment';
 
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 
@@ -35,16 +36,22 @@ export interface ToastProps
 }
 
 const SET_TIMEOUT_MAX = 2147483647;
+const ROOT_KEY = '__REACT-SIMPLE-TOAST-ROOT__';
 
 let toastComponentList: {
   id: number;
   message: string;
   component: ReactNode;
 }[] = [];
+
 const init = () => {
-  const toastContainer = document.getElementById(styles['toast_container']);
-  if (!toastContainer) {
-    addRootElement(createElement(styles['toast_container']));
+  const toastContainer =
+    isBrowser() && document.getElementById(styles['toast_container']);
+  if (isBrowser() && !toastContainer) {
+    const rootElement = addRootElement(
+      createElement(styles['toast_container']),
+    );
+    window[ROOT_KEY] = ReactDOM.createRoot(rootElement);
   }
   if (!toastComponentList || !Array.isArray(toastComponentList)) {
     toastComponentList = [];
@@ -69,18 +76,20 @@ export const toastConfig = (options: ConfigArgs) => {
 };
 
 const renderDOM = () => {
-  const container = document.getElementById(styles['toast_container']);
-  const position = defaultOptions.position || 'center';
+  const root = isBrowser() && window[ROOT_KEY];
+  if (!root) return;
 
-  ReactDOM.render(
-    <TransitionGroup className={`${styles['toast-list']} ${styles[position]}`}>
+  root.render(
+    <TransitionGroup
+      appear
+      className={`${styles['toast-list']} ${styles['center']}`}
+    >
       {toastComponentList.map(t => (
         <CSSTransition key={t.id} timeout={300} classNames="toast">
           {t.component}
         </CSSTransition>
       ))}
     </TransitionGroup>,
-    container,
   );
 };
 
@@ -153,7 +162,6 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
       : timeOrOptions || {};
 
   init();
-  renderDOM();
 
   const handleClick: ClickHandler = (...args) => {
     if (clickClosable) {

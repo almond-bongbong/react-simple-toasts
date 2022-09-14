@@ -6,4 +6,5 @@ export const createElement = (id: string): HTMLElement => {
 
 export const addRootElement = (rootElem: HTMLElement) => {
   document.body.appendChild(rootElem);
+  return rootElem;
 };

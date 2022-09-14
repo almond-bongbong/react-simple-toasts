@@ -49,13 +49,16 @@
 .clickable {
   cursor: pointer;
 }
-:global .toast-enter {
+:global .toast-enter,
+:global .toast-appear {
   height: 0;
 }
-:global .toast-enter-active {
+:global .toast-enter-active,
+:global .toast-appear-active {
   opacity: 1;
 }
-:global .toast-enter-done {
+:global .toast-enter-done,
+:global .toast-appear-done {
   opacity: 1;
 }
 :global .toast-exit-active {

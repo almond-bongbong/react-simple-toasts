@@ -1,6 +1,6 @@
 {
   "name": "react-simple-toasts",
-  "version": "2.2.3",
+  "version": "3.0.0-alpha.0",
   "description": "Simple toast popup for React",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -22,21 +22,21 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
     "@types/jest": "^23.1.5",
-    "@types/react": "^16.9.3",
-    "@types/react-dom": "^16.9.1",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
     "@types/react-transition-group": "^4.2.2",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "cross-env": "^5.1.4",
     "gh-pages": "^1.2.0",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts-ts": "^2.16.0",
     "react-transition-group": "^4.3.0",
     "rollup": "^0.62.0",
