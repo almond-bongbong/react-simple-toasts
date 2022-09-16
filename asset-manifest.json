@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/react-simple-toasts/static/css/main.c8353f9f.css",
-    "main.js": "/react-simple-toasts/static/js/main.828bf3f5.js",
+    "main.js": "/react-simple-toasts/static/js/main.b91f2382.js",
     "index.html": "/react-simple-toasts/index.html",
     "main.c8353f9f.css.map": "/react-simple-toasts/static/css/main.c8353f9f.css.map",
-    "main.828bf3f5.js.map": "/react-simple-toasts/static/js/main.828bf3f5.js.map"
+    "main.b91f2382.js.map": "/react-simple-toasts/static/js/main.b91f2382.js.map"
   },
   "entrypoints": [
     "static/css/main.c8353f9f.css",
-    "static/js/main.828bf3f5.js"
+    "static/js/main.b91f2382.js"
   ]
 }
