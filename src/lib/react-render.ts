@@ -40,8 +40,6 @@ function toggleWarning(skip: boolean) {
 const ROOT_KEY = '__REACT_SIMPLE_TOAST_ROOT__';
 
 function modernRender(node: React.ReactElement, container: Element) {
-  console.log('modern render');
-
   toggleWarning(true);
   if (isBrowser() && !window[ROOT_KEY]) window[ROOT_KEY] = createRoot!(container);
   toggleWarning(false);
@@ -52,7 +50,6 @@ function modernRender(node: React.ReactElement, container: Element) {
 }
 
 function legacyRender(node: React.ReactElement, container: Element) {
-  console.log('legacy render');
   reactRender(node, container);
 }
 
