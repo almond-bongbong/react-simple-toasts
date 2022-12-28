@@ -15,13 +15,11 @@
 }
 .toast-list.left {
   left: 30px;
-  text-align: left;
   transform: translateX(0) translateZ(0);
 }
 .toast-list.right {
   right: 30px;
   left: auto;
-  text-align: right;
   transform: translateX(0) translateZ(0);
 }
 .toast-message {

@@ -78,7 +78,7 @@ const renderDOM = () => {
   reactRender(
     <TransitionGroup
       appear
-      className={`${styles['toast-list']} ${styles['center']}`}
+      className={`${styles['toast-list']} ${styles[defaultOptions.position]}`}
     >
       {toastComponentList.map(t => (
         <CSSTransition key={t.id} timeout={300} classNames="toast">
