@@ -79,6 +79,63 @@ export default class App extends Component {
           </div>
 
           <div className="example-area">
+            <h3>Position</h3>
+            <div className="playground">
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'top-left' })}
+              >
+                top-left
+              </button>
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'top-center' })}
+              >
+                top-center
+              </button>
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'top-right' })}
+              >
+                top-right
+              </button>
+            </div>
+            <CommonHighlighter>
+              {`toast('Message', { position: 'top-left' })
+toast('Message', { position: 'top-center' })
+toast('Message', { position: 'top-right' })`}
+            </CommonHighlighter>
+          </div>
+
+          <div className="example-area">
+            <div className="playground">
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'bottom-left' })}
+              >
+                bottom-left
+              </button>
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'bottom-center' })}
+              >
+                bottom-center
+              </button>
+              <button
+                className="example-button"
+                onClick={() => toast('Message', { position: 'bottom-right' })}
+              >
+                bottom-right
+              </button>
+            </div>
+            <CommonHighlighter>
+              {`toast('Message', { position: 'bottom-left' })
+toast('Message', { position: 'bottom-center' })
+toast('Message', { position: 'bottom-right' })`}
+            </CommonHighlighter>
+          </div>
+
+          <div className="example-area">
             <h3>Click Closable</h3>
             <div className="playground">
               <button

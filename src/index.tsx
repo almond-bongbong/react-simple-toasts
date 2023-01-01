@@ -11,13 +11,24 @@ import { addRootElement, createElement } from './lib/generateElement';
 import { isBrowser } from './lib/environment';
 import { render as reactRender } from './lib/react-render';
 
+export const ToastPosition = {
+  BOTTOM_LEFT: 'bottom-left',
+  BOTTOM_CENTER: 'bottom-center',
+  BOTTOM_RIGHT: 'bottom-right',
+  TOP_LEFT: 'top-left',
+  TOP_CENTER: 'top-center',
+  TOP_RIGHT: 'top-right',
+} as const;
+
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
+type Position = typeof ToastPosition[keyof typeof ToastPosition];
 
 export interface ToastOptions {
   time?: number;
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
+  position?: Position;
   render?: ((message: string) => ReactNode) | null;
   onClick?: ClickHandler;
 }
@@ -25,13 +36,14 @@ export interface ToastOptions {
 export interface ConfigArgs
   extends Pick<
     ToastOptions,
-    'time' | 'clickClosable' | 'className' | 'render'
-  > {
-  position?: 'left' | 'center' | 'right';
-}
+    'time' | 'clickClosable' | 'className' | 'position' | 'render'
+  > {}
 
 export interface ToastProps
-  extends Pick<ToastOptions, 'className' | 'clickable' | 'render' | 'onClick'> {
+  extends Pick<
+    ToastOptions,
+    'className' | 'clickable' | 'position' | 'render' | 'onClick'
+  > {
   message: string;
 }
 
@@ -40,6 +52,7 @@ const SET_TIMEOUT_MAX = 2147483647;
 let toastComponentList: {
   id: number;
   message: string;
+  position: Position;
   component: ReactNode;
 }[] = [];
 
@@ -57,37 +70,84 @@ const init = () => {
 const defaultOptions: Required<ConfigArgs> = {
   time: 3000,
   className: '',
-  position: 'center',
+  position: 'bottom-center',
   clickClosable: false,
   render: null,
 };
 
+const isValidPosition = (position: Position): boolean => {
+  const positionList = Object.values(ToastPosition);
+  if (!positionList.includes(position)) {
+    throw new Error(
+      `Invalid position value. Expected one of ${Object.values(
+        ToastPosition,
+      ).join(', ')} but got ${position}`,
+    );
+  }
+
+  return true;
+};
+
 export const toastConfig = (options: ConfigArgs) => {
-  if (options.time) defaultOptions.time = options.time;
-  if (options.className) defaultOptions.className = options.className;
-  if (options.position) defaultOptions.position = options.position;
-  if (options.clickClosable)
+  if (options.time) {
+    defaultOptions.time = options.time;
+  }
+  if (options.className) {
+    defaultOptions.className = options.className;
+  }
+  if (options.position && isValidPosition(options.position)) {
+    defaultOptions.position = options.position;
+  }
+  if (options.clickClosable) {
     defaultOptions.clickClosable = options.clickClosable;
-  if (options.render) defaultOptions.render = options.render;
+  }
+  if (options.render) {
+    defaultOptions.render = options.render;
+  }
 };
 
 const renderDOM = () => {
   const toastContainer = document.getElementById(styles['toast_container']);
   if (!toastContainer) return;
 
-  reactRender(
-    <TransitionGroup
-      appear
-      className={`${styles['toast-list']} ${styles[defaultOptions.position]}`}
-    >
-      {toastComponentList.map(t => (
-        <CSSTransition key={t.id} timeout={300} classNames="toast">
-          {t.component}
-        </CSSTransition>
-      ))}
-    </TransitionGroup>,
-    toastContainer,
+  const defaultToastList = Object.values(ToastPosition).reduce(
+    (acc, position) => ({
+      ...acc,
+      [position]: [],
+    }),
+    {},
   );
+  const toastListByPosition = toastComponentList.reduce<
+    Record<string, typeof toastComponentList>
+  >((acc, toast) => {
+    acc[toast.position].push(toast);
+    return acc;
+  }, defaultToastList);
+
+  const toastListComponent = Object.entries(toastListByPosition).map(
+    ([position, toastsByPosition]) => (
+      <TransitionGroup
+        key={position}
+        appear
+        className={`${styles['toast-list']} ${styles[position]}`}
+      >
+        {toastsByPosition.map(t => (
+          <CSSTransition
+            key={t.id}
+            timeout={300}
+            classNames="toast"
+            {...(position.includes('top') && {
+              onExit: element => (element.style.height = '0px'),
+            })}
+          >
+            {t.component}
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    ),
+  );
+
+  reactRender(<>{toastListComponent}</>, toastContainer);
 };
 
 const Toast = ({
@@ -151,12 +211,15 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
     clickable = false,
     clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
+    position = defaultOptions.position,
     render = defaultOptions.render,
     onClick = undefined,
   } =
     typeof timeOrOptions === 'number'
       ? { time: timeOrOptions }
       : timeOrOptions || {};
+
+  if (!isValidPosition(position)) return;
 
   init();
 
@@ -173,11 +236,13 @@ function toast(message: string, timeOrOptions?: number | ToastOptions): void {
   toastComponentList.push({
     id,
     message,
+    position,
     component: (
       <Toast
         message={message}
         className={className}
         clickable={clickable || clickClosable}
+        position={position}
         render={render}
         onClick={handleClick}
       />

@@ -42,14 +42,15 @@ const Example = () => (
 
 ## Options
 
-| Name          | Type                           | Default | Description                                                                      |
-| ------------- | ------------------------------ | ------- | -------------------------------------------------------------------------------- |
-| time          | number                         | `3000`  | The millisecond time that the message is displayed                               |
-| className     | string                         | `''`    | Can be used to customize styles                                                  |
-| clickable     | string                         | `false` | Can click the message                                                            |
-| clickClosable | boolean                        | `false` | Whether to close the toast when is clicked                                       |
-| render        | (message: string) => ReactNode | `null`  | Renderer of the toast. The return value should be a ReactNode                    |
-| onClick       | (event) => void                |         | Set the handler to handle click event <br /> Must be used with `clickable: true` |
+| Name          | Type                                                                             | Default         | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
+| time          | number                                                                           | `3000`          | The millisecond time that the message is displayed                               |
+| className     | string                                                                           | `''`            | Can be used to customize styles                                                  |
+| clickable     | string                                                                           | `false`         | Can click the message                                                            |
+| clickClosable | boolean                                                                          | `false`         | Whether to close the toast when is clicked                                       |
+| position      | `bottom-left` `bottom-center` `bottom-right` `top-left` `top-center` `top-right` | `bottom-center` | Position of toast popup                                                          |
+| render        | (message: string) => ReactNode                                                   | `null`          | Renderer of the toast. The return value should be a ReactNode                    |
+| onClick       | (event) => void                                                                  |                 | Set the handler to handle click event <br /> Must be used with `clickable: true` |
 
 ## Config Defaults
 
@@ -66,13 +67,13 @@ toastConfig({
 });
 ```
 
-| Name          | Type                           | Default  | Description                                                   |
-| ------------- | ------------------------------ | -------- | ------------------------------------------------------------- |
-| time          | number                         | `3000`   | The millisecond time that the message is displayed.           |
-| className     | string                         | `''`     | Can be used to customize styles.                              |
-| position      | string                         | `center` | left, center, right                                           |
-| clickClosable | boolean                        | `false`  | Whether to close the toast when is clicked                    |
-| render        | (message: string) => ReactNode | `null`   | Renderer of the toast. The return value should be a ReactNode |
+| Name          | Type                                                                             | Default         | Description                                                   |
+| ------------- | -------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------------- |
+| time          | number                                                                           | `3000`          | The millisecond time that the message is displayed.           |
+| className     | string                                                                           | `''`            | Can be used to customize styles.                              |
+| position      | `bottom-left` `bottom-center` `bottom-right` `top-left` `top-center` `top-right` | `bottom-center` | Position of toast popup                                       |
+| clickClosable | boolean                                                                          | `false`         | Whether to close the toast when is clicked                    |
+| render        | (message: string) => ReactNode                                                   | `null`          | Renderer of the toast. The return value should be a ReactNode |
 
 <br>
 <br>
