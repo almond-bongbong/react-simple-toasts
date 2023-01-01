@@ -76,12 +76,16 @@ toastConfig({
 | render        | (message: string) => ReactNode                                                   | `null`          | Renderer of the toast. The return value should be a ReactNode |
 
 <br>
-<br>
 
 ## Thanks
 
 Support it by joining **[stargazers](https://github.com/almond-bongbong/react-simple-toasts/stargazers)** for this repository. :star:
 
+![Stargazers repo roster for @almond-bongbong/react-simple-toasts](https://reporoster.com/stars/almond-bongbong/react-simple-toasts)
+
+<br>
+
 ## License
 
 MIT © [almond-bongbong](https://github.com/almond-bongbong)
+
