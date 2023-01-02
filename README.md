@@ -38,7 +38,7 @@ const Example = () => (
 );
 ```
 
-[Live Demo](https://almond-bongbong.github.io/react-simple-toasts/)
+### [Live Demo](https://almond-bongbong.github.io/react-simple-toasts/)
 
 ## Options
 
