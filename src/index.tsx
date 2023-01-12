@@ -1,15 +1,10 @@
-import React, {
-  ReactElement,
-  ReactNode,
-  SyntheticEvent,
-  useLayoutEffect,
-  useRef,
-} from 'react';
+import React, { ReactElement, ReactNode, SyntheticEvent, useLayoutEffect, useRef } from 'react';
 import styles from './style.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
-import { isBrowser } from './lib/environment';
 import { render as reactRender } from './lib/react-render';
+
+const isBrowser = () => typeof window !== 'undefined';
 
 export const ToastPosition = {
   BOTTOM_LEFT: 'bottom-left',
