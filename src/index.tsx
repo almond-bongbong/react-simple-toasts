@@ -102,6 +102,7 @@ export const toastConfig = (options: ConfigArgs) => {
 };
 
 const renderDOM = () => {
+  if (!isBrowser()) return;
   const toastContainer = document.getElementById(styles['toast_container']);
   if (!toastContainer) return;
 
@@ -199,6 +200,8 @@ const closeToast = (id: number) => {
 function toast(message: string, time?: number): void;
 function toast(message: string, options?: ToastOptions): void;
 function toast(message: string, timeOrOptions?: number | ToastOptions): void {
+  if (!isBrowser()) return;
+
   let closeTimer: number;
   const id = Date.now();
   const {

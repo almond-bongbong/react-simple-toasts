@@ -13,18 +13,16 @@ export default {
   input: './src/index.tsx',
   output: [
     {
-      dir: './dist',
+      file: pkg.main,
       format: 'cjs',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-      exports: 'named',
+      sourcemap: true,
     },
     {
       file: pkg.module,
-      format: 'es'
+      format: 'esm',
+      sourcemap: true,
     },
   ],
-  external: [/node_modules/],
   plugins: [
     peerDepsExternal(),
     nodeResolve({ extensions }),
@@ -32,13 +30,13 @@ export default {
       clean: true,
       tsconfig: './tsconfig.json',
     }),
-    commonjs({ include: 'node_modules/**' }),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
       extensions,
       include: ['src/**/*'],
     }),
+    commonjs({ include: 'node_modules/**' }),
     postcss({
       extract: false,
       modules: true,
