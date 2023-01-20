@@ -70,20 +70,12 @@
 .clickable {
   cursor: pointer;
 }
-.toast-message:global(.toast-enter),
-.toast-message:global(.toast-appear) {
-  height: 0;
-}
 .toast-message:global(.toast-enter-active),
 .toast-message:global(.toast-appear-active) {
   opacity: 1;
   transform: translateY(0px);
 }
-.toast-message:global(.toast-enter-done),
-.toast-message:global(.toast-appear-done) {
-  opacity: 1;
-  transform: translateY(0px);
-}
 .toast-message:global(.toast-exit-active) {
+  opacity: 0;
   transform: translateY(-10px);
 }

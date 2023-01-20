@@ -1,6 +1,14 @@
-import React, { ReactElement, ReactNode, SyntheticEvent, useLayoutEffect, useRef } from 'react';
+import React, {
+  cloneElement,
+  Fragment,
+  ReactElement,
+  ReactNode,
+  SyntheticEvent,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from './style.css';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 
@@ -40,6 +48,7 @@ export interface ToastProps
     'className' | 'clickable' | 'position' | 'render' | 'onClick'
   > {
   message: string;
+  isExit?: boolean;
 }
 
 const SET_TIMEOUT_MAX = 2147483647;
@@ -48,7 +57,8 @@ let toastComponentList: {
   id: number;
   message: string;
   position: Position;
-  component: ReactNode;
+  component: ReactElement;
+  isExit?: boolean;
 }[] = [];
 
 const init = () => {
@@ -122,24 +132,16 @@ const renderDOM = () => {
 
   const toastListComponent = Object.entries(toastListByPosition).map(
     ([position, toastsByPosition]) => (
-      <TransitionGroup
+      <div
         key={position}
-        appear
         className={`${styles['toast-list']} ${styles[position]}`}
       >
-        {toastsByPosition.map(t => (
-          <CSSTransition
-            key={t.id}
-            timeout={300}
-            classNames="toast"
-            {...(position.includes('top') && {
-              onExit: element => (element.style.height = '0px'),
-            })}
-          >
-            {t.component}
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
+        {toastsByPosition.map(t => <Fragment key={t.id}>
+          {cloneElement(t.component, {
+            isExit: t.isExit,
+          })}
+        </Fragment>)}
+      </div>
     ),
   );
 
@@ -150,10 +152,13 @@ const Toast = ({
   message,
   className,
   clickable,
+  position,
+  isExit,
   render,
   onClick,
 }: ToastProps): ReactElement => {
   const messageDOM: any = useRef();
+  const [isEnter, setIsEnter] = useState(false);
 
   useLayoutEffect(() => {
     if (messageDOM.current && messageDOM.current.clientHeight) {
@@ -161,9 +166,16 @@ const Toast = ({
       messageDOM.current.style.height = '0px';
       setTimeout(() => {
         messageDOM.current.style.height = `${height}px`;
+        setIsEnter(true);
       }, 0);
     }
-  }, [messageDOM.current]);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (isExit && position && position.indexOf('top') > -1) {
+      messageDOM.current.style.height = '0px';
+    }
+  }, [isExit]);
 
   const contentClassNames = [
     styles['toast-content'],
@@ -179,7 +191,7 @@ const Toast = ({
   };
 
   return (
-    <div ref={messageDOM} className={`${styles['toast-message']} ${className}`}>
+    <div ref={messageDOM} className={`${styles['toast-message']} ${isEnter ? 'toast-enter-active' : ''} ${isExit ? 'toast-exit-active' : ''} ${className}`}>
       {render ? (
         render(message)
       ) : (
@@ -191,11 +203,16 @@ const Toast = ({
   );
 };
 
-const closeToast = (id: number) => {
+function closeToast(id: number) {
   const index = toastComponentList.findIndex(t => t.id === id);
-  toastComponentList.splice(index, 1);
+  toastComponentList[index].isExit = true;
   renderDOM();
-};
+
+  setTimeout(() => {
+    toastComponentList = toastComponentList.filter(t => t.id !== id);
+    renderDOM();
+  }, 300);
+}
 
 function toast(message: string, time?: number): void;
 function toast(message: string, options?: ToastOptions): void;
