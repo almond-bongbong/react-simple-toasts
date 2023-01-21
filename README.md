@@ -40,6 +40,15 @@ const Example = () => (
 
 ### [Live Demo](https://almond-bongbong.github.io/react-simple-toasts/)
 
+## Message
+Message type can be ReactNode.
+
+```js
+toast('Hello toast!');
+// or
+toast(<strong>Hello, toast</strong>);
+```
+
 ## Options
 
 | Name          | Type                                                                             | Default         | Description                                                                      |
