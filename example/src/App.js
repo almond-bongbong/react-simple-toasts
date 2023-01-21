@@ -42,6 +42,18 @@ export default class App extends Component {
           </div>
 
           <div className="example-area">
+            <div className="playground">
+              <button
+                className="example-button"
+                onClick={() => toast(<><b style={{ color: 'skyblue' }}>Hello,</b> world</>)}
+              >
+                click
+              </button>
+            </div>
+            <CommonHighlighter>{`toast(<><b style={{ color: 'skyblue' }}>Hello,</b> world</>`}</CommonHighlighter>
+          </div>
+
+          <div className="example-area">
             <h3>Time</h3>
             <div className="playground">
               <button

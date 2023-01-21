@@ -32,7 +32,7 @@ export interface ToastOptions {
   clickable?: boolean;
   clickClosable?: boolean;
   position?: Position;
-  render?: ((message: string) => ReactNode) | null;
+  render?: ((message: ReactNode) => ReactNode) | null;
   onClick?: ClickHandler;
 }
 
@@ -47,7 +47,7 @@ export interface ToastProps
     ToastOptions,
     'className' | 'clickable' | 'position' | 'render' | 'onClick'
   > {
-  message: string;
+  message: ReactNode;
   isExit?: boolean;
 }
 
@@ -55,7 +55,7 @@ const SET_TIMEOUT_MAX = 2147483647;
 
 let toastComponentList: {
   id: number;
-  message: string;
+  message: ReactNode;
   position: Position;
   component: ReactElement;
   isExit?: boolean;
@@ -214,9 +214,9 @@ function closeToast(id: number) {
   }, 300);
 }
 
-function toast(message: string, time?: number): void;
-function toast(message: string, options?: ToastOptions): void;
-function toast(message: string, timeOrOptions?: number | ToastOptions): void {
+function toast(message: ReactNode, time?: number): void;
+function toast(message: ReactNode, options?: ToastOptions): void;
+function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): void {
   if (!isBrowser()) return;
 
   let closeTimer: number;
