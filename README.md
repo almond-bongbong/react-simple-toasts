@@ -67,7 +67,7 @@ You can specify config defaults.
 
 `index.js`
 
-```$js
+```js
 import { toastConfig } from 'react-simple-toasts';
 
 toastConfig({
