@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import toast from 'react-simple-toasts';
+import toast, { toastConfig } from 'react-simple-toasts';
 import CommonHighlighter from './component/CommonHighlighter';
 
 export default class App extends Component {
@@ -164,20 +164,21 @@ toast('Message', { position: 'bottom-right' })`}
               <button
                 className="example-button"
                 onClick={() =>
-                  toast('Message', {
-                    render: message => (
-                      <div style={{ color: 'blueviolet' }}>{message}</div>
-                    ),
-                  })
+                  toast('Message', { render: message => <div style={{ color: 'red' }}>{message}</div> })
                 }
               >
                 click
               </button>
             </div>
             <CommonHighlighter>
-              {`toast('Message', {
-  render: message => <div style={{ color: 'blueviolet' }}>{message}</div>
-})`}
+              {`// index.js
+toastConfig({
+  render: message => <div style={{ color: 'red' }}>{message}</div>,
+})
+
+// ...
+
+toast('Message')`}
             </CommonHighlighter>
           </div>
         </div>
