@@ -30,7 +30,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-transition-group": "^4.2.2",
     "cross-env": "^5.1.4",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^4.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rollup": "^3.10.0",
