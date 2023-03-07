@@ -96,6 +96,9 @@ Sets default options for all toast messages.
   - `clickClosable` (boolean): A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.
   - `render` (function): A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.
 
+## Live Demo
+
+Try React Simple Toasts in action with [live demo](https://almond-bongbong.github.io/react-simple-toasts/).
 
 ## Contributing
 
@@ -104,11 +107,3 @@ Contributions are always welcome! If you want to contribute to this project.
 ## License
 
 This project is licensed under the MIT License.
-
-## Live Demo
-
-Try React Simple Toasts in action with [live demo](https://almond-bongbong.github.io/react-simple-toasts/).
-
-## Summary
-
-By providing more detailed usage instructions, a comprehensive API reference, and a live demo, the modified README file allows users to easily understand the features of the "React Simple Toasts" package and learn how to use it effectively in their React projects.
