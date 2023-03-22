@@ -5,7 +5,12 @@ import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 
-function CommonHighlighter({ children, language = 'jsx' }) {
+interface Props {
+  children: string;
+  language?: string;
+}
+
+function CommonHighlighter({ children, language = 'jsx' }: Props) {
   return (
     <SyntaxHighlighter
       language={language}

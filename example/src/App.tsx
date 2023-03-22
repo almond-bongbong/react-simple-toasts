@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import toast, { toastConfig } from 'react-simple-toasts';
+import toast, { Toast, toastConfig } from 'react-simple-toasts';
 import CommonHighlighter from './component/CommonHighlighter';
 
 function App() {
-  const [infinityToast, setInfinityToast] = useState(null);
+  const [infinityToast, setInfinityToast] = useState<Toast | null>(null);
 
   return (
     <div className="example">
@@ -225,7 +225,7 @@ toast('Red Message')`}
               className="example-button"
               disabled={!infinityToast}
               onClick={() => {
-                infinityToast.close();
+                infinityToast?.close();
                 setInfinityToast(null);
               }}
             >
