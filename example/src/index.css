@@ -45,6 +45,10 @@ header h1 {
   font-weight: 300;
 }
 
+.desc {
+  margin-bottom: 80px;
+}
+
 .links {
   position: absolute;
   top: 3px;
@@ -96,14 +100,14 @@ h2 {
 }
 
 h3 {
-  margin-bottom: 20px;
-  color: #888;
+  margin: 70px 0 20px;
+  color: #555;
   font-size: 28px;
   font-weight: 300;
 }
 
 p {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   color: #666;
   font-weight: 300;
   font-size: 18px;
@@ -111,14 +115,14 @@ p {
 
 .example-button {
   display: inline-block;
-  width: 200px;
-  padding: 12px 10px;
+  width: 240px;
+  padding: 12px 0;
   outline: 0;
-  border: 0;
+  border: 1px solid #aaa;
   border-radius: 4px;
+  background-color: #fff;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  background-color: #5d657a;
-  color: #fff;
+  color: #555;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
@@ -126,7 +130,13 @@ p {
 }
 
 .example-button:active {
-  background-color: #383d4a;
+  background-color: #eee;
+}
+
+.example-button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 .example-button + .example-button {
@@ -138,7 +148,7 @@ p {
 }
 
 .example-area + .example-area {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 body .my-toast {

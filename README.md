@@ -5,7 +5,7 @@ React Simple Toasts is a simple and easy-to-use toast message popup for React.
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts)
 
 <p align="center">
-  <img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1575989735/github/2019-12-10_23-52-52.2019-12-10_23_53_26_ljp6x1.gif" />
+  <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2NkZjM3YTYxOTg5MTMxMTQwY2U2NmQ1MDQyN2QxYWM4NjI2MWMwNyZjdD1n/7My97z0gDZeScuxkuT/giphy.gif" />
 </p>
 
 ## Installation
@@ -88,6 +88,27 @@ Displays a toast message with the given message and options.
 | `options.render` | `function`            | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`. |
 | `options.onClick` | `function`            | A function to be called when the toast message is clicked. This function takes an `event` argument, which is the click event. Must be used with `clickable: true`. |
 
+### Toast Return Object
+
+When the toast function is called, it returns an object with a single method, close(), which allows you to manually close the toast message that is currently being displayed.
+
+| Method | Description |
+|--------|-------------|
+| `close()` | Closes the currently displayed toast message.|
+
+You can call this method at any time to close the toast message before its duration has ended. For example, you might call it in response to a user interaction such as a button click.
+
+This functionality is available from version 3.3.0 of the library.
+
+```jsx
+const myToast = toast('Hello, world!');
+// ...
+<button onClick={() => myToast.close()}>
+  Close Toast Message
+</button>
+```
+
+
 ### toastConfig(options)
 
 Sets default options for all toast messages.
@@ -100,6 +121,8 @@ Sets default options for all toast messages.
 | `options.position` | `string` | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, and `'top-right'`. Default is `'bottom-center'`. |
 | `options.clickClosable` | `boolean` | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`. |
 | `options.render` | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`. |
+
+
 
 ## Contributing
 

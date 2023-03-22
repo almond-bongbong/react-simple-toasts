@@ -51,6 +51,10 @@ export interface ToastProps
   isExit?: boolean;
 }
 
+export interface Toast {
+  close: () => void;
+}
+
 const SET_TIMEOUT_MAX = 2147483647;
 
 let toastComponentList: {
@@ -214,10 +218,11 @@ function closeToast(id: number) {
   }, 300);
 }
 
-function toast(message: ReactNode, time?: number): void;
-function toast(message: ReactNode, options?: ToastOptions): void;
-function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): void {
-  if (!isBrowser()) return;
+function toast(message: ReactNode, time?: number): Toast;
+function toast(message: ReactNode, options?: ToastOptions): Toast;
+function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast {
+  const dummyReturn = { close: () => {} };
+  if (!isBrowser()) return dummyReturn;
 
   let closeTimer: number;
   const id = Date.now();
@@ -234,7 +239,9 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): void 
       ? { time: timeOrOptions }
       : timeOrOptions || {};
 
-  if (!isValidPosition(position)) return;
+  if (!isValidPosition(position)) {
+    return dummyReturn;
+  }
 
   init();
 
@@ -271,6 +278,10 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): void 
       closeToast(id);
     }, time);
   }
+
+  return {
+    close: () => closeToast(id),
+  };
 }
 
 export default toast;
