@@ -115,8 +115,8 @@ p {
 
 .example-button {
   display: inline-block;
-  width: 240px;
-  padding: 12px 0;
+  min-width: 240px;
+  padding: 12px 20px;
   outline: 0;
   border: 1px solid #aaa;
   border-radius: 4px;

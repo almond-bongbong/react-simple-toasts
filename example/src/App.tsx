@@ -208,6 +208,49 @@ toast('Red Message')`}
         </div>
 
         <div className="example-area">
+          <h3>Max Visible Toasts</h3>
+          <p>
+            Limit the number of toast messages displayed simultaneously.
+          </p>
+          <div className="playground">
+            <button
+              className="example-button"
+              onClick={() => toast('Toast message', { maxVisibleToasts: 3 })}
+            >
+              Show Toasts (Limited by maxVisibleToasts)
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`toastConfig({ maxVisibleToasts: 3 });
+
+// ...
+
+toast('Toast message');`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <p>
+            Apply maxVisibleToasts directly in the toast function.
+          </p>
+          <div className="playground">
+            <button
+              className="example-button"
+              onClick={() => toast('Toast message', { maxVisibleToasts: 3 })}
+            >
+              Show Toasts (Limited by maxVisibleToasts)
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`<button
+  onClick={() => toast('Toast message', { maxVisibleToasts: 3 })}
+>
+  Show Toasts (Limited by maxVisibleToasts)
+</button>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
           <h3>Control Infinite Toast</h3>
           <p>In this example, we use the Toast object to show and close a toast with an infinite duration.</p>
           <div className="playground">

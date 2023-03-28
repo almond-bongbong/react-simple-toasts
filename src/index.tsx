@@ -32,6 +32,7 @@ export interface ToastOptions {
   clickable?: boolean;
   clickClosable?: boolean;
   position?: Position;
+  maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
   onClick?: ClickHandler;
 }
@@ -39,7 +40,7 @@ export interface ToastOptions {
 export interface ConfigArgs
   extends Pick<
     ToastOptions,
-    'time' | 'clickClosable' | 'className' | 'position' | 'render'
+    'time' | 'className' | 'clickClosable' | 'position' | 'maxVisibleToasts' | 'render'
   > {}
 
 export interface ToastProps
@@ -82,6 +83,7 @@ const defaultOptions: Required<ConfigArgs> = {
   position: 'bottom-center',
   clickClosable: false,
   render: null,
+  maxVisibleToasts: null,
 };
 
 const isValidPosition = (position: Position): boolean => {
@@ -112,6 +114,9 @@ export const toastConfig = (options: ConfigArgs) => {
   }
   if (options.render) {
     defaultOptions.render = options.render;
+  }
+  if (options.maxVisibleToasts) {
+    defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
   }
 };
 
@@ -161,7 +166,7 @@ const Toast = ({
   render,
   onClick,
 }: ToastProps): ReactElement => {
-  const messageDOM: any = useRef();
+  const messageDOM = useRef<HTMLDivElement>(null);
   const [isEnter, setIsEnter] = useState(false);
 
   useLayoutEffect(() => {
@@ -169,7 +174,7 @@ const Toast = ({
       const height = messageDOM.current.clientHeight;
       messageDOM.current.style.height = '0px';
       setTimeout(() => {
-        messageDOM.current.style.height = `${height}px`;
+        if (messageDOM.current) messageDOM.current.style.height = `${height}px`;
         setIsEnter(true);
       }, 0);
     }
@@ -177,7 +182,7 @@ const Toast = ({
 
   useLayoutEffect(() => {
     if (isExit && position && position.indexOf('top') > -1) {
-      messageDOM.current.style.height = '0px';
+      if (messageDOM.current) messageDOM.current.style.height = '0px';
     }
   }, [isExit]);
 
@@ -232,6 +237,7 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast
     clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
     position = defaultOptions.position,
+    maxVisibleToasts = defaultOptions.maxVisibleToasts,
     render = defaultOptions.render,
     onClick = undefined,
   } =
@@ -270,6 +276,15 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast
       />
     ),
   });
+  const visibleToastOffset = maxVisibleToasts && toastComponentList.length - maxVisibleToasts;
+  if (visibleToastOffset) toastComponentList.slice(visibleToastOffset);
+
+  if (maxVisibleToasts) {
+    const toastsToRemove = toastComponentList.length - maxVisibleToasts;
+    for (let i = 0; i < toastsToRemove; i++) {
+      closeToast(toastComponentList[i].id);
+    }
+  }
 
   renderDOM();
 
