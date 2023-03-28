@@ -27,10 +27,10 @@ jobs:
           scope: '@almond-bongbong'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build package
-        run: yarn build
+        run: npm run build
 
       - name: Install jq
         run: sudo apt-get install -y jq
