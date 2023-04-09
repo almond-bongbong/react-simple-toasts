@@ -43,6 +43,9 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=16.17.0"
+  },
   "keywords": [
     "react",
     "toast",

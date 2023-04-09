@@ -214,7 +214,9 @@ const Toast = ({
 
 function closeToast(id: number) {
   const index = toastComponentList.findIndex(t => t.id === id);
-  toastComponentList[index].isExit = true;
+  if (toastComponentList[index]) {
+    toastComponentList[index].isExit = true;
+  }
   renderDOM();
 
   setTimeout(() => {
