@@ -1,13 +1,15 @@
-# React Simple Toasts
+# React Simple Toasts 🍞
 
 React Simple Toasts is a simple and easy-to-use toast message popup for React.
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts)
-![npm](https://img.shields.io/npm/dw/react-simple-toasts)
+![NPM Downloads](https://img.shields.io/npm/dt/react-simple-toasts.svg)
+![Size](https://img.shields.io/bundlephobia/min/react-simple-toasts)
+![License](https://img.shields.io/npm/l/react-simple-toasts)
 
 
 <p align="center">
-  <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2NkZjM3YTYxOTg5MTMxMTQwY2U2NmQ1MDQyN2QxYWM4NjI2MWMwNyZjdD1n/7My97z0gDZeScuxkuT/giphy.gif" />
+  <img src="docs/preview.gif" />
 </p>
 
 ## Installation
