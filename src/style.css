@@ -40,6 +40,11 @@
   left: auto;
   transform: translateX(0) translateZ(0);
 }
+.toast-list.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+}
 .toast-message {
   opacity: 0;
   margin-bottom: 10px;
@@ -78,4 +83,7 @@
 .toast-message:global(.toast-exit-active) {
   opacity: 0;
   transform: translateY(-10px);
+}
+.center .toast-message:global(.toast-exit-active) {
+  transform: translateY(-40px);
 }

@@ -21,6 +21,7 @@ export const ToastPosition = {
   TOP_LEFT: 'top-left',
   TOP_CENTER: 'top-center',
   TOP_RIGHT: 'top-right',
+  CENTER: 'center',
 } as const;
 
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
@@ -181,7 +182,8 @@ const Toast = ({
   }, []);
 
   useLayoutEffect(() => {
-    if (isExit && position && position.indexOf('top') > -1) {
+    const topOrCenter = position && (position.indexOf('top') > -1 || position === 'center');
+    if (isExit && position && topOrCenter) {
       if (messageDOM.current) messageDOM.current.style.height = '0px';
     }
   }, [isExit]);

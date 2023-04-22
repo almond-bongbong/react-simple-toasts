@@ -9,7 +9,7 @@ function App() {
     <div className="example">
       <div className="container">
         <h2 id="tooltip">react-simple-toasts</h2>
-        <p className="desc">Simple toast message popup for React.</p>
+        <p className="desc">React Simple Toasts is a simple and easy-to-use toast message popup for React.</p>
 
         <div className="example-area">
           <h3>Basic usage</h3>
@@ -133,6 +133,12 @@ function App() {
             >
               Bottom-Right
             </button>
+            <button
+              className="example-button"
+              onClick={() => toast('Center positioned toast', { position: 'center' })}
+            >
+              Center
+            </button>
           </div>
           <CommonHighlighter>
             {`toast('Top-left positioned toast', { position: 'top-left' })
@@ -140,7 +146,8 @@ toast('Top-center positioned toast', { position: 'top-center' })
 toast('Top-right positioned toast', { position: 'top-right' })
 toast('Bottom-left positioned toast', { position: 'bottom-left' })
 toast('Bottom-center positioned toast', { position: 'bottom-center' })
-toast('Bottom-right positioned toast', { position: 'bottom-right' })`}
+toast('Bottom-right positioned toast', { position: 'bottom-right' })
+toast('Center positioned toast', { position: 'center' })`}
           </CommonHighlighter>
         </div>
 
