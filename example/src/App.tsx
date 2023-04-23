@@ -9,46 +9,46 @@ function App() {
     <div className="example">
       <div className="container">
         <h2 id="tooltip">react-simple-toasts</h2>
-        <p className="desc">React Simple Toasts is a simple and easy-to-use toast message popup for React.</p>
+        <p className="desc">React Simple Toasts is a lightweight and versatile toast notification library for React applications.</p>
 
         <div className="example-area">
-          <h3>Basic usage</h3>
+          <h3>Basic Usage</h3>
           <p>
-            Display a simple toast message with the default settings.
+            Display a straightforward toast notification with default settings.
           </p>
           <div className="playground">
             <button
               className="example-button"
               onClick={() => toast('Simple message')}
             >
-              Show Simple Toast
+              Display Simple Toast
             </button>
           </div>
           <CommonHighlighter>{`toast('Simple message')`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <h3>Using JSX in Toast Messages</h3>
+          <h3>Utilizing JSX in Toast Notifications</h3>
           <p>
-            You can use JSX to create more complex and customizable toast messages.
-            This example demonstrates how to include JSX elements and apply inline styles within the message.
+            Leverage JSX to design more intricate and customizable toast notifications.
+            This example showcases how to include JSX elements and apply inline styles within the message.
           </p>
           <div className="playground">
             <button
               className="example-button"
               onClick={() => toast(<b style={{ color: 'skyblue' }}>Custom JSX message</b>)}
             >
-              Show JSX Toast
+              Display JSX Toast
             </button>
           </div>
           <CommonHighlighter>{`toast(<b style={{ color: 'skyblue' }}>Custom JSX message</b>)`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <h3>Toast Display Duration</h3>
+          <h3>Toast Notification Duration</h3>
           <p>
-            Control the duration for which the toast message is displayed.
-            This example demonstrates how to display a toast message for a specific time.
+            Determine the duration for which the toast notification remains visible.
+            This example demonstrates how to display a toast notification for a specific duration.
           </p>
           <div className="playground">
             <button
@@ -57,7 +57,7 @@ function App() {
                 toast('This message is displayed for 1 second.', 1000)
               }
             >
-              Show 1-Second Toast
+              Display 1-Second Toast
             </button>
           </div>
           <CommonHighlighter>
@@ -66,35 +66,36 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h3>Toast Display Duration (Alternative Syntax)</h3>
+          <h3>Toast Notification Duration (Alternative Syntax)</h3>
           <p>
-            Alternatively, you can use the "time" option to specify the display duration.
+            As an alternative, you can use the "duration" option to specify the display duration.
           </p>
           <div className="playground">
             <button
               className="example-button"
               onClick={() =>
                 toast('This message is displayed for 1 second.', {
-                  time: 1000,
+                  duration: 1000,
                 })
               }
             >
-              Show 1-Second Toast
+              Display 1-Second Toast
             </button>
           </div>
           <CommonHighlighter>
             {`toast('This message is displayed for 1 second.', {
-  time: 1000,
+  duration: 1000,
 })`}
           </CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <h3>Positioning Toast Messages</h3>
+          <h3>Positioning Toast Notifications</h3>
           <p>
-            Choose the position of the toast message on the screen.
-            This example demonstrates how to display a toast message in various positions.
+            Select the desired position of the toast notification on the screen.
+            This example demonstrates how to display toast notifications in various positions.
           </p>
+
           <div className="playground">
             <button
               className="example-button"
@@ -154,7 +155,7 @@ toast('Center positioned toast', { position: 'center' })`}
         <div className="example-area">
           <h3>Click-to-Close Toast</h3>
           <p>
-            Create a toast message that can be closed by clicking on it.
+            Create a toast notification that can be dismissed by clicking on it.
             This example demonstrates a toast with the "clickClosable" option set to true.
           </p>
           <div className="playground">
@@ -164,7 +165,7 @@ toast('Center positioned toast', { position: 'center' })`}
                 toast('Click to close this toast', { clickClosable: true })
               }
             >
-              Show Click-to-Close Toast
+              Display Click-to-Close Toast
             </button>
           </div>
           <CommonHighlighter>
@@ -175,8 +176,8 @@ toast('Center positioned toast', { position: 'center' })`}
         <div className="example-area">
           <h3>Customize Toast Appearance</h3>
           <p>
-            Customize the appearance of the toast message using the "render" option.
-            In this example, the toast message will be displayed in red text.
+            Modify the appearance of the toast notification using the "render" option.
+            In this example, the toast notification will display red text.
           </p>
           <div className="playground">
             <button
@@ -185,7 +186,7 @@ toast('Center positioned toast', { position: 'center' })`}
                 toast('Red Message', { render: message => <div style={{ color: 'red' }}>{message}</div> })
               }
             >
-              Show Red Toast
+              Display Red Toast
             </button>
           </div>
           <CommonHighlighter>
@@ -196,12 +197,12 @@ toast('Center positioned toast', { position: 'center' })`}
         <div className="example-area">
           <h3>Global Configuration</h3>
           <p>
-            Set global configurations to apply default settings to all toast messages in your application.
+            Establish global configurations to apply default settings to all toast notifications in your application.
           </p>
           <CommonHighlighter>
             {`// index.js
 toastConfig({
-  time: 4000,
+  duration: 4000,
   className: 'my-toast',
   position: 'top-center',
   clickClosable: true,
@@ -217,7 +218,7 @@ toast('Red Message')`}
         <div className="example-area">
           <h3>Max Visible Toasts</h3>
           <p>
-            Limit the number of toast messages displayed simultaneously.
+            Limit the number of toast notifications displayed at the same time.
           </p>
           <div className="playground">
             <button
@@ -259,7 +260,8 @@ toast('Toast message');`}
 
         <div className="example-area">
           <h3>Control Infinite Toast</h3>
-          <p>In this example, we use the Toast object to show and close a toast with an infinite duration.</p>
+          <p>In this example, we use the Toast object to display and close a toast with an infinite duration.</p>
+
           <div className="playground">
             <button
               className="example-button"
@@ -269,7 +271,7 @@ toast('Toast message');`}
                 setInfinityToast(myToast);
               }}
             >
-              Show Infinite Toast
+              Display Infinite Toast
             </button>
             <button
               className="example-button"

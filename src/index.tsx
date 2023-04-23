@@ -28,7 +28,11 @@ type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 type Position = typeof ToastPosition[keyof typeof ToastPosition];
 
 export interface ToastOptions {
+  /**
+   * @deprecated The time option is deprecated. Use duration instead.
+   */
   time?: number;
+  duration?: number;
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
@@ -41,7 +45,7 @@ export interface ToastOptions {
 export interface ConfigArgs
   extends Pick<
     ToastOptions,
-    'time' | 'className' | 'clickClosable' | 'position' | 'maxVisibleToasts' | 'render'
+    'time' | 'duration' | 'className' | 'clickClosable' | 'position' | 'maxVisibleToasts' | 'render'
   > {}
 
 export interface ToastProps
@@ -80,6 +84,7 @@ const init = () => {
 
 const defaultOptions: Required<ConfigArgs> = {
   time: 3000,
+  duration: 3000,
   className: '',
   position: 'bottom-center',
   clickClosable: false,
@@ -103,6 +108,9 @@ const isValidPosition = (position: Position): boolean => {
 export const toastConfig = (options: ConfigArgs) => {
   if (options.time) {
     defaultOptions.time = options.time;
+  }
+  if (options.duration) {
+    defaultOptions.duration = options.duration;
   }
   if (options.className) {
     defaultOptions.className = options.className;
@@ -227,16 +235,17 @@ function closeToast(id: number) {
   }, 300);
 }
 
-function toast(message: ReactNode, time?: number): Toast;
+function toast(message: ReactNode, duration?: number): Toast;
 function toast(message: ReactNode, options?: ToastOptions): Toast;
-function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast {
+function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): Toast {
   const dummyReturn = { close: () => {} };
   if (!isBrowser()) return dummyReturn;
 
   let closeTimer: number;
   const id = Date.now();
   const {
-    time = defaultOptions.time,
+    time = undefined,
+    duration,
     clickable = false,
     clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
@@ -245,9 +254,10 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast
     render = defaultOptions.render,
     onClick = undefined,
   } =
-    typeof timeOrOptions === 'number'
-      ? { time: timeOrOptions }
-      : timeOrOptions || {};
+    typeof durationOrOptions === 'number'
+      ? { duration: durationOrOptions }
+      : durationOrOptions || {};
+  const durationTime = duration || time || defaultOptions.duration || defaultOptions.time;
 
   if (!isValidPosition(position)) {
     return dummyReturn;
@@ -292,10 +302,10 @@ function toast(message: ReactNode, timeOrOptions?: number | ToastOptions): Toast
 
   renderDOM();
 
-  if (time <= SET_TIMEOUT_MAX) {
+  if (durationTime <= SET_TIMEOUT_MAX) {
     closeTimer = window.setTimeout(() => {
       closeToast(id);
-    }, time);
+    }, durationTime);
   }
 
   return {
