@@ -4,6 +4,8 @@ import CommonHighlighter from './component/CommonHighlighter';
 
 function App() {
   const [infinityToast, setInfinityToast] = useState<Toast | null>(null);
+  const [extendedToast, setExtendedToast] = useState<Toast | null>(null);
+  const [updatedToast, setUpdatedToast] = useState<Toast | null>(null);
 
   return (
     <div className="example">
@@ -290,6 +292,70 @@ toast('Toast message');`}
 myToast.close(); // Close toast`}
           </CommonHighlighter>
 
+        </div>
+
+        <div className="example-area">
+          <h3>Update Toast Duration</h3>
+          <p>In this example, we use the Toast object's 'updateDuration' method to update the duration of a toast message.</p>
+
+          <div className="playground">
+            <button
+              className="example-button"
+              disabled={!!extendedToast}
+              onClick={() => {
+                const myToast = toast('Message', { duration: 3000, onClose: () => setExtendedToast(null) });
+                setExtendedToast(myToast);
+              }}
+            >
+              Display Toast
+            </button>
+            <button
+              className="example-button"
+              disabled={!extendedToast}
+              onClick={() => {
+                extendedToast?.updateDuration(5000);
+              }}
+            >
+              Update Duration to 5s
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`const myToast = toast('Message', 3000); // Show toast for 3 seconds
+
+myToast.updateDuration(5000); // Update toast duration to 5 seconds`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h3>Update Toast Message and Duration</h3>
+          <p>In this example, we use the Toast object's 'update' method to update the message and duration of a toast message.</p>
+
+          <div className="playground">
+            <button
+              className="example-button"
+              disabled={!!updatedToast}
+              onClick={() => {
+                const myToast = toast('Original Message', { duration: 3000, onClose: () => setUpdatedToast(null) });
+                setUpdatedToast(myToast);
+              }}
+            >
+              Display Toast
+            </button>
+            <button
+              className="example-button"
+              disabled={!updatedToast}
+              onClick={() => {
+                updatedToast?.update('Updated Message', 5000);
+              }}
+            >
+              Update Message and Duration
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`const myToast = toast('Original Message', 3000); // Show toast for 3 seconds
+
+myToast.update('Updated Message', 5000); // Update toast message and duration`}
+          </CommonHighlighter>
         </div>
       </div>
 

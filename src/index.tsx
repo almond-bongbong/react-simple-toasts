@@ -40,6 +40,8 @@ export interface ToastOptions {
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
   onClick?: ClickHandler;
+  onClose?: () => void;
+  onCloseStart?: () => void;
 }
 
 export interface ConfigArgs
@@ -59,9 +61,9 @@ export interface ToastProps
 
 export interface Toast {
   close: () => void;
+  updateDuration: (duration?: number) => void;
+  update: (message: ReactNode, duration?: number) => void;
 }
-
-const SET_TIMEOUT_MAX = 2147483647;
 
 let toastComponentList: {
   id: number;
@@ -222,15 +224,21 @@ const Toast = ({
   );
 };
 
-function closeToast(id: number) {
+function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>) {
   const index = toastComponentList.findIndex(t => t.id === id);
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
+  }
+  if (options.onCloseStart) {
+    options.onCloseStart();
   }
   renderDOM();
 
   setTimeout(() => {
     toastComponentList = toastComponentList.filter(t => t.id !== id);
+    if (options.onClose) {
+      options.onClose();
+    }
     renderDOM();
   }, 300);
 }
@@ -238,11 +246,15 @@ function closeToast(id: number) {
 function toast(message: ReactNode, duration?: number): Toast;
 function toast(message: ReactNode, options?: ToastOptions): Toast;
 function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): Toast {
-  const dummyReturn = { close: () => {} };
+  const dummyReturn = {
+    close: () => {},
+    updateDuration: () => {},
+    update: () => {},
+  };
   if (!isBrowser()) return dummyReturn;
 
   let closeTimer: number;
-  const id = Date.now();
+  const id = Date.now() + Math.floor(Math.random() * 10000000000000000);
   const {
     time = undefined,
     duration,
@@ -253,11 +265,14 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     render = defaultOptions.render,
     onClick = undefined,
+    onClose = undefined,
+    onCloseStart = undefined,
   } =
     typeof durationOrOptions === 'number'
       ? { duration: durationOrOptions }
       : durationOrOptions || {};
   const durationTime = duration || time || defaultOptions.duration || defaultOptions.time;
+  const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
     return dummyReturn;
@@ -270,7 +285,7 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
       if (closeTimer) {
         clearTimeout(closeTimer);
       }
-      closeToast(id);
+      closeToast(id, closeOptions);
     }
     if (onClick) onClick(...args);
   };
@@ -296,20 +311,49 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
     for (let i = 0; i < toastsToRemove; i++) {
-      closeToast(toastComponentList[i].id);
+      closeToast(toastComponentList[i].id, closeOptions);
     }
   }
 
   renderDOM();
 
-  if (durationTime <= SET_TIMEOUT_MAX) {
+  const startCloseTimer = (duration = durationTime) => {
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+    }
     closeTimer = window.setTimeout(() => {
-      closeToast(id);
-    }, durationTime);
-  }
+      closeToast(id, closeOptions);
+    }, duration);
+  };
+
+  startCloseTimer();
 
   return {
-    close: () => closeToast(id),
+    close: () => closeToast(id, closeOptions),
+    updateDuration: (newDuration = durationTime) => {
+      startCloseTimer(newDuration);
+    },
+    update: (newMessage: ReactNode, newDuration?: number) => {
+      const index = toastComponentList.findIndex(t => t.id === id);
+      if (toastComponentList[index]) {
+        toastComponentList[index].message = newMessage;
+        toastComponentList[index].component = (
+          <Toast
+            message={newMessage}
+            className={className}
+            clickable={clickable || clickClosable}
+            position={position}
+            render={render}
+            onClick={handleClick}
+          />
+        );
+      }
+      renderDOM();
+
+      if (newDuration) {
+        startCloseTimer(newDuration);
+      }
+    }
   };
 }
 
