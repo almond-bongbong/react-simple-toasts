@@ -269,7 +269,7 @@ toast('Toast message');`}
               className="example-button"
               disabled={!!infinityToast}
               onClick={() => {
-                const myToast = toast('Message', Infinity);
+                const myToast = toast('Infinity Message', Infinity);
                 setInfinityToast(myToast);
               }}
             >

@@ -12,6 +12,7 @@ import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 
+const SET_TIMEOUT_MAX = 2147483647;
 const isBrowser = () => typeof window !== 'undefined';
 
 export const ToastPosition = {
@@ -318,10 +319,12 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
   renderDOM();
 
   const startCloseTimer = (duration = durationTime) => {
+    if (durationTime > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
     }
     closeTimer = window.setTimeout(() => {
+      console.log('close');
       closeToast(id, closeOptions);
     }, duration);
   };
