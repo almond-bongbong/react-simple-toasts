@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import toast, { Toast, toastConfig } from 'react-simple-toasts';
+import toast, { Toast, clearToasts, toastConfig } from 'react-simple-toasts';
 import CommonHighlighter from './component/CommonHighlighter';
 
 function App() {
@@ -11,7 +11,10 @@ function App() {
     <div className="example">
       <div className="container">
         <h2 id="tooltip">react-simple-toasts</h2>
-        <p className="desc">React Simple Toasts is a lightweight and versatile toast notification library for React applications.</p>
+        <p className="desc">
+          React Simple Toasts is a lightweight and versatile toast notification
+          library for React applications.
+        </p>
 
         <div className="example-area">
           <h3>Basic Usage</h3>
@@ -26,19 +29,26 @@ function App() {
               Display Simple Toast
             </button>
           </div>
-          <CommonHighlighter>{`toast('Simple message')`}</CommonHighlighter>
+          <CommonHighlighter>{`import toast from 'react-simple-toasts'
+
+// ...
+
+toast('Simple message')`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
           <h3>Utilizing JSX in Toast Notifications</h3>
           <p>
-            Leverage JSX to design more intricate and customizable toast notifications.
-            This example showcases how to include JSX elements and apply inline styles within the message.
+            Leverage JSX to design more intricate and customizable toast
+            notifications. This example showcases how to include JSX elements
+            and apply inline styles within the message.
           </p>
           <div className="playground">
             <button
               className="example-button"
-              onClick={() => toast(<b style={{ color: 'skyblue' }}>Custom JSX message</b>)}
+              onClick={() =>
+                toast(<b style={{ color: 'skyblue' }}>Custom JSX message</b>)
+              }
             >
               Display JSX Toast
             </button>
@@ -49,8 +59,9 @@ function App() {
         <div className="example-area">
           <h3>Toast Notification Duration</h3>
           <p>
-            Determine the duration for which the toast notification remains visible.
-            This example demonstrates how to display a toast notification for a specific duration.
+            Determine the duration for which the toast notification remains
+            visible. This example demonstrates how to display a toast
+            notification for a specific duration.
           </p>
           <div className="playground">
             <button
@@ -68,9 +79,37 @@ function App() {
         </div>
 
         <div className="example-area">
+          <h3>Toast Clearing</h3>
+          <p>
+            Clear all toast notifications. This example demonstrates how to
+            clear all toast notifications.
+          </p>
+          <div className="playground">
+            <button
+              className="example-button"
+              onClick={() => toast('Simple message')}
+            >
+              Display Simple Toast
+            </button>
+            <button className="example-button" onClick={() => clearToasts()}>
+              Clear Toast
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`import toast, { clearToasts } from 'react-simple-toasts'
+
+// ...
+
+toast('Simple message')
+clearToasts()`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
           <h3>Toast Notification Duration (Alternative Syntax)</h3>
           <p>
-            As an alternative, you can use the "duration" option to specify the display duration.
+            As an alternative, you can use the "duration" option to specify the
+            display duration.
           </p>
           <div className="playground">
             <button
@@ -95,50 +134,72 @@ function App() {
           <h3>Positioning Toast Notifications</h3>
           <p>
             Select the desired position of the toast notification on the screen.
-            This example demonstrates how to display toast notifications in various positions.
+            This example demonstrates how to display toast notifications in
+            various positions.
           </p>
 
           <div className="playground">
             <button
               className="example-button"
-              onClick={() => toast('Top-left positioned toast', { position: 'top-left' })}
+              onClick={() =>
+                toast('Top-left positioned toast', { position: 'top-left' })
+              }
             >
               Top-Left
             </button>
             <button
               className="example-button"
-              onClick={() => toast('Top-center positioned toast', { position: 'top-center' })}
+              onClick={() =>
+                toast('Top-center positioned toast', { position: 'top-center' })
+              }
             >
               Top-Center
             </button>
             <button
               className="example-button"
-              onClick={() => toast('Top-right positioned toast', { position: 'top-right' })}
+              onClick={() =>
+                toast('Top-right positioned toast', { position: 'top-right' })
+              }
             >
               Top-Right
             </button>
-            <br /><br />
+            <br />
+            <br />
             <button
               className="example-button"
-              onClick={() => toast('Bottom-left positioned toast', { position: 'bottom-left' })}
+              onClick={() =>
+                toast('Bottom-left positioned toast', {
+                  position: 'bottom-left',
+                })
+              }
             >
               Bottom-Left
             </button>
             <button
               className="example-button"
-              onClick={() => toast('Bottom-center positioned toast', { position: 'bottom-center' })}
+              onClick={() =>
+                toast('Bottom-center positioned toast', {
+                  position: 'bottom-center',
+                })
+              }
             >
               Bottom-Center
             </button>
             <button
               className="example-button"
-              onClick={() => toast('Bottom-right positioned toast', { position: 'bottom-right' })}
+              onClick={() =>
+                toast('Bottom-right positioned toast', {
+                  position: 'bottom-right',
+                })
+              }
             >
               Bottom-Right
             </button>
             <button
               className="example-button"
-              onClick={() => toast('Center positioned toast', { position: 'center' })}
+              onClick={() =>
+                toast('Center positioned toast', { position: 'center' })
+              }
             >
               Center
             </button>
@@ -158,7 +219,8 @@ toast('Center positioned toast', { position: 'center' })`}
           <h3>Click-to-Close Toast</h3>
           <p>
             Create a toast notification that can be dismissed by clicking on it.
-            This example demonstrates a toast with the "clickClosable" option set to true.
+            This example demonstrates a toast with the "clickClosable" option
+            set to true.
           </p>
           <div className="playground">
             <button
@@ -178,14 +240,19 @@ toast('Center positioned toast', { position: 'center' })`}
         <div className="example-area">
           <h3>Customize Toast Appearance</h3>
           <p>
-            Modify the appearance of the toast notification using the "render" option.
-            In this example, the toast notification will display red text.
+            Modify the appearance of the toast notification using the "render"
+            option. In this example, the toast notification will display red
+            text.
           </p>
           <div className="playground">
             <button
               className="example-button"
               onClick={() =>
-                toast('Red Message', { render: message => <div style={{ color: 'red' }}>{message}</div> })
+                toast('Red Message', {
+                  render: (message) => (
+                    <div style={{ color: 'red' }}>{message}</div>
+                  ),
+                })
               }
             >
               Display Red Toast
@@ -199,10 +266,13 @@ toast('Center positioned toast', { position: 'center' })`}
         <div className="example-area">
           <h3>Global Configuration</h3>
           <p>
-            Establish global configurations to apply default settings to all toast notifications in your application.
+            Establish global configurations to apply default settings to all
+            toast notifications in your application.
           </p>
           <CommonHighlighter>
             {`// index.js
+import toast, { toastConfig } from 'react-simple-toasts'
+
 toastConfig({
   duration: 4000,
   className: 'my-toast',
@@ -240,9 +310,7 @@ toast('Toast message');`}
         </div>
 
         <div className="example-area">
-          <p>
-            Apply maxVisibleToasts directly in the toast function.
-          </p>
+          <p>Apply maxVisibleToasts directly in the toast function.</p>
           <div className="playground">
             <button
               className="example-button"
@@ -262,7 +330,10 @@ toast('Toast message');`}
 
         <div className="example-area">
           <h3>Control Infinite Toast</h3>
-          <p>In this example, we use the Toast object to display and close a toast with an infinite duration.</p>
+          <p>
+            In this example, we use the Toast object to display and close a
+            toast with an infinite duration.
+          </p>
 
           <div className="playground">
             <button
@@ -291,19 +362,24 @@ toast('Toast message');`}
 
 myToast.close(); // Close toast`}
           </CommonHighlighter>
-
         </div>
 
         <div className="example-area">
           <h3>Update Toast Duration</h3>
-          <p>In this example, we use the Toast object's 'updateDuration' method to update the duration of a toast message.</p>
+          <p>
+            In this example, we use the Toast object's 'updateDuration' method
+            to update the duration of a toast message.
+          </p>
 
           <div className="playground">
             <button
               className="example-button"
               disabled={!!extendedToast}
               onClick={() => {
-                const myToast = toast('Message', { duration: 3000, onClose: () => setExtendedToast(null) });
+                const myToast = toast('Message', {
+                  duration: 3000,
+                  onClose: () => setExtendedToast(null),
+                });
                 setExtendedToast(myToast);
               }}
             >
@@ -328,14 +404,20 @@ myToast.updateDuration(5000); // Update toast duration to 5 seconds`}
 
         <div className="example-area">
           <h3>Update Toast Message and Duration</h3>
-          <p>In this example, we use the Toast object's 'update' method to update the message and duration of a toast message.</p>
+          <p>
+            In this example, we use the Toast object's 'update' method to update
+            the message and duration of a toast message.
+          </p>
 
           <div className="playground">
             <button
               className="example-button"
               disabled={!!updatedToast}
               onClick={() => {
-                const myToast = toast('Original Message', { duration: 3000, onClose: () => setUpdatedToast(null) });
+                const myToast = toast('Original Message', {
+                  duration: 3000,
+                  onClose: () => setUpdatedToast(null),
+                });
                 setUpdatedToast(myToast);
               }}
             >

@@ -144,6 +144,23 @@ Sets default options for all toast messages.
 | `options.maxVisibleToasts` | `number`          | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
 | `options.render` | `function`            | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                  |
 
+### clearToasts()
+
+Removes all currently displayed toast messages.
+
+This function provides a convenient way to remove all active toast messages at once. It can be useful in situations where you need to clear all toasts, such as when a user logs out or navigates away from a page.
+
+```jsx
+import { clearToasts } from 'react-simple-toasts';
+
+function ClearAllToastsButton() {
+  return (
+    <button onClick={() => clearToasts()}>
+      Clear All Toast Messages
+    </button>
+  );
+}
+```
 
 ## Contributing
 

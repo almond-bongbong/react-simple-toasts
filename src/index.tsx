@@ -26,7 +26,7 @@ export const ToastPosition = {
 } as const;
 
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
-type Position = typeof ToastPosition[keyof typeof ToastPosition];
+type Position = (typeof ToastPosition)[keyof typeof ToastPosition];
 
 export interface ToastOptions {
   /**
@@ -48,7 +48,13 @@ export interface ToastOptions {
 export interface ConfigArgs
   extends Pick<
     ToastOptions,
-    'time' | 'duration' | 'className' | 'clickClosable' | 'position' | 'maxVisibleToasts' | 'render'
+    | 'time'
+    | 'duration'
+    | 'className'
+    | 'clickClosable'
+    | 'position'
+    | 'maxVisibleToasts'
+    | 'render'
   > {}
 
 export interface ToastProps
@@ -157,16 +163,23 @@ const renderDOM = () => {
         key={position}
         className={`${styles['toast-list']} ${styles[position]}`}
       >
-        {toastsByPosition.map(t => <Fragment key={t.id}>
-          {cloneElement(t.component, {
-            isExit: t.isExit,
-          })}
-        </Fragment>)}
+        {toastsByPosition.map((t) => (
+          <Fragment key={t.id}>
+            {cloneElement(t.component, {
+              isExit: t.isExit,
+            })}
+          </Fragment>
+        ))}
       </div>
     ),
   );
 
   reactRender(<>{toastListComponent}</>, toastContainer);
+};
+
+export const clearToasts = () => {
+  toastComponentList.forEach((toast) => (toast.isExit = true));
+  renderDOM();
 };
 
 const Toast = ({
@@ -193,7 +206,8 @@ const Toast = ({
   }, []);
 
   useLayoutEffect(() => {
-    const topOrCenter = position && (position.indexOf('top') > -1 || position === 'center');
+    const topOrCenter =
+      position && (position.indexOf('top') > -1 || position === 'center');
     if (isExit && position && topOrCenter) {
       if (messageDOM.current) messageDOM.current.style.height = '0px';
     }
@@ -213,7 +227,12 @@ const Toast = ({
   };
 
   return (
-    <div ref={messageDOM} className={`${styles['toast-message']} ${isEnter ? 'toast-enter-active' : ''} ${isExit ? 'toast-exit-active' : ''} ${className}`}>
+    <div
+      ref={messageDOM}
+      className={`${styles['toast-message']} ${
+        isEnter ? 'toast-enter-active' : ''
+      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
+    >
       {render ? (
         render(message)
       ) : (
@@ -225,8 +244,11 @@ const Toast = ({
   );
 };
 
-function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>) {
-  const index = toastComponentList.findIndex(t => t.id === id);
+function closeToast(
+  id: number,
+  options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>,
+) {
+  const index = toastComponentList.findIndex((t) => t.id === id);
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
   }
@@ -236,7 +258,7 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
   renderDOM();
 
   setTimeout(() => {
-    toastComponentList = toastComponentList.filter(t => t.id !== id);
+    toastComponentList = toastComponentList.filter((t) => t.id !== id);
     if (options.onClose) {
       options.onClose();
     }
@@ -246,7 +268,10 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
 
 function toast(message: ReactNode, duration?: number): Toast;
 function toast(message: ReactNode, options?: ToastOptions): Toast;
-function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): Toast {
+function toast(
+  message: ReactNode,
+  durationOrOptions?: number | ToastOptions,
+): Toast {
   const dummyReturn = {
     close: () => {},
     updateDuration: () => {},
@@ -268,11 +293,11 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
-  } =
-    typeof durationOrOptions === 'number'
-      ? { duration: durationOrOptions }
-      : durationOrOptions || {};
-  const durationTime = duration || time || defaultOptions.duration || defaultOptions.time;
+  } = typeof durationOrOptions === 'number'
+    ? { duration: durationOrOptions }
+    : durationOrOptions || {};
+  const durationTime =
+    duration || time || defaultOptions.duration || defaultOptions.time;
   const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
@@ -306,7 +331,8 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
       />
     ),
   });
-  const visibleToastOffset = maxVisibleToasts && toastComponentList.length - maxVisibleToasts;
+  const visibleToastOffset =
+    maxVisibleToasts && toastComponentList.length - maxVisibleToasts;
   if (visibleToastOffset) toastComponentList.slice(visibleToastOffset);
 
   if (maxVisibleToasts) {
@@ -324,7 +350,6 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
       clearTimeout(closeTimer);
     }
     closeTimer = window.setTimeout(() => {
-      console.log('close');
       closeToast(id, closeOptions);
     }, duration);
   };
@@ -337,7 +362,7 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
       startCloseTimer(newDuration);
     },
     update: (newMessage: ReactNode, newDuration?: number) => {
-      const index = toastComponentList.findIndex(t => t.id === id);
+      const index = toastComponentList.findIndex((t) => t.id === id);
       if (toastComponentList[index]) {
         toastComponentList[index].message = newMessage;
         toastComponentList[index].component = (
@@ -356,7 +381,7 @@ function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): T
       if (newDuration) {
         startCloseTimer(newDuration);
       }
-    }
+    },
   };
 }
 
