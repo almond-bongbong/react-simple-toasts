@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import toast from '../src';
 
-const EXIT_ANIMATION_DURATION = 410;
+const EXIT_ANIMATION_DURATION = 310;
 
 describe('toast', () => {
   it('renders a toast when the show button is clicked', () => {
@@ -19,7 +19,7 @@ describe('toast', () => {
 
   it('displays the toast for the specified duration and then removes it', async () => {
     const TOAST_TEXT = 'message for duration';
-    const DURATION = 1000;
+    const DURATION = 500;
     toast(TOAST_TEXT, DURATION);
 
     screen.getByText(TOAST_TEXT);
@@ -33,5 +33,25 @@ describe('toast', () => {
     toast(TOAST_TEXT, Infinity);
 
     screen.getByText(TOAST_TEXT);
+  });
+
+  it('renders and removes toast based on specified duration in options', async () => {
+    const TOAST_TEXT = 'message for duration with options';
+    const DURATION = 500;
+    toast(TOAST_TEXT, { duration: DURATION });
+
+    const toastElement = screen.getByText(TOAST_TEXT);
+    await waitFor(() => expect(toastElement).not.toBeInTheDocument(), {
+      timeout: DURATION + EXIT_ANIMATION_DURATION,
+    });
+  });
+
+  it('applies custom className to toast container', () => {
+    const TOAST_TEXT = 'message for classname';
+    const CLASSNAME = 'test-classname';
+    toast(TOAST_TEXT, { className: CLASSNAME });
+
+    const toastDOM = screen.getByText(TOAST_TEXT);
+    expect(toastDOM.parentElement).toHaveClass(CLASSNAME);
   });
 });
