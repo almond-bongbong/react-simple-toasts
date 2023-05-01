@@ -60,7 +60,10 @@
   "keywords": [
     "react",
     "toast",
-    "component",
-    "notification"
+    "notification",
+    "react-toast",
+    "react-toast-notification",
+    "toast-notification",
+    "toastify"
   ]
 }

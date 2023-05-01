@@ -1,10 +1,14 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import toast from '../src';
+import toast, { clearToasts } from '../src';
 
 const EXIT_ANIMATION_DURATION = 310;
 
 describe('toast', () => {
+  afterEach(() => {
+    clearToasts();
+  });
+
   it('renders a toast when the show button is clicked', () => {
     const TOAST_TEXT = 'Hello Message';
     render(
@@ -28,11 +32,15 @@ describe('toast', () => {
     });
   });
 
-  it('displays the toast indefinitely when given an infinite duration', () => {
+  it('renders toast with infinite duration until manually closed', async () => {
     const TOAST_TEXT = 'message for infinity duration';
-    toast(TOAST_TEXT, Infinity);
+    const infiniteToast = toast(TOAST_TEXT, Infinity);
 
-    screen.getByText(TOAST_TEXT);
+    const toastElement = screen.getByText(TOAST_TEXT);
+    infiniteToast.close();
+    await waitFor(() => expect(toastElement).not.toBeInTheDocument(), {
+      timeout: EXIT_ANIMATION_DURATION,
+    });
   });
 
   it('renders and removes toast based on specified duration in options', async () => {
