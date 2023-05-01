@@ -62,4 +62,57 @@ describe('toast', () => {
     const toastDOM = screen.getByText(TOAST_TEXT);
     expect(toastDOM.parentElement).toHaveClass(CLASSNAME);
   });
+
+  it('triggers onClick event when toast is clicked', () => {
+    const TOAST_TEXT = 'message for click';
+    const onClick = jest.fn();
+    toast(TOAST_TEXT, { clickable: true, onClick });
+
+    const toastDOM = screen.getByText(TOAST_TEXT);
+    toastDOM.click();
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('closes the toast when clickClosable is true and toast is clicked', async () => {
+    const TOAST_TEXT = 'message for closeable';
+    toast(TOAST_TEXT, { clickClosable: true });
+
+    const toastDOM = screen.getByText(TOAST_TEXT);
+    toastDOM.click();
+    await waitFor(() => expect(toastDOM).not.toBeInTheDocument(), {
+      timeout: EXIT_ANIMATION_DURATION,
+    });
+  });
+
+  it('renders toast with specified position', () => {
+    const TOAST_TEXT = 'message for top-center';
+    toast(TOAST_TEXT, { position: 'top-center' });
+    const toastDOM1 = screen.getByText(TOAST_TEXT);
+    expect(toastDOM1.closest('.toast-list')).toHaveClass('top-center');
+  });
+
+  it('limits visible toasts based on maxVisibleToasts', async () => {
+    const TOAST_TEXT = 'message for maxVisibleToasts';
+    toast(TOAST_TEXT);
+    toast(TOAST_TEXT, { maxVisibleToasts: 1 });
+
+    await waitFor(
+      () => {
+        const toasts = screen.getAllByText(TOAST_TEXT);
+        expect(toasts.length).toBe(1);
+      },
+      {
+        timeout: EXIT_ANIMATION_DURATION,
+      },
+    );
+  });
+
+  it('renders custom toast content with render prop', () => {
+    const TOAST_TEXT = 'message for custom render';
+    const render = () => <div className="custom-class">custom render</div>;
+    toast(TOAST_TEXT, { render });
+
+    const toastDOM = screen.getByText('custom render');
+    expect(toastDOM).toHaveClass('custom-class');
+  });
 });
