@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import toast, { Toast, clearToasts, toastConfig } from 'react-simple-toasts';
+import toast, {
+  clearToasts,
+  Toast,
+  toastConfig,
+  createToast,
+} from 'react-simple-toasts';
 import CommonHighlighter from './component/CommonHighlighter';
+
+const toastA = createToast({
+  duration: 3000,
+});
 
 function App() {
   const [infinityToast, setInfinityToast] = useState<Toast | null>(null);
@@ -24,7 +33,7 @@ function App() {
           <div className="playground">
             <button
               className="example-button"
-              onClick={() => toast('Simple message')}
+              onClick={() => toastA('Simple message')}
             >
               Display Simple Toast
             </button>
@@ -377,7 +386,7 @@ myToast.close(); // Close toast`}
               disabled={!!extendedToast}
               onClick={() => {
                 const myToast = toast('Message', {
-                  duration: 3000,
+                  duration: Infinity,
                   onClose: () => setExtendedToast(null),
                 });
                 setExtendedToast(myToast);
@@ -389,7 +398,7 @@ myToast.close(); // Close toast`}
               className="example-button"
               disabled={!extendedToast}
               onClick={() => {
-                extendedToast?.updateDuration(5000);
+                extendedToast?.updateDuration(500);
               }}
             >
               Update Duration to 5s

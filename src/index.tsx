@@ -11,6 +11,7 @@ import React, {
 import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
+import { createId } from './lib/utils';
 
 const SET_TIMEOUT_MAX = 2147483647;
 const isBrowser = () => typeof window !== 'undefined';
@@ -266,11 +267,9 @@ function closeToast(
   }, 300);
 }
 
-function toast(message: ReactNode, duration?: number): Toast;
-function toast(message: ReactNode, options?: ToastOptions): Toast;
-function toast(
+function renderToast(
   message: ReactNode,
-  durationOrOptions?: number | ToastOptions,
+  options?: ToastOptions & { toastInstanceId?: number },
 ): Toast {
   const dummyReturn = {
     close: () => {},
@@ -280,7 +279,7 @@ function toast(
   if (!isBrowser()) return dummyReturn;
 
   let closeTimer: number;
-  const id = Date.now() + Math.floor(Math.random() * 10000000000000000);
+  const id = createId();
   const {
     time = undefined,
     duration,
@@ -293,9 +292,7 @@ function toast(
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
-  } = typeof durationOrOptions === 'number'
-    ? { duration: durationOrOptions }
-    : durationOrOptions || {};
+  } = options || {};
   const durationTime =
     duration || time || defaultOptions.duration || defaultOptions.time;
   const closeOptions = { onClose, onCloseStart };
@@ -345,7 +342,7 @@ function toast(
   renderDOM();
 
   const startCloseTimer = (duration = durationTime) => {
-    if (durationTime > SET_TIMEOUT_MAX) return;
+    if (duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
     }
@@ -384,5 +381,46 @@ function toast(
     },
   };
 }
+
+function toast(message: ReactNode, duration?: number): Toast;
+function toast(message: ReactNode, options?: ToastOptions): Toast;
+function toast(
+  message: ReactNode,
+  durationOrOptions?: number | ToastOptions,
+): Toast {
+  const options =
+    typeof durationOrOptions === 'number'
+      ? { duration: durationOrOptions }
+      : durationOrOptions;
+  return renderToast(message, options);
+}
+
+export const createToast = (
+  options: Omit<ConfigArgs, 'time'>,
+): typeof toast => {
+  const toastInstanceId = createId();
+
+  return (message, durationOrOptions) => {
+    if (typeof durationOrOptions === 'number') {
+      return renderToast(message, {
+        toastInstanceId,
+        duration: durationOrOptions || options.duration,
+      });
+    }
+    if (
+      durationOrOptions === undefined ||
+      typeof durationOrOptions === 'object'
+    ) {
+      const mergedOptions = {
+        toastInstanceId,
+        ...options,
+        ...durationOrOptions,
+      };
+      return renderToast(message, mergedOptions);
+    }
+
+    throw new Error('Invalid durationOrOptions type');
+  };
+};
 
 export default toast;
