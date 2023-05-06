@@ -1,8 +1,7 @@
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
-
-const isBrowser = () => typeof window !== 'undefined';
+import { isBrowser } from './utils';
 
 const fullClone = {
   ...ReactDOM,
