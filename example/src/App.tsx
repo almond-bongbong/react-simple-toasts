@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import toast, {
   clearToasts,
+  createToast,
   Toast,
   toastConfig,
-  createToast,
 } from 'react-simple-toasts';
 import CommonHighlighter from './component/CommonHighlighter';
 
