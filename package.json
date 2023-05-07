@@ -3,6 +3,7 @@
   "version": "3.6.0",
   "description": "React Simple Toasts is a simple and easy-to-use toast message popup for React.",
   "author": "almond-bongbong",
+  "homepage": "https://github.com/almond-bongbong/react-simple-toasts",
   "license": "MIT",
   "repository": "almond-bongbong/react-simple-toasts",
   "main": "./dist/index.js",
