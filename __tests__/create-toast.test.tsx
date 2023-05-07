@@ -1,4 +1,5 @@
-import { clearToasts, createToast, ToastPosition } from '../src';
+import { clearToasts, createToast } from '../src';
+import { ToastPosition } from '../src/lib/constants';
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 
 const EXIT_ANIMATION_DURATION = 310;
