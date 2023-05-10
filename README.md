@@ -98,7 +98,7 @@ Displays a toast message with the specified message and options.
 
 ### Toast Return Object
 
-When the `toast` function is called, it returns an object with a single method, `close()`, allowing you to manually close the toast message currently being displayed.
+When the toast function is called, it returns a control object with methods for managing the toast message currently being displayed. These methods include closing the toast, updating its duration, and updating its message and duration.
 
 | Method                                          | Description                                                                | Version |
 | ----------------------------------------------- | -------------------------------------------------------------------------- | ------- |
@@ -106,13 +106,29 @@ When the `toast` function is called, it returns an object with a single method, 
 | `updateDuration(newDuration: number)`           | Updates the duration of the currently displayed toast message.             | 3.5.0   |
 | `update(message: ReactNode, duration?: number)` | Updates the message and duration of the currently displayed toast message. | 3.5.0   |
 
-You can invoke this method at any time to close the toast message before its duration has elapsed. For instance, you might call it in response to a user interaction, such as a button click.
+These methods can be invoked at any time to manage the toast message before its duration has elapsed. Here are some examples:
 
+- Closing the toast message in response to a user interaction, such as a button click:
 ```jsx
 const myToast = toast('Hello, world!');
 // ...
 <button onClick={() => myToast.close()}>Close Toast Message</button>;
 ```
+
+- Updating the duration of the toast message:
+```jsx
+const myToast = toast('Hello, world!');
+// ...
+<button onClick={() => myToast.updateDuration(10000)}>Extend Toast Duration</button>;
+```
+
+- Updating the message and duration of the toast message:
+```jsx
+const myToast = toast('Hello, world!');
+// ...
+<button onClick={() => myToast.update('Updated message', 8000)}>Update Message and Duration</button>;
+```
+
 
 ### createToast(options)
 
