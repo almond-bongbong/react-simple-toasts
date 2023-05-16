@@ -1,9 +1,6 @@
 import React from 'react';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
-
-SyntaxHighlighter.registerLanguage('jsx', jsx);
+import { Highlight,  themes } from 'prism-react-renderer'
+import styles from './CommonHighlighter.module.css';
 
 interface Props {
   children: string;
@@ -12,13 +9,23 @@ interface Props {
 
 function CommonHighlighter({ children, language = 'jsx' }: Props) {
   return (
-    <SyntaxHighlighter
+    <Highlight
       language={language}
-      style={prism}
-      customStyle={{ padding: 20 }}
+      code={children}
+      theme={themes.github}
     >
-      {children}
-    </SyntaxHighlighter>
+      {({ style, tokens, getLineProps, getTokenProps }) => (
+        <pre style={style} className={styles.code}>
+        {tokens.map((line, i) => (
+          <div key={i} {...getLineProps({ line })}>
+            {line.map((token, key) => (
+              <span key={key} {...getTokenProps({ token })} />
+            ))}
+          </div>
+        ))}
+      </pre>
+      )}
+    </Highlight>
   );
 }
 
