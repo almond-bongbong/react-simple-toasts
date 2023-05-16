@@ -76,25 +76,25 @@ Displays a toast message with the specified message and options.
 
 #### Main Parameters
 
-| Parameter | Type                  | Description                                              |
-| --------- | --------------------- | -------------------------------------------------------- |
-| `message` | `string`, `ReactNode` | The message to display in the toast.                     |
-| `options` | `object`              | An optional object containing options for the toast.     |
+| Parameter | Type                  | Description                                          |
+| --------- | --------------------- | ---------------------------------------------------- |
+| `message` | `string`, `ReactNode` | The message to display in the toast.                 |
+| `options` | `object`              | An optional object containing options for the toast. |
 
 #### Options Object Properties
 
-| Property          | Type       | Description                                                                                                                                                                                                                  |
-| ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `duration`        | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
-| `className`       | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
-| `clickable`       | `boolean`  | A boolean value that determines whether the toast message is clickable. Default is `false`.                                                                                                                                  |
-| `clickClosable`   | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
-| `position`        | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
-| `maxVisibleToasts`| `number`   | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
-| `render`          | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
-| `onClick`         | `function` | A function to be called when the toast message is clicked. This function takes an `event` argument, which is the click event. Must be used with `clickable: true`.                                                           |
-| `onClose`         | `function` | A function to be called when the toast message is closed and the closing animation is finished.                                                                                                                              |
-| `onCloseStart`    | `function` | A function to be called when the toast message starts closing, right before the closing animation begins.                                                                                                                    |
+| Property           | Type       | Description                                                                                                                                                                                                                  |
+| ------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `duration`         | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
+| `className`        | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
+| `clickable`        | `boolean`  | A boolean value that determines whether the toast message is clickable. Default is `false`.                                                                                                                                  |
+| `clickClosable`    | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
+| `position`         | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
+| `maxVisibleToasts` | `number`   | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
+| `render`           | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
+| `onClick`          | `function` | A function to be called when the toast message is clicked. This function takes an `event` argument, which is the click event. Must be used with `clickable: true`.                                                           |
+| `onClose`          | `function` | A function to be called when the toast message is closed and the closing animation is finished.                                                                                                                              |
+| `onCloseStart`     | `function` | A function to be called when the toast message starts closing, right before the closing animation begins.                                                                                                                    |
 
 ### Toast Return Object
 
@@ -109,6 +109,7 @@ When the toast function is called, it returns a control object with methods for 
 These methods can be invoked at any time to manage the toast message before its duration has elapsed. Here are some examples:
 
 - Closing the toast message in response to a user interaction, such as a button click:
+
 ```jsx
 const myToast = toast('Hello, world!');
 // ...
@@ -116,19 +117,24 @@ const myToast = toast('Hello, world!');
 ```
 
 - Updating the duration of the toast message:
+
 ```jsx
 const myToast = toast('Hello, world!');
 // ...
-<button onClick={() => myToast.updateDuration(10000)}>Extend Toast Duration</button>;
+<button onClick={() => myToast.updateDuration(10000)}>
+  Extend Toast Duration
+</button>;
 ```
 
 - Updating the message and duration of the toast message:
+
 ```jsx
 const myToast = toast('Hello, world!');
 // ...
-<button onClick={() => myToast.update('Updated message', 8000)}>Update Message and Duration</button>;
+<button onClick={() => myToast.update('Updated message', 8000)}>
+  Update Message and Duration
+</button>;
 ```
-
 
 ### createToast(options)
 
@@ -138,14 +144,14 @@ The `createToast` function creates and returns a new `toast` function instance b
 
 The `options` object contains the following properties:
 
-| Parameter       | Type       | Description                                                                                                                                                                                                                  |
-| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `duration`      | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
-| `className`     | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
-| `clickClosable` | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
-| `position`      | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
-| `maxVisibleToasts` | `number` | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
-| `render`        | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
+| Parameter          | Type       | Description                                                                                                                                                                                                                  |
+| ------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `duration`         | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
+| `className`        | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
+| `clickClosable`    | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
+| `position`         | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
+| `maxVisibleToasts` | `number`   | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
+| `render`           | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
 
 `createToast` is similar to `toastConfig`, which sets global default options, but it allows you to create and use toast instances with different configurations for more flexibility. This enables you to apply different options to each toast instance.
 
@@ -176,14 +182,14 @@ Sets default options for all toast messages.
 
 The `options` object contains the following properties:
 
-| Parameter       | Type       | Description                                                                                                                                                                                                                  |
-| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `duration`      | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
-| `className`     | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
-| `clickClosable` | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
-| `position`      | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
-| `maxVisibleToasts` | `number` | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
-| `render`        | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
+| Parameter          | Type       | Description                                                                                                                                                                                                                  |
+| ------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `duration`         | `number`   | The duration (in milliseconds) for which the toast message will be displayed. Default is `3000`.                                                                                                                             |
+| `className`        | `string`   | A string of classes to apply to the toast container.                                                                                                                                                                         |
+| `clickClosable`    | `boolean`  | A boolean value that determines whether the toast message can be closed by clicking on it. Default is `false`.                                                                                                               |
+| `position`         | `string`   | A string that sets the position of the toast message. Available options are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'top-left'`, `'top-center'`, `'top-right'`, and `'center'`. Default is `'bottom-center'`. |
+| `maxVisibleToasts` | `number`   | The maximum number of toast messages that can be displayed simultaneously. Default is `null`, which allows an unlimited number of toasts.                                                                                    |
+| `render`           | `function` | A function that returns a ReactNode to render as the toast message. The function takes a `message` argument, which is the message to display in the toast. Default is `null`.                                                |
 
 `toastConfig` is used to set global default options, which will be applied to all toast instances used throughout your app. However, if you need to create toast instances with different configurations, it is recommended to use `createToast` instead.
 
