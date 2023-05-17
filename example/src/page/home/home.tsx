@@ -1,17 +1,12 @@
-import { useState } from 'react';
-import toast, {
-  clearToasts,
-  createToast,
-  Toast,
-  toastConfig,
-} from 'react-simple-toasts';
-import CommonHighlighter from './component/CommonHighlighter';
+import React, { useState } from 'react';
+import CommonHighlighter from '../../component/common-highlighter';
+import toast, { clearToasts, createToast, Toast } from 'react-simple-toasts';
 
 const toastA = createToast({
   duration: 3000,
 });
 
-function App() {
+function Home() {
   const [infinityToast, setInfinityToast] = useState<Toast | null>(null);
   const [extendedToast, setExtendedToast] = useState<Toast | null>(null);
   const [updatedToast, setUpdatedToast] = useState<Toast | null>(null);
@@ -465,4 +460,4 @@ myToast.update('Updated Message', 5000); // Update toast message and duration`}
   );
 }
 
-export default App;
+export default Home;

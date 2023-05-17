@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,35 +16,18 @@ body {
   line-height: 1.5;
 }
 
-body code {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 14px;
+h1 {
+  font-family: 'Patrick Hand SC', cursive;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 10000;
-  padding: 20px 0;
-  background-color: #fff;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-  font-size: 20px;
-  color: #5d657a;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-header .header-content {
-  position: relative;
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 30px;
-}
-
-header h1 {
-  font-size: 24px;
-  font-weight: 300;
+ul,
+ol {
+  list-style: none;
 }
 
 .desc {
@@ -58,7 +43,6 @@ header h1 {
 .links a {
   color: #5d657a;
   font-size: 15px;
-  font-weight: 300;
   text-decoration: none;
 }
 
@@ -79,16 +63,15 @@ footer .footer-content {
 
 footer a {
   color: #999;
-  font-weight: 300;
   text-decoration: none;
 }
 
-.container {
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 40px 30px 120px;
-}
+/*.container {*/
+/*  width: 1100px;*/
+/*  max-width: 100%;*/
+/*  margin: 0 auto;*/
+/*  padding: 40px 30px 120px;*/
+/*}*/
 
 h2 {
   margin-bottom: 30px;
@@ -96,20 +79,17 @@ h2 {
   border-bottom: 1px solid #eee;
   color: #555;
   font-size: 40px;
-  font-weight: 300;
 }
 
 h3 {
   margin: 70px 0 20px;
   color: #555;
   font-size: 28px;
-  font-weight: 300;
 }
 
 p {
   margin-bottom: 30px;
   color: #666;
-  font-weight: 300;
   font-size: 18px;
 }
 
