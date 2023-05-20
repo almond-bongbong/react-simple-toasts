@@ -54,8 +54,13 @@ h2 {
 }
 
 h3 {
-  margin: 70px 0 20px;
+  margin-bottom: 10px;
   font-size: 22px;
+}
+
+h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
 p {
@@ -93,4 +98,28 @@ body .my-toast {
 hr {
   margin: 15px 0;
   border-top: 1px dashed #fafafa;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #fafafa;
+  text-align: left;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+table code {
+  padding: 2px 4px;
+  background-color: #fafafa;
+  font-family: 'Source Code Pro', monospace;
 }
