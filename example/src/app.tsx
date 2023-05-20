@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import GettingStarted from './page/getting-started';
 import Root from './root';
 import Home from './page/home';
+import Example from './page/example';
+import Apis from './page/apis';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
       {
         path: '/getting-started',
         element: <GettingStarted />,
+      },
+      {
+        path: '/api',
+        element: <Apis />,
+      },
+      {
+        path: '/example',
+        element: <Example />,
       },
     ],
   },

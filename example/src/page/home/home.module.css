@@ -1,0 +1,8 @@
+.features {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.features li + li {
+  margin-top: 10px;
+}

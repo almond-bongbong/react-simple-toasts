@@ -1,10 +1,20 @@
+:root {
+  --header-height: 66px;
+}
+
 .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  padding: 10px 20px;
+  z-index: 100;
+  padding: 8px 30px 10px;
   background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 1px 0 rgba(100, 100, 100, 0.2);
 }
 
 .header h1 span {
@@ -20,20 +30,65 @@
   vertical-align: middle;
 }
 
+.header .meta img {
+  display: block;
+  height: 24px;
+}
+
 .navigation {
   position: fixed;
-  top: 68px;
+  top: var(--header-height);
   bottom: 0;
   left: 0;
   width: 280px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #faf8f1;
+}
+
+.navigation a {
+  display: block;
+  padding: 10px;
+}
+
+.navigation a:hover {
+  background-color: #f1f1f1;
+}
+
+.navigation :global(.active) {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+.navigation li li {
+  padding-left: 20px;
+  color: #666;
+}
+
+.navigation li li :global(.active) {
+  color: #000;
+  background-color: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin-left: 280px;
+  padding-top: var(--header-height);
 }
 
 .content {
-  margin-left: 280px;
-  padding: 68px 60px 100px;
+  padding: 30px 60px 100px;
+}
+
+.content section {
+  scroll-margin-top: var(--header-height);
 }
 
 .footer {
+  margin-top: auto;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+  color: #888;
+  text-align: center;
 }
