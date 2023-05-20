@@ -76,10 +76,10 @@ Displays a toast message with the specified message and options.
 
 #### Main Parameters
 
-| Parameter | Type                  | Description                                          |
-| --------- | --------------------- | ---------------------------------------------------- |
-| `message` | `string`, `ReactNode` | The message to display in the toast.                 |
-| `options` | `object`              | An optional object containing options for the toast. |
+| Parameter           | Type                  | Description                                                                                        |
+| ------------------- | --------------------- | -------------------------------------------------------------------------------------------------- |
+| `message`           | `string`, `ReactNode` | The message to display in the toast.                                                               |
+| `durationOrOptions` | `number`, `object`    | Either the duration for the toast (in milliseconds) or an object containing options for the toast. |
 
 #### Options Object Properties
 
