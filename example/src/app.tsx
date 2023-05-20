@@ -3,7 +3,7 @@ import GettingStarted from './page/getting-started';
 import Root from './root';
 import Home from './page/home';
 import Example from './page/example';
-import Apis from './page/apis';
+import Api from './page/api';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/api',
-        element: <Apis />,
+        element: <Api />,
       },
       {
         path: '/example',

@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './apis.module.css';
+import styles from './api.module.css';
 
-function Apis() {
+function Api() {
   return (
     <div className={styles.apis}>
       <section>
@@ -96,4 +96,4 @@ function Apis() {
   );
 }
 
-export default Apis;
+export default Api;
