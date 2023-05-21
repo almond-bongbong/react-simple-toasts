@@ -12,10 +12,10 @@ import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser } from './lib/utils';
-import { SET_TIMEOUT_MAX, ToastPosition } from './lib/constants';
+import { SET_TIMEOUT_MAX, ToastPosition as Position } from './lib/constants';
 
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
-type Position = (typeof ToastPosition)[keyof typeof ToastPosition];
+export type ToastPosition = (typeof Position)[keyof typeof Position];
 
 export interface ToastOptions {
   /**
@@ -26,7 +26,7 @@ export interface ToastOptions {
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
-  position?: Position;
+  position?: ToastPosition;
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
   onClick?: ClickHandler;
@@ -64,7 +64,7 @@ export interface Toast {
 let toastComponentList: {
   id: number;
   message: ReactNode;
-  position: Position;
+  position: ToastPosition;
   component: ReactElement;
   isExit?: boolean;
 }[] = [];
@@ -90,12 +90,12 @@ const defaultOptions: Required<ConfigArgs> = {
   maxVisibleToasts: null,
 };
 
-const isValidPosition = (position: Position): boolean => {
-  const positionList = Object.values(ToastPosition);
+const isValidPosition = (position: ToastPosition): boolean => {
+  const positionList = Object.values(Position);
   if (!positionList.includes(position)) {
     throw new Error(
       `Invalid position value. Expected one of ${Object.values(
-        ToastPosition,
+        Position,
       ).join(', ')} but got ${position}`,
     );
   }
@@ -132,7 +132,7 @@ const renderDOM = () => {
   const toastContainer = document.getElementById(styles['toast_container']);
   if (!toastContainer) return;
 
-  const defaultToastList = Object.values(ToastPosition).reduce(
+  const defaultToastList = Object.values(Position).reduce(
     (acc, position) => ({
       ...acc,
       [position]: [],

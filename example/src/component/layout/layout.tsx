@@ -76,6 +76,10 @@ function Layout({ children }: Props) {
   const isScrollingProgrammaticallyRef = useRef(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
     if (!location.hash) return;
     const target = document.querySelector(location.hash);
     if (!target) return;
