@@ -219,7 +219,7 @@ export function MyComponent() {
       Display Toast
     </button>
   );
-}`})}),f.jsx("br",{}),f.jsx("p",{children:"By default, the toast message is displayed for 3 seconds. Modify the duration by providing a second argument to the `toast` function:"}),f.jsx("div",{className:Dt.code,children:f.jsx(Ce,{children:"toast('Hello, world!', 5000);"})}),f.jsx("br",{}),f.jsx("p",{children:"By default, the toast message is displayed for 3 seconds. Modify the duration by providing a second argument to the `toast` function:"}),f.jsx("div",{className:Dt.code,children:f.jsx(Ce,{children:`toast('Hello, world!', {
+}`})}),f.jsx("br",{}),f.jsxs("p",{children:["By default, the toast message is displayed for 3 seconds. Modify the duration by providing a second argument to the ",f.jsx("code",{children:"toast"})," ","function:"]}),f.jsx("div",{className:Dt.code,children:f.jsx(Ce,{children:"toast('Hello, world!', 5000);"})}),f.jsx("br",{}),f.jsx("p",{children:"Adjust the appearance and behavior of the toast message by supplying an options object to the toast function:"}),f.jsx("div",{className:Dt.code,children:f.jsx(Ce,{children:`toast('Hello, world!', {
   duration: 5000,
   position: 'top-right',
   clickable: true,
