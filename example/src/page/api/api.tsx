@@ -28,15 +28,16 @@ export function MyComponent() {
         <br />
         <p>
           By default, the toast message is displayed for 3 seconds. Modify the
-          duration by providing a second argument to the `toast` function:
+          duration by providing a second argument to the <code>toast</code>{' '}
+          function:
         </p>
         <div className={styles.code}>
           <CommonHighlighter>{`toast('Hello, world!', 5000);`}</CommonHighlighter>
         </div>
         <br />
         <p>
-          By default, the toast message is displayed for 3 seconds. Modify the
-          duration by providing a second argument to the `toast` function:
+          Adjust the appearance and behavior of the toast message by supplying
+          an options object to the toast function:
         </p>
         <div className={styles.code}>
           <CommonHighlighter>{`toast('Hello, world!', {
