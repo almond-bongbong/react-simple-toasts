@@ -23,11 +23,11 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Copy 404.html
-        run: cp build/index.html build/404.html
-
       - name: Build example
         run: cd example && yarn install && yarn build
+
+      - name: Copy 404.html
+        run: cp example/build/index.html example/build/404.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
