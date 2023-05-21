@@ -1,7 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+
+:root {
+  --basic-font-size: 17px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 body {
@@ -11,132 +26,54 @@ body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   color: #444;
+  font-size: var(--basic-font-size);
   line-height: 1.5;
 }
 
-body code {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 14px;
+h1 {
+  font-family: 'Patrick Hand SC', cursive;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 10000;
-  padding: 20px 0;
-  background-color: #fff;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-  font-size: 20px;
-  color: #5d657a;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-header .header-content {
-  position: relative;
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 30px;
-}
-
-header h1 {
-  font-size: 24px;
-  font-weight: 300;
+ul,
+ol {
+  list-style: none;
 }
 
 .desc {
   margin-bottom: 80px;
 }
 
-.links {
-  position: absolute;
-  top: 3px;
-  right: 30px;
-}
-
-.links a {
-  color: #5d657a;
-  font-size: 15px;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-.links a + a {
-  margin-left: 20px;
-}
-
-footer {
-  border-top: 1px solid #eee;
-}
-
-footer .footer-content {
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 50px 30px 70px;
-}
-
-footer a {
-  color: #999;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-.container {
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 40px 30px 120px;
-}
-
 h2 {
-  margin-bottom: 30px;
-  padding: 50px 0 20px;
-  border-bottom: 1px solid #eee;
-  color: #555;
-  font-size: 40px;
-  font-weight: 300;
+  margin-bottom: 20px;
+  font-size: 30px;
 }
 
 h3 {
-  margin: 70px 0 20px;
-  color: #555;
-  font-size: 28px;
-  font-weight: 300;
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 
-p {
-  margin-bottom: 30px;
-  color: #666;
-  font-weight: 300;
+h4 {
+  margin-bottom: 10px;
   font-size: 18px;
 }
 
-.example-button {
-  display: inline-block;
-  min-width: 240px;
-  padding: 12px 20px;
-  outline: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 1px 1px 0 rgba(100, 100, 100, 0.2);
-  color: #555;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
-  white-space: nowrap;
+p {
+  font-size: var(--basic-font-size);
 }
 
-.example-button:active {
-  background-color: #fafafa;
+p a {
+  color: #3498db;
+  text-decoration: underline;
 }
 
-.example-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: not-allowed;
+section + section {
+  margin-top: 70px;
 }
 
 .example-button + .example-button {
@@ -151,14 +88,49 @@ p {
   margin-top: 40px;
 }
 
-body .my-toast {
-  background-color: rgba(50, 130, 184, 0.8);
-  color: #fff;
-  border-radius: 8px;
-  font-size: 20px;
+.my-toast > div {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 3px;
 }
 
 hr {
   margin: 15px 0;
   border-top: 1px dashed #fafafa;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #fafafa;
+  text-align: left;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 4px;
+  background-color: #f1f1f1;
+  border-radius: 2px;
+  font-family: 'Source Code Pro', monospace;
+  color: #ff6b81;
+  font-weight: 700;
+}
+
+select {
+  height: 42px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #555;
 }

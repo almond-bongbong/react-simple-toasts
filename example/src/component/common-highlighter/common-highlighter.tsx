@@ -1,6 +1,6 @@
 import React from 'react';
 import { Highlight,  themes } from 'prism-react-renderer'
-import styles from './CommonHighlighter.module.css';
+import styles from './common-highlighter.module.css';
 
 interface Props {
   children: string;
