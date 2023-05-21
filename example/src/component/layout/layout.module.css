@@ -47,6 +47,7 @@
 
 .navigation a {
   display: block;
+  z-index: 10;
   padding: 10px;
 }
 
@@ -55,8 +56,22 @@
 }
 
 .navigation :global(.active) {
-  background-color: #f1f1f1;
   color: #000;
+}
+
+.navigation :global(.active):before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #f1f1f1;
+}
+
+.navigation li {
+  position: relative;
 }
 
 .navigation li li {
@@ -87,8 +102,9 @@
 
 .footer {
   margin-top: auto;
-  padding: 20px 0;
+  padding: 30px 0;
   border-top: 1px solid #eee;
-  color: #888;
+  color: #aaa;
+  font-size: 14px;
   text-align: center;
 }

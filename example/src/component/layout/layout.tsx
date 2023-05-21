@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import React, { ReactNode, useEffect, useRef } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styles from './layout.module.css';
 import logo from '../../assets/images/common/logo.png';
 import githubIcon from '../../assets/images/common/github-icon.png';
 import { AtLeast } from '../../type/utils';
+import { debounce } from '../../util/debounce';
 
 interface Props {
   children: ReactNode;
@@ -34,36 +35,81 @@ const MENU: Menu[] = [
   {
     name: 'API',
     path: '/api',
-  },
-  {
-    name: 'Components',
-    path: '/components',
+    children: [
+      {
+        name: 'toast',
+        hash: '#toast',
+      },
+      {
+        name: 'createToast, toastConfig',
+        hash: '#toast-config',
+      },
+      {
+        name: 'clearToasts',
+        hash: '#clear-toasts',
+      },
+    ],
   },
   {
     name: 'Example',
     path: '/example',
+    children: [
+      {
+        name: 'Simple Example',
+        hash: '#simple-example',
+      },
+      {
+        name: 'Advanced Example',
+        hash: '#advanced-example',
+      },
+      {
+        name: 'Custom Example',
+        hash: '#custom-example',
+      },
+    ],
   },
 ];
 
 function Layout({ children }: Props) {
+  const navigate = useNavigate();
   const location = useLocation();
+  const isScrollingProgrammaticallyRef = useRef(false);
 
-  const handleHash = (hash: string) => () => {
-    setTimeout(() => {
-      const target = document.querySelector(hash);
-      if (!target) return;
+  useEffect(() => {
+    if (!location.hash) return;
+    const target = document.querySelector(location.hash);
+    if (!target) return;
 
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const positionY = target.getBoundingClientRect().top + scrollTop;
-      const topOffset = 120;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const positionY = target.getBoundingClientRect().top + scrollTop;
+    const topOffset = 100;
 
-      window.scrollTo({
-        top: positionY - topOffset,
-        behavior: 'smooth',
-      });
-    }, 0);
-  };
+    isScrollingProgrammaticallyRef.current = true;
+    window.scrollTo({
+      top: positionY - topOffset,
+      behavior: 'smooth',
+    });
+  }, [location.hash]);
+
+  useEffect(() => {
+    let accumulatedScrollY = 0;
+    const handleScroll = debounce(() => {
+      if (isScrollingProgrammaticallyRef.current) {
+        isScrollingProgrammaticallyRef.current = false;
+        return;
+      }
+
+      accumulatedScrollY += window.scrollY;
+      if (accumulatedScrollY > 200) {
+        navigate(location.pathname); // remove hash
+      }
+    }, 200);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [location.pathname]);
 
   return (
     <>
@@ -95,19 +141,14 @@ function Layout({ children }: Props) {
                     const link = child.path
                       ? child.path
                       : `${menu.path}${child.hash}`;
+                    const isActive =
+                      `${location.pathname}${location.hash}` === link;
 
                     return (
                       <li key={child.name}>
                         <NavLink
                           to={link}
-                          className={() =>
-                            `${location.pathname}${location.hash}` === link
-                              ? 'active'
-                              : ''
-                          }
-                          onClick={
-                            child.hash ? handleHash(child.hash) : undefined
-                          }
+                          className={() => (isActive ? 'active' : '')}
                         >
                           {child.name}
                         </NavLink>

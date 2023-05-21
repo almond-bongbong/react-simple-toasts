@@ -68,12 +68,12 @@ p {
 }
 
 p a {
-  color: darkgoldenrod;
+  color: #3498db;
   text-decoration: underline;
 }
 
-section {
-  margin-bottom: 50px;
+section + section {
+  margin-top: 70px;
 }
 
 .example-button + .example-button {
@@ -88,11 +88,10 @@ section {
   margin-top: 40px;
 }
 
-body .my-toast {
-  background-color: rgba(50, 130, 184, 0.8);
-  color: #fff;
-  border-radius: 8px;
-  font-size: 20px;
+.my-toast > div {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 3px;
 }
 
 hr {
@@ -118,8 +117,20 @@ table td {
   border: 1px solid #ddd;
 }
 
-table code {
+code {
   padding: 2px 4px;
-  background-color: #fafafa;
+  background-color: #f1f1f1;
+  border-radius: 2px;
   font-family: 'Source Code Pro', monospace;
+  color: #ff6b81;
+  font-weight: 700;
+}
+
+select {
+  height: 42px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #555;
 }

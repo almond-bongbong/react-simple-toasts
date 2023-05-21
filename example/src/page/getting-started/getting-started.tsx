@@ -37,6 +37,11 @@ function App() {
 
 export default App;`}
         </CommonHighlighter>
+        <br />
+        <h3>🌟 Benefits of using React Simple Toasts:</h3>
+        <ul>
+          <li>No need for Provider or any wrapper components.</li>
+        </ul>
       </section>
     </div>
   );

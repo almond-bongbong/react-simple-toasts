@@ -1,0 +1,15 @@
+.code {
+  margin-top: 20px;
+}
+
+.area + .area {
+  margin-top: 40px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.playground {
+  margin-top: 20px;
+}
