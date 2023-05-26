@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import copy from 'rollup-plugin-copy';
 
 import pkg from './package.json' assert { type: 'json' };
 
@@ -41,7 +42,10 @@ export default {
       extract: false,
       modules: true,
       sourceMap: false,
-      use: [ 'sass' ]
-    })
+      use: ['sass'],
+    }),
+    copy({
+      targets: [{ src: 'src/theme/*.css', dest: 'dist/theme' }],
+    }),
   ],
 };
