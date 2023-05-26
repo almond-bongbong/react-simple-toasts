@@ -13,9 +13,11 @@ function Theme() {
         passing a theme object to the toast function.
       </p>
       <br />
-      <Button onClick={() => {
-        toast('Hello, World!', { duration: Infinity, theme: 'dark' });
-      }}>
+      <Button
+        onClick={() => {
+          toast('Hello, World!', { duration: Infinity, theme: 'dark' });
+        }}
+      >
         Light theme
       </Button>
       <br />
