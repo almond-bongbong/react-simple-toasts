@@ -68,10 +68,6 @@ const MENU: Menu[] = [
       },
     ],
   },
-  {
-    name: 'Theme',
-    path: '/theme',
-  },
 ];
 
 function Layout({ children }: Props) {
