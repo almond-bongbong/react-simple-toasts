@@ -1,0 +1,15 @@
+.toast-dark {
+  display: inline-block;
+  overflow: hidden;
+  min-width: 290px;
+  padding: 12px 22px;
+  background: rgba(0, 0, 10, 0.8);
+  box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.5;
+  vertical-align: top;
+  white-space: pre-line;
+}
