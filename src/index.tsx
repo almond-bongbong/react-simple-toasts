@@ -29,7 +29,6 @@ export interface ToastOptions {
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
-  theme?: 'light' | 'dark';
   onClick?: ClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -45,13 +44,12 @@ export interface ConfigArgs
     | 'position'
     | 'maxVisibleToasts'
     | 'render'
-    | 'theme'
   > {}
 
 export interface ToastProps
   extends Pick<
     ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
+    'className' | 'clickable' | 'position' | 'render' | 'onClick'
   > {
   message: ReactNode;
   isExit?: boolean;
@@ -90,16 +88,15 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
-  theme: 'dark',
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
   const positionList = Object.values(Position);
   if (!positionList.includes(position)) {
     throw new Error(
-      `Invalid position value. Expected one of ${Object.values(Position).join(
-        ', ',
-      )} but got ${position}`,
+      `Invalid position value. Expected one of ${Object.values(
+        Position,
+      ).join(', ')} but got ${position}`,
     );
   }
 
@@ -181,7 +178,6 @@ const Toast = ({
   position,
   isExit,
   render,
-  theme,
   onClick,
 }: ToastProps): ReactElement => {
   const messageDOM = useRef<HTMLDivElement>(null);
@@ -209,7 +205,6 @@ const Toast = ({
   const contentClassNames = [
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
-    `toast-${theme}`,
   ]
     .filter(Boolean)
     .join(' ');
@@ -282,7 +277,6 @@ function renderToast(
     position = defaultOptions.position,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     render = defaultOptions.render,
-    theme = defaultOptions.theme,
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
@@ -318,7 +312,6 @@ function renderToast(
         clickable={clickable || clickClosable}
         position={position}
         render={render}
-        theme={theme}
         onClick={handleClick}
       />
     ),
