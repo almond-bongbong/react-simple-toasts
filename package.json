@@ -1,6 +1,6 @@
 {
   "name": "react-simple-toasts",
-  "version": "3.7.0-beta.0",
+  "version": "3.7.0",
   "description": "React Simple Toasts is a simple and easy-to-use toast message popup for React.",
   "author": "almond-bongbong",
   "homepage": "https://github.com/almond-bongbong/react-simple-toasts",
