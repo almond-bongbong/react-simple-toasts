@@ -17,6 +17,13 @@ import { SET_TIMEOUT_MAX, ToastPosition as Position } from './lib/constants';
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 export type ToastPosition = (typeof Position)[keyof typeof Position];
 
+export const Themes = {
+  LIGHT: 'light',
+  DARK: 'dark',
+} as const;
+
+export type Theme = (typeof Themes)[keyof typeof Themes];
+
 export interface ToastOptions {
   /**
    * @deprecated The time option is deprecated. Use duration instead.
@@ -29,7 +36,7 @@ export interface ToastOptions {
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
-  theme?: 'light' | 'dark' | null;
+  theme?: Theme | null;
   onClick?: ClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -97,7 +104,7 @@ const isValidPosition = (position: ToastPosition): boolean => {
   const positionList = Object.values(Position);
   if (!positionList.includes(position)) {
     throw new Error(
-      `Invalid position value. Expected one of ${Object.values(Position).join(
+      `Invalid position value. Expected one of ${positionList.join(
         ', ',
       )} but got ${position}`,
     );
@@ -252,16 +259,12 @@ function closeToast(
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
   }
-  if (options.onCloseStart) {
-    options.onCloseStart();
-  }
+  options.onCloseStart?.();
   renderDOM();
 
   setTimeout(() => {
     toastComponentList = toastComponentList.filter((t) => t.id !== id);
-    if (options.onClose) {
-      options.onClose();
-    }
+    options.onClose?.();
     renderDOM();
   }, 300);
 }
@@ -310,7 +313,7 @@ function renderToast(
       }
       closeToast(id, closeOptions);
     }
-    if (onClick) onClick(...args);
+    onClick?.(...args);
   };
 
   toastComponentList.push({
