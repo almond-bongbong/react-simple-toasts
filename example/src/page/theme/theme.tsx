@@ -223,12 +223,20 @@ export default function App() {
         </p>
         <ul className={styles.list}>
           <li>
-            Add your theme name to the <code>theme</code> attribute in the{' '}
-            <code>ToastOptions</code>{' '}
-            <a href="https://github.com/almond-bongbong/react-simple-toasts/blob/780b253c165a038258efbd7f1c062a35f75274a8/src/index.tsx#L20">
-              interface
+            Add your theme name to the <code>Themes</code> constant in the{' '}
+            <a href="https://github.com/almond-bongbong/react-simple-toasts/blob/master/src/index.tsx#L20">
+              source code
             </a>
-            .
+            . It should look something like this:
+            <div className={styles.code}>
+              <CommonHighlighter language="javascript">{`// After addition, your theme should be included as follows:
+export const Themes = {
+  LIGHT: 'light',
+  DARK: 'dark',
+  YOUR_THEME_NAME: 'your_theme_name',
+} as const;`}</CommonHighlighter>
+            </div>
+            <br />
           </li>
           <li>
             Create a CSS file with the same name as your theme, and add it to
