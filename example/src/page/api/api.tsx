@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './api.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
+import themes from '../../assets/themes.json';
 
 function Api() {
   return (
@@ -89,6 +90,7 @@ export function MyComponent() {
               <th>Property</th>
               <th>Type</th>
               <th>Description</th>
+              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -101,6 +103,25 @@ export function MyComponent() {
                 The duration (in milliseconds) for which the toast message will
                 be displayed. Default is <code>3000</code>.
               </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>theme</td>
+              <td>
+                <code>string</code>
+              </td>
+              <td>
+                The theme property specifies the visual theme of the toast
+                message. Available options include
+                {themes.map((name, i) => (
+                  <Fragment key={name}>
+                    <code key={name}>'{name}'</code>
+                    {i < themes.length - 1 ? ', ' : ''}
+                  </Fragment>
+                ))}
+                .
+              </td>
+              <td>4.0.0</td>
             </tr>
             <tr>
               <td>className</td>
@@ -108,6 +129,7 @@ export function MyComponent() {
                 <code>string</code>
               </td>
               <td>A string of classes to apply to the toast container.</td>
+              <td></td>
             </tr>
             <tr>
               <td>clickable</td>
@@ -118,6 +140,7 @@ export function MyComponent() {
                 A boolean value that determines whether the toast message is
                 clickable. Default is <code>false</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>clickClosable</td>
@@ -128,6 +151,7 @@ export function MyComponent() {
                 A boolean value that determines whether the toast message can be
                 closed by clicking on it. Default is <code>false</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>position</td>
@@ -142,6 +166,7 @@ export function MyComponent() {
                 <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
                 <code>'bottom-center'</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>maxVisibleToasts</td>
@@ -153,6 +178,7 @@ export function MyComponent() {
                 simultaneously. Default is <code>null</code>, which allows an
                 unlimited number of toasts.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>render</td>
@@ -165,6 +191,7 @@ export function MyComponent() {
                 which is the message to display in the toast. Default is{' '}
                 <code>null</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>onClick</td>
@@ -176,6 +203,7 @@ export function MyComponent() {
                 function takes an <code>event</code> argument, which is the
                 click event. Must be used with <code>clickable: true</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>onClose</td>
@@ -186,6 +214,7 @@ export function MyComponent() {
                 A function to be called when the toast message is closed and the
                 closing animation is finished.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>onCloseStart</td>
@@ -196,6 +225,7 @@ export function MyComponent() {
                 A function to be called when the toast message starts closing,
                 right before the closing animation begins.
               </td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -279,6 +309,7 @@ export function MyComponent() {
               <th>Parameter</th>
               <th>Type</th>
               <th>Description</th>
+              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -291,6 +322,25 @@ export function MyComponent() {
                 The duration (in milliseconds) for which the toast message will
                 be displayed. Default is <code>3000</code>.
               </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>theme</td>
+              <td>
+                <code>string</code>
+              </td>
+              <td>
+                The theme property specifies the visual theme of the toast
+                message. Available options include
+                {themes.map((name, i) => (
+                  <Fragment key={name}>
+                    <code key={name}>'{name}'</code>
+                    {i < themes.length - 1 ? ', ' : ''}
+                  </Fragment>
+                ))}
+                .
+              </td>
+              <td>4.0.0</td>
             </tr>
             <tr>
               <td>className</td>
@@ -298,6 +348,7 @@ export function MyComponent() {
                 <code>string</code>
               </td>
               <td>A string of classes to apply to the toast container.</td>
+              <td></td>
             </tr>
             <tr>
               <td>clickClosable</td>
@@ -308,6 +359,7 @@ export function MyComponent() {
                 A boolean value that determines whether the toast message can be
                 closed by clicking on it. Default is <code>false</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>position</td>
@@ -322,6 +374,7 @@ export function MyComponent() {
                 <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
                 <code>'bottom-center'</code>.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>maxVisibleToasts</td>
@@ -333,6 +386,7 @@ export function MyComponent() {
                 simultaneously. Default is <code>null</code>, which allows an
                 unlimited number of toasts.
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>render</td>
@@ -345,6 +399,7 @@ export function MyComponent() {
                 which is the message to display in the toast. Default is{' '}
                 <code>null</code>.
               </td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -363,6 +418,7 @@ export function MyComponent() {
 
 const customToast = createToast({
   duration: 5000,
+  theme: 'dark',
   className: 'custom-toast',
   clickClosable: true,
   position: 'bottom-right',
@@ -393,6 +449,7 @@ import { toastConfig } from 'react-simple-toasts';
 
 toastConfig({
   duration: 5000,
+  theme: 'dark',
   className: 'custom-toast',
   clickClosable: true,
   position: 'bottom-right',

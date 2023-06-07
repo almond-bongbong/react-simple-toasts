@@ -88,9 +88,10 @@ section + section {
   margin-top: 40px;
 }
 
-.my-toast > div {
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #333;
+.my-toast {
+  background-color: rgba(255, 107, 129, 0.9);
+  padding: 10px 20px;
+  color: #fff;
   border-radius: 3px;
 }
 

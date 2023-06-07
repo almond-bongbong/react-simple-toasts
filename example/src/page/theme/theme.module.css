@@ -1,0 +1,26 @@
+.code {
+  margin-top: 20px;
+}
+
+.area + .area {
+  margin-top: 40px;
+}
+
+.playground {
+  margin-top: 20px;
+}
+
+.list {
+  margin-top: 30px;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.list a {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+.description {
+  margin-top: 20px;
+}

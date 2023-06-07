@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import toast, { createToast, Toast, ToastPosition } from 'react-simple-toasts';
+import toast, { Toast, ToastPosition } from 'react-simple-toasts';
+import { Link } from 'react-router-dom';
 import styles from './example.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import MyMessage from '../../component/example/my-message';
-import { Link } from 'react-router-dom';
-
-const toastA = createToast({
-  duration: 3000,
-});
 
 function Example() {
   const [position, setPosition] = useState<ToastPosition>('bottom-center');
@@ -73,6 +69,51 @@ export default function App() {
         </div>
 
         <div className={styles.area}>
+          <h3>Theme</h3>
+
+          <div className={styles.default}>
+            default: <code>undefined</code>
+          </div>
+          <p className={styles.description}>
+            The <code>theme</code> option in the toast configuration allows you
+            to apply different styles to your toasts. If no theme is specified,
+            no default styles will be applied. You need to import the CSS file
+            for the desired theme as shown in the code example below. For the
+            available themes, please refer to the <a href="/api">API page</a>.
+          </p>
+          <div className={styles.playground}>
+            <Button onClick={() => toast('Hello, World!', { theme: null })}>
+              No theme
+            </Button>
+
+            <Button onClick={() => toast('Hello, World!', { theme: 'dark' })}>
+              Dark Toast
+            </Button>
+            <Button onClick={() => toast('Hello, World!', { theme: 'light' })}>
+              Light Toast
+            </Button>
+          </div>
+          <div className={styles.code}>
+            <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
+import 'react-simple-toasts/dist/theme/light.css';
+
+export default function App() {
+  return (
+    <>
+      <Button onClick={() => toast('Hello, World!', { theme: 'dark' })}>
+        Dark Toast
+      </Button>
+      <Button onClick={() => toast('Hello, World!', { theme: 'light' })}>
+        Light Toast
+      </Button>
+    </>
+  );
+}`}</CommonHighlighter>
+          </div>
+        </div>
+
+        <div className={styles.area}>
           <h3>className</h3>
 
           <div className={styles.default}>
@@ -85,7 +126,12 @@ export default function App() {
           </p>
           <div className={styles.playground}>
             <Button
-              onClick={() => toast('Hello, World!', { className: 'my-toast' })}
+              onClick={() =>
+                toast('Hello, World!', {
+                  className: 'my-toast',
+                  theme: null,
+                })
+              }
             >
               Show Toast
             </Button>
@@ -93,9 +139,10 @@ export default function App() {
           <div className={styles.code}>
             <CommonHighlighter language="css">{`/* my-style.css */
 
-.my-toast > div {
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #333;
+.my-toast {
+  background-color: rgba(255, 107, 129, 0.9);
+  padding: 10px 20px;
+  color: #fff;
   border-radius: 3px;
 }`}</CommonHighlighter>
           </div>

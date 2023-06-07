@@ -29,7 +29,7 @@ export interface ToastOptions {
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
-  theme?: 'light' | 'dark';
+  theme?: 'light' | 'dark' | null;
   onClick?: ClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -90,7 +90,7 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
-  theme: 'dark',
+  theme: null,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
@@ -107,6 +107,11 @@ const isValidPosition = (position: ToastPosition): boolean => {
 };
 
 export const toastConfig = (options: ConfigArgs) => {
+  if (!isBrowser()) return;
+
+  if (options.theme) {
+    defaultOptions.theme = options.theme;
+  }
   if (options.time) {
     defaultOptions.time = options.time;
   }
@@ -210,6 +215,7 @@ const Toast = ({
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
     `toast-${theme}`,
+    className,
   ]
     .filter(Boolean)
     .join(' ');
@@ -225,7 +231,7 @@ const Toast = ({
       ref={messageDOM}
       className={`${styles['toast-message']} ${
         isEnter ? 'toast-enter-active' : ''
-      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
+      } ${isExit ? 'toast-exit-active' : ''}`}
     >
       {render ? (
         render(message)
@@ -364,6 +370,7 @@ function renderToast(
             clickable={clickable || clickClosable}
             position={position}
             render={render}
+            theme={theme}
             onClick={handleClick}
           />
         );

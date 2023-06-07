@@ -1,10 +1,9 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import styles from './layout.module.css';
 import logo from '../../assets/images/common/logo.png';
 import githubIcon from '../../assets/images/common/github-icon.png';
 import { AtLeast } from '../../type/utils';
-import { debounce } from '../../util/debounce';
 
 interface Props {
   children: ReactNode;
@@ -71,11 +70,36 @@ const MENU: Menu[] = [
   {
     name: 'Theme',
     path: '/theme',
+    children: [
+      {
+        name: 'Introduction',
+        hash: '#introduction',
+      },
+      {
+        name: 'Built-in Themes',
+        hash: '#built-in-themes',
+      },
+      {
+        name: 'Setting a Theme',
+        hash: '#setting-a-theme',
+      },
+      {
+        name: 'Custom Theme',
+        hash: '#custom-theme',
+      },
+      {
+        name: 'Contributing Theme',
+        hash: '#contributing-theme',
+      },
+    ],
+  },
+  {
+    name: 'Change Log',
+    path: '/change-log',
   },
 ];
 
 function Layout({ children }: Props) {
-  const navigate = useNavigate();
   const location = useLocation();
   const isScrollingProgrammaticallyRef = useRef(false);
 
@@ -98,26 +122,6 @@ function Layout({ children }: Props) {
       behavior: 'smooth',
     });
   }, [location.hash]);
-
-  useEffect(() => {
-    let accumulatedScrollY = 0;
-    const handleScroll = debounce(() => {
-      if (isScrollingProgrammaticallyRef.current) {
-        isScrollingProgrammaticallyRef.current = false;
-        return;
-      }
-
-      accumulatedScrollY += window.scrollY;
-      if (accumulatedScrollY > 200) {
-        navigate(location.pathname); // remove hash
-      }
-    }, 200);
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [location.pathname]);
 
   return (
     <>

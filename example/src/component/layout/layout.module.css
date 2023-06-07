@@ -70,6 +70,10 @@
   background-color: #f1f1f1;
 }
 
+.navigation > ul > li > :global(.active) {
+  font-weight: 700;
+}
+
 .navigation li {
   position: relative;
 }
