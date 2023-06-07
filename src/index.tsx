@@ -17,6 +17,13 @@ import { SET_TIMEOUT_MAX, ToastPosition as Position } from './lib/constants';
 type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 export type ToastPosition = (typeof Position)[keyof typeof Position];
 
+export const Themes = {
+  LIGHT: 'light',
+  DARK: 'dark',
+} as const;
+
+export type Theme = (typeof Themes)[keyof typeof Themes];
+
 export interface ToastOptions {
   /**
    * @deprecated The time option is deprecated. Use duration instead.
@@ -29,6 +36,7 @@ export interface ToastOptions {
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
+  theme?: Theme | null;
   onClick?: ClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -44,12 +52,13 @@ export interface ConfigArgs
     | 'position'
     | 'maxVisibleToasts'
     | 'render'
+    | 'theme'
   > {}
 
 export interface ToastProps
   extends Pick<
     ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'onClick'
+    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
   > {
   message: ReactNode;
   isExit?: boolean;
@@ -88,15 +97,16 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
+  theme: null,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
   const positionList = Object.values(Position);
   if (!positionList.includes(position)) {
     throw new Error(
-      `Invalid position value. Expected one of ${Object.values(
-        Position,
-      ).join(', ')} but got ${position}`,
+      `Invalid position value. Expected one of ${positionList.join(
+        ', ',
+      )} but got ${position}`,
     );
   }
 
@@ -104,6 +114,11 @@ const isValidPosition = (position: ToastPosition): boolean => {
 };
 
 export const toastConfig = (options: ConfigArgs) => {
+  if (!isBrowser()) return;
+
+  if (options.theme) {
+    defaultOptions.theme = options.theme;
+  }
   if (options.time) {
     defaultOptions.time = options.time;
   }
@@ -178,6 +193,7 @@ const Toast = ({
   position,
   isExit,
   render,
+  theme,
   onClick,
 }: ToastProps): ReactElement => {
   const messageDOM = useRef<HTMLDivElement>(null);
@@ -205,6 +221,8 @@ const Toast = ({
   const contentClassNames = [
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
+    `toast-${theme}`,
+    className,
   ]
     .filter(Boolean)
     .join(' ');
@@ -220,7 +238,7 @@ const Toast = ({
       ref={messageDOM}
       className={`${styles['toast-message']} ${
         isEnter ? 'toast-enter-active' : ''
-      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
+      } ${isExit ? 'toast-exit-active' : ''}`}
     >
       {render ? (
         render(message)
@@ -241,16 +259,12 @@ function closeToast(
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
   }
-  if (options.onCloseStart) {
-    options.onCloseStart();
-  }
+  options.onCloseStart?.();
   renderDOM();
 
   setTimeout(() => {
     toastComponentList = toastComponentList.filter((t) => t.id !== id);
-    if (options.onClose) {
-      options.onClose();
-    }
+    options.onClose?.();
     renderDOM();
   }, 300);
 }
@@ -277,6 +291,7 @@ function renderToast(
     position = defaultOptions.position,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     render = defaultOptions.render,
+    theme = defaultOptions.theme,
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
@@ -298,7 +313,7 @@ function renderToast(
       }
       closeToast(id, closeOptions);
     }
-    if (onClick) onClick(...args);
+    onClick?.(...args);
   };
 
   toastComponentList.push({
@@ -312,6 +327,7 @@ function renderToast(
         clickable={clickable || clickClosable}
         position={position}
         render={render}
+        theme={theme}
         onClick={handleClick}
       />
     ),
@@ -357,6 +373,7 @@ function renderToast(
             clickable={clickable || clickClosable}
             position={position}
             render={render}
+            theme={theme}
             onClick={handleClick}
           />
         );

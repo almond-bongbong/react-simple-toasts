@@ -14,16 +14,14 @@ describe('createToast', () => {
     await act(() => myToast(TOAST_TEXT));
 
     const toastElement = screen.getByText(TOAST_TEXT);
-    expect(toastElement.parentElement).toHaveClass(TOAST_CLASSNAME);
+    expect(toastElement).toHaveClass(TOAST_CLASSNAME);
 
     const TOAST_TEXT_2 = 'Hello Message 2';
     const TOAST_CLASSNAME_2 = 'my-toast-2';
     await act(() => myToast(TOAST_TEXT_2, { className: TOAST_CLASSNAME_2 }));
 
     const overridenClassnameToastElement = screen.getByText(TOAST_TEXT_2);
-    expect(overridenClassnameToastElement.parentElement).toHaveClass(
-      TOAST_CLASSNAME_2,
-    );
+    expect(overridenClassnameToastElement).toHaveClass(TOAST_CLASSNAME_2);
   });
 
   it('allows creating custom toast instances with specified durations and overriding duration', async () => {

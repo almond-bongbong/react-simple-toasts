@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dayjs": "^1.11.8",
     "prism-react-renderer": "^2.0.4",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",

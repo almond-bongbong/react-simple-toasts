@@ -64,7 +64,7 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { className: CLASSNAME }));
 
     const toastDOM = screen.getByText(TOAST_TEXT);
-    expect(toastDOM.parentElement).toHaveClass(CLASSNAME);
+    expect(toastDOM).toHaveClass(CLASSNAME);
   });
 
   it('closes the toast when clickClosable is true and toast is clicked', async () => {
@@ -160,5 +160,13 @@ describe('toast', () => {
 
     await act(() => toastInstance.update(NEW_TOAST_TEXT));
     expect(toastElement).toHaveTextContent(NEW_TOAST_TEXT);
+  });
+
+  it('...', async () => {
+    const TOAST_TEXT = 'message for theme';
+    await act(() => toast(TOAST_TEXT, { theme: 'light' }));
+    const toastElement = screen.getByText(TOAST_TEXT);
+
+    expect(toastElement).toHaveClass('toast-light');
   });
 });

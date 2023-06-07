@@ -4,6 +4,8 @@ import Root from './root';
 import Home from './page/home';
 import Api from './page/api';
 import Example from './page/example';
+import Theme from './page/theme';
+import ChangeLog from './page/change-log';
 
 const router = createBrowserRouter(
   [
@@ -26,6 +28,14 @@ const router = createBrowserRouter(
         {
           path: '/example',
           element: <Example />,
+        },
+        {
+          path: '/theme',
+          element: <Theme />,
+        },
+        {
+          path: '/change-log',
+          element: <ChangeLog />,
         },
       ],
     },

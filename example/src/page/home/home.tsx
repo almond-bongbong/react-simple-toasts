@@ -13,9 +13,7 @@ function Home() {
           toast notifications in your React applications.
         </p>
         <br />
-        <Button onClick={() => toast('Hello, World')}>
-          🍞 Try a Toast!
-        </Button>
+        <Button onClick={() => toast('Hello, World')}>🍞 Try a Toast!</Button>
       </section>
 
       <section className={styles.section}>

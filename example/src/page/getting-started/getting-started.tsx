@@ -1,5 +1,6 @@
 import React from 'react';
 import CommonHighlighter from '../../component/common-highlighter';
+import styles from './getting-started.module.css';
 
 function GettingStarted() {
   return (
@@ -19,11 +20,23 @@ yarn add react-simple-toasts`}</CommonHighlighter>
       </section>
       <section id="usage">
         <h2>🛠 Usage</h2>
-        <p>Here is a simple example of how to use React Simple Toasts:</p>
+        <p>
+          Here is a simple example of how to use React Simple Toasts.
+          <br />
+          As of version 4.0.0, a theme must be explicitly imported and set as a
+          configuration option. Without a specified theme, no styles will be
+          applied to the toast message.
+        </p>
         <br />
         <CommonHighlighter>
           {`import React from 'react';
-import toast from 'react-simple-toasts';
+import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css'; // import the desired theme
+
+// specify the theme in toastConfig
+toastConfig({
+  theme: 'dark',
+});
 
 function App() {
   return (
@@ -39,8 +52,9 @@ export default App;`}
         </CommonHighlighter>
         <br />
         <h3>🌟 Benefits of using React Simple Toasts:</h3>
-        <ul>
+        <ul className={styles.benefits}>
           <li>No need for Provider or any wrapper components.</li>
+          <li>Simple theme configuration with built-in styles.</li>
         </ul>
       </section>
     </div>
