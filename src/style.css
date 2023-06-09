@@ -2,16 +2,16 @@
   box-sizing: border-box;
 }
 .toast-message.bottom-left {
-  bottom: 20px;
+  bottom: 30px;
   left: 30px;
 }
 .toast-message.bottom-center {
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
 }
 .toast-message.bottom-right {
   right: 30px;
-  bottom: 20px;
+  bottom: 30px;
 }
 .toast-message.top-left {
   top: 30px;

@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import toast, { Toast, ToastPosition } from 'react-simple-toasts';
+import toast, { Toast, toastConfig, ToastPosition } from 'react-simple-toasts';
 import { Link } from 'react-router-dom';
 import styles from './example.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import MyMessage from '../../component/example/my-message';
+
+toastConfig({
+  duration: Infinity,
+});
 
 function Example() {
   const [position, setPosition] = useState<ToastPosition>('bottom-center');
