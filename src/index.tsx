@@ -106,8 +106,12 @@ function ToastContainer() {
     <>
       {toastComponentList.map((t) => {
         const bottomToasts = [];
-        for (let i = toastComponentList.length - 1; i >= 0; i--) {
-          const toast = toastComponentList[i];
+        const cloneToastComponentList = [...toastComponentList];
+
+        if (t.position.includes('top')) cloneToastComponentList.reverse();
+
+        for (let i = cloneToastComponentList.length - 1; i >= 0; i--) {
+          const toast = cloneToastComponentList[i];
           if (toast.id === t.id) break;
           if (toast.position === t.position && !toast.isExit) {
             bottomToasts.push({ id: toast.id, height: toast.height });
@@ -119,14 +123,12 @@ function ToastContainer() {
           return acc + (toast.height ?? 0) + MARGIN;
         }, 0);
 
-        const isFirstToast = toastComponentList[0]?.id === t.id;
         const offsetX =
           t.position.includes('left') || t.position.includes('right')
             ? '0%'
             : '-50%';
         const offsetYAlpha = t.position.includes('top') ? 1 : -1;
-        const exitOffsetY = t.isExit && isFirstToast ? 0 : 0;
-        const baseOffsetY = (bottomToastsHeight + exitOffsetY) * offsetYAlpha;
+        const baseOffsetY = bottomToastsHeight * offsetYAlpha;
         const offsetY =
           t.position === 'center'
             ? `calc(-50% - ${baseOffsetY * -1}px)`

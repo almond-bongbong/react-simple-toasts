@@ -16,8 +16,8 @@ export interface ToastMessageProps
   id: number;
   message: ReactNode;
   isExit?: boolean;
-  offsetX?: number;
-  offsetY?: number;
+  offsetX?: string;
+  offsetY?: string;
   zIndex?: number;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
@@ -38,13 +38,17 @@ function ToastMessage({
   _onEnter,
 }: ToastMessageProps): ReactElement {
   const messageDOM = useRef<HTMLDivElement>(null);
+  const isTopPosition = position?.includes('top');
   const [isEnter, setIsEnter] = useState(false);
-  const [messageStyle, setMessageStyle] = useState<React.CSSProperties>({});
+  const [messageStyle, setMessageStyle] = useState<React.CSSProperties>({
+    transform: `translate(${offsetX}, ${
+      isTopPosition ? parseInt(offsetY || '0') - 20 : 20
+    }px)`,
+  });
 
   useLayoutEffect(() => {
-    const transform = `translate(${offsetX}, ${offsetY})${
-      isExit ? ' scale(0.95)' : ''
-    }`;
+    const transform = `translate(${offsetX}, ${offsetY})`;
+
     setMessageStyle({
       zIndex,
       transform,
