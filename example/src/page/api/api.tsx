@@ -124,6 +124,17 @@ export function MyComponent() {
               <td>4.0.0</td>
             </tr>
             <tr>
+              <td>zIndex</td>
+              <td>
+                <code>number</code>
+              </td>
+              <td>
+                Sets the stack order of the toast. Higher values will render the
+                toast on top. Default is <code>1000</code>.
+              </td>
+              <td>5.0.0</td>
+            </tr>
+            <tr>
               <td>className</td>
               <td>
                 <code>string</code>
@@ -341,6 +352,17 @@ export function MyComponent() {
                 .
               </td>
               <td>4.0.0</td>
+            </tr>
+            <tr>
+              <td>zIndex</td>
+              <td>
+                <code>number</code>
+              </td>
+              <td>
+                Sets the stack order of the toast. Higher values will render the
+                toast on top. Default is <code>1000</code>.
+              </td>
+              <td>5.0.0</td>
             </tr>
             <tr>
               <td>className</td>

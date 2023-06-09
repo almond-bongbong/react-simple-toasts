@@ -43,6 +43,7 @@ const defaultOptions: Required<ConfigArgs> = {
   render: null,
   maxVisibleToasts: null,
   theme: null,
+  zIndex: null,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
@@ -84,6 +85,9 @@ export const toastConfig = (options: ConfigArgs) => {
   }
   if (options.maxVisibleToasts) {
     defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
+  }
+  if (options.zIndex) {
+    defaultOptions.zIndex = options.zIndex;
   }
 };
 
@@ -197,6 +201,7 @@ function renderToast(
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     render = defaultOptions.render,
     theme = defaultOptions.theme,
+    zIndex = defaultOptions.zIndex,
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
@@ -253,6 +258,7 @@ function renderToast(
         position={position}
         render={render}
         theme={theme}
+        zIndex={zIndex || undefined}
         onClick={handleClick}
       />
     ),

@@ -22,6 +22,7 @@ export interface ToastOptions {
   maxVisibleToasts?: number | null;
   render?: ((message: ReactNode) => ReactNode) | null;
   theme?: Theme | null;
+  zIndex?: number | null;
   onClick?: ToastClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -40,6 +41,7 @@ export interface ConfigArgs
     | 'maxVisibleToasts'
     | 'render'
     | 'theme'
+    | 'zIndex'
   > {}
 
 export interface Toast {

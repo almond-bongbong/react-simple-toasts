@@ -18,6 +18,7 @@ export interface ToastMessageProps
   isExit?: boolean;
   offsetX?: number;
   offsetY?: number;
+  zIndex?: number;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
 
@@ -32,6 +33,7 @@ function ToastMessage({
   theme,
   offsetX,
   offsetY,
+  zIndex,
   onClick,
   _onEnter,
 }: ToastMessageProps): ReactElement {
@@ -44,6 +46,7 @@ function ToastMessage({
       isExit ? ' scale(0.95)' : ''
     }`;
     setMessageStyle({
+      zIndex,
       transform,
       WebkitTransform: transform,
     });
