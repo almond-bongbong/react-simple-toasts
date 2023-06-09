@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import toast, { Toast, ToastPosition } from 'react-simple-toasts';
+import toast, { toastConfig, Toast, ToastPosition } from 'react-simple-toasts';
 import { Link } from 'react-router-dom';
 import styles from './example.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
@@ -257,11 +257,12 @@ export default function App() {
 
           <p className={styles.description}>
             The <code>position</code> prop determines the location on the screen
-            where the toast will appear. Available positions include "top-left",
-            "top-center", "top-right", "bottom-left", "bottom-center",
-            "bottom-right", and "center". This gives you the flexibility to
-            ensure that the toast doesn't interfere with other important UI
-            elements.
+            where the toast will appear. Available positions include{' '}
+            <code>'top-left'</code>,<code>'top-center'</code>,{' '}
+            <code>'top-right'</code>, <code>'bottom-left'</code>,{' '}
+            <code>'bottom-center'</code>,<code>'bottom-right'</code>, and{' '}
+            <code>'center'</code>. This gives you the flexibility to ensure that
+            the toast doesn't interfere with other important UI elements.
           </p>
 
           <div className={styles.playground}>
@@ -282,6 +283,7 @@ export default function App() {
               onClick={() =>
                 toast('Hello, World!', {
                   position,
+                  // duration: Infinity,
                 })
               }
             >

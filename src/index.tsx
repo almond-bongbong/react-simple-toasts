@@ -1,82 +1,27 @@
 import React, {
   cloneElement,
   Fragment,
-  ReactElement,
   ReactNode,
   SyntheticEvent,
-  useLayoutEffect,
-  useRef,
-  useState,
 } from 'react';
 import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser } from './lib/utils';
 import { SET_TIMEOUT_MAX, ToastPosition as Position } from './lib/constants';
+import {
+  ConfigArgs,
+  Theme,
+  Toast,
+  ToastClickHandler,
+  ToastComponent,
+  ToastEnterEvent,
+  ToastOptions,
+  ToastPosition,
+} from './type/common';
+import ToastMessage from './component/toast-message';
 
-type ClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
-export type ToastPosition = (typeof Position)[keyof typeof Position];
-
-export const Themes = {
-  LIGHT: 'light',
-  DARK: 'dark',
-} as const;
-
-export type Theme = (typeof Themes)[keyof typeof Themes];
-
-export interface ToastOptions {
-  /**
-   * @deprecated The time option is deprecated. Use duration instead.
-   */
-  time?: number;
-  duration?: number;
-  className?: string;
-  clickable?: boolean;
-  clickClosable?: boolean;
-  position?: ToastPosition;
-  maxVisibleToasts?: number | null;
-  render?: ((message: ReactNode) => ReactNode) | null;
-  theme?: Theme | null;
-  onClick?: ClickHandler;
-  onClose?: () => void;
-  onCloseStart?: () => void;
-}
-
-export interface ConfigArgs
-  extends Pick<
-    ToastOptions,
-    | 'time'
-    | 'duration'
-    | 'className'
-    | 'clickClosable'
-    | 'position'
-    | 'maxVisibleToasts'
-    | 'render'
-    | 'theme'
-  > {}
-
-export interface ToastProps
-  extends Pick<
-    ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
-  > {
-  message: ReactNode;
-  isExit?: boolean;
-}
-
-export interface Toast {
-  close: () => void;
-  updateDuration: (duration?: number) => void;
-  update: (message: ReactNode, duration?: number) => void;
-}
-
-let toastComponentList: {
-  id: number;
-  message: ReactNode;
-  position: ToastPosition;
-  component: ReactElement;
-  isExit?: boolean;
-}[] = [];
+let toastComponentList: ToastComponent[] = [];
 
 const init = () => {
   const toastContainer =
@@ -142,113 +87,73 @@ export const toastConfig = (options: ConfigArgs) => {
   }
 };
 
+function ToastContainer() {
+  const handleToastEnter = (t: ToastComponent, e: { height: number }) => {
+    toastComponentList.forEach((toast) => {
+      if (toast.id !== t.id) return;
+      toast.startCloseTimer();
+      toast.height = e.height;
+    });
+
+    renderDOM();
+  };
+
+  return (
+    <>
+      {toastComponentList.map((t) => {
+        const bottomToasts = [];
+        for (let i = toastComponentList.length - 1; i >= 0; i--) {
+          const toast = toastComponentList[i];
+          if (toast.id === t.id) break;
+          if (toast.position === t.position && !toast.isExit) {
+            bottomToasts.push({ id: toast.id, height: toast.height });
+          }
+        }
+
+        const bottomToastsHeight = bottomToasts.reduce((acc, toast) => {
+          const MARGIN = 10;
+          return acc + (toast.height ?? 0) + MARGIN;
+        }, 0);
+
+        const isFirstToast = toastComponentList[0]?.id === t.id;
+        const offsetX =
+          t.position.includes('left') || t.position.includes('right')
+            ? '0%'
+            : '-50%';
+        const offsetYAlpha = t.position.includes('top') ? 1 : -1;
+        const exitOffsetY = t.isExit && isFirstToast ? 0 : 0;
+        const baseOffsetY = (bottomToastsHeight + exitOffsetY) * offsetYAlpha;
+        const offsetY =
+          t.position === 'center'
+            ? `calc(-50% - ${baseOffsetY * -1}px)`
+            : `${baseOffsetY}px`;
+
+        return (
+          <Fragment key={t.id}>
+            {cloneElement(t.component, {
+              isExit: t.isExit,
+              offsetX,
+              offsetY,
+              _onEnter: (event: ToastEnterEvent) => handleToastEnter(t, event),
+            })}
+          </Fragment>
+        );
+      })}
+    </>
+  );
+}
+
 const renderDOM = () => {
   if (!isBrowser()) return;
   const toastContainer = document.getElementById(styles['toast_container']);
   if (!toastContainer) return;
 
-  const defaultToastList = Object.values(Position).reduce(
-    (acc, position) => ({
-      ...acc,
-      [position]: [],
-    }),
-    {},
-  );
-  const toastListByPosition = toastComponentList.reduce<
-    Record<string, typeof toastComponentList>
-  >((acc, toast) => {
-    acc[toast.position].push(toast);
-    return acc;
-  }, defaultToastList);
-
-  const toastListComponent = Object.entries(toastListByPosition).map(
-    ([position, toastsByPosition]) => (
-      <div
-        key={position}
-        className={`${styles['toast-list']} ${styles[position]}`}
-      >
-        {toastsByPosition.map((t) => (
-          <Fragment key={t.id}>
-            {cloneElement(t.component, {
-              isExit: t.isExit,
-            })}
-          </Fragment>
-        ))}
-      </div>
-    ),
-  );
-
-  reactRender(<>{toastListComponent}</>, toastContainer);
+  reactRender(<ToastContainer />, toastContainer);
 };
 
 export const clearToasts = () => {
   toastComponentList.forEach((toast) => (toast.isExit = true));
   renderDOM();
-};
-
-const Toast = ({
-  message,
-  className,
-  clickable,
-  position,
-  isExit,
-  render,
-  theme,
-  onClick,
-}: ToastProps): ReactElement => {
-  const messageDOM = useRef<HTMLDivElement>(null);
-  const [isEnter, setIsEnter] = useState(false);
-
-  useLayoutEffect(() => {
-    if (messageDOM.current && messageDOM.current.clientHeight) {
-      const height = messageDOM.current.clientHeight;
-      messageDOM.current.style.height = '0px';
-      setTimeout(() => {
-        if (messageDOM.current) messageDOM.current.style.height = `${height}px`;
-        setIsEnter(true);
-      }, 0);
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    const topOrCenter =
-      position && (position.indexOf('top') > -1 || position === 'center');
-    if (isExit && position && topOrCenter) {
-      if (messageDOM.current) messageDOM.current.style.height = '0px';
-    }
-  }, [isExit]);
-
-  const contentClassNames = [
-    styles['toast-content'],
-    clickable ? styles['clickable'] : '',
-    `toast-${theme}`,
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
-
-  const clickableProps = {
-    onClick,
-    tabIndex: 0,
-    role: 'button',
-  };
-
-  return (
-    <div
-      ref={messageDOM}
-      className={`${styles['toast-message']} ${
-        isEnter ? 'toast-enter-active' : ''
-      } ${isExit ? 'toast-exit-active' : ''}`}
-    >
-      {render ? (
-        render(message)
-      ) : (
-        <div className={contentClassNames} {...(clickable && clickableProps)}>
-          {message}
-        </div>
-      )}
-    </div>
-  );
 };
 
 function closeToast(
@@ -306,22 +211,42 @@ function renderToast(
 
   init();
 
-  const handleClick: ClickHandler = (...args) => {
+  const handleClick: ToastClickHandler = (
+    e: SyntheticEvent<HTMLDivElement>,
+  ) => {
     if (clickClosable) {
       if (closeTimer) {
         clearTimeout(closeTimer);
       }
       closeToast(id, closeOptions);
     }
-    onClick?.(...args);
+    onClick?.(e);
+  };
+
+  const startCloseTimer = (duration = durationTime, callback?: () => void) => {
+    if (duration > SET_TIMEOUT_MAX) return;
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+    }
+    closeTimer = window.setTimeout(() => {
+      closeToast(id, {
+        ...closeOptions,
+        onCloseStart: () => {
+          callback?.();
+          closeOptions.onClose?.();
+        },
+      });
+    }, duration);
   };
 
   toastComponentList.push({
     id,
     message,
     position,
+    startCloseTimer,
     component: (
-      <Toast
+      <ToastMessage
+        id={id}
         message={message}
         className={className}
         clickable={clickable || clickClosable}
@@ -345,18 +270,6 @@ function renderToast(
 
   renderDOM();
 
-  const startCloseTimer = (duration = durationTime) => {
-    if (duration > SET_TIMEOUT_MAX) return;
-    if (closeTimer) {
-      clearTimeout(closeTimer);
-    }
-    closeTimer = window.setTimeout(() => {
-      closeToast(id, closeOptions);
-    }, duration);
-  };
-
-  startCloseTimer();
-
   return {
     close: () => closeToast(id, closeOptions),
     updateDuration: (newDuration = durationTime) => {
@@ -367,7 +280,8 @@ function renderToast(
       if (toastComponentList[index]) {
         toastComponentList[index].message = newMessage;
         toastComponentList[index].component = (
-          <Toast
+          <ToastMessage
+            id={id}
             message={newMessage}
             className={className}
             clickable={clickable || clickClosable}
@@ -429,3 +343,13 @@ export const createToast = (
 };
 
 export default toast;
+
+export type {
+  ToastPosition,
+  Theme,
+  ToastClickHandler,
+  ToastOptions,
+  ConfigArgs,
+  Toast,
+  ToastComponent,
+};
