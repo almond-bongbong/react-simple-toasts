@@ -6,10 +6,6 @@ import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import MyMessage from '../../component/example/my-message';
 
-toastConfig({
-  duration: Infinity,
-});
-
 function Example() {
   const [position, setPosition] = useState<ToastPosition>('bottom-center');
   const [infiniteToast, setInfiniteToast] = useState<Toast | null>(null);
