@@ -40,10 +40,12 @@ function ToastMessage({
   const [messageStyle, setMessageStyle] = useState<React.CSSProperties>({});
 
   useLayoutEffect(() => {
+    const transform = `translate(${offsetX}, ${offsetY})${
+      isExit ? ' scale(0.95)' : ''
+    }`;
     setMessageStyle({
-      transform: `translate(${offsetX}, ${offsetY})${
-        isExit ? ' scale(0.95)' : ''
-      }`,
+      transform,
+      WebkitTransform: transform,
     });
   }, [offsetY, isExit]);
 

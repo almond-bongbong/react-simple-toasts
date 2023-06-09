@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
 
 import pkg from './package.json' assert { type: 'json' };
 
@@ -42,6 +43,7 @@ export default {
       modules: true,
       sourceMap: false,
       use: ['sass'],
+      plugins: [autoprefixer()],
     }),
   ],
 };

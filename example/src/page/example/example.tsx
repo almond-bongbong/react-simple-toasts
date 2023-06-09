@@ -283,7 +283,7 @@ export default function App() {
               onClick={() =>
                 toast('Hello, World!', {
                   position,
-                  // duration: Infinity,
+                  duration: Infinity,
                 })
               }
             >
