@@ -224,7 +224,7 @@ export default function App() {
         <ul className={styles.list}>
           <li>
             Add your theme name to the <code>Themes</code> constant in the{' '}
-            <a href="https://github.com/almond-bongbong/react-simple-toasts/blob/master/src/index.tsx#L20">
+            <a href="https://github.com/almond-bongbong/react-simple-toasts/blob/master/src/lib/constants.ts#L13">
               source code
             </a>
             . It should look something like this:
