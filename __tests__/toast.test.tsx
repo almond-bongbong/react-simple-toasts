@@ -162,11 +162,19 @@ describe('toast', () => {
     expect(toastElement).toHaveTextContent(NEW_TOAST_TEXT);
   });
 
-  it('...', async () => {
+  it('applies the specified theme to the toast', async () => {
     const TOAST_TEXT = 'message for theme';
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
     expect(toastElement).toHaveClass('toast-light');
+  });
+
+  it('applies the specified zIndex to the toast', async () => {
+    const TOAST_TEXT = 'message for zIndex';
+    await act(() => toast(TOAST_TEXT, { zIndex: 10 }));
+    const toastElement = screen.getByText(TOAST_TEXT);
+
+    expect(toastElement.parentElement).toHaveStyle('z-index: 10');
   });
 });
