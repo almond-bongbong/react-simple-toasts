@@ -30,8 +30,7 @@ export interface ToastOptions {
 
 export type ToastEnterEvent = { target: HTMLDivElement; height: number };
 
-export interface ConfigArgs
-  extends Pick<
+export type ConfigArgs = Pick<
     ToastOptions,
     | 'time'
     | 'duration'
@@ -42,7 +41,7 @@ export interface ConfigArgs
     | 'render'
     | 'theme'
     | 'zIndex'
-  > {}
+  >
 
 export interface Toast {
   close: () => void;

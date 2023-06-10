@@ -54,10 +54,10 @@ function ToastMessage({
       transform,
       WebkitTransform: transform,
     });
-  }, [offsetY, isExit]);
+  }, [offsetX, offsetY, zIndex]);
 
   useLayoutEffect(() => {
-    if (messageDOM.current?.clientHeight == null) return;
+    if (messageDOM.current?.clientHeight == null || isEnter) return;
 
     const height = messageDOM.current.clientHeight;
     if (messageDOM.current) {
@@ -68,7 +68,7 @@ function ToastMessage({
     }
 
     setIsEnter(true);
-  }, []);
+  }, [isEnter, _onEnter]);
 
   const messageClassNames = [
     styles['toast-message'],

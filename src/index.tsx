@@ -185,9 +185,9 @@ function renderToast(
   options?: ToastOptions & { toastInstanceId?: number },
 ): Toast {
   const dummyReturn = {
-    close: () => {},
-    updateDuration: () => {},
-    update: () => {},
+    close: () => null,
+    updateDuration: () => null,
+    update: () => null,
   };
   if (!isBrowser()) return dummyReturn;
 
