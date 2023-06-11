@@ -51,6 +51,12 @@ Import and call the toast function with a message to display:
 
 ```jsx
 import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css'; // import the desired theme
+
+// specify the theme in toastConfig
+toastConfig({
+  theme: 'dark',
+});
 
 function MyComponent() {
   return <button onClick={() => toast('Hello, world!')}>Display Toast</button>;

@@ -4,6 +4,8 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import eslint from '@rollup/plugin-eslint';
+import autoprefixer from 'autoprefixer';
 
 import pkg from './package.json' assert { type: 'json' };
 
@@ -24,6 +26,9 @@ export default {
     },
   ],
   plugins: [
+    eslint({
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+    }),
     peerDepsExternal(),
     nodeResolve({ extensions }),
     typescript({
@@ -42,6 +47,7 @@ export default {
       modules: true,
       sourceMap: false,
       use: ['sass'],
+      plugins: [autoprefixer()],
     }),
   ],
 };

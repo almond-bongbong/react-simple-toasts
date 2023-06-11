@@ -9,6 +9,9 @@ const config = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['./setupTests.js'],
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
 };
 
 module.exports = config;

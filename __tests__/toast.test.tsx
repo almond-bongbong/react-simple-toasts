@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import toast from '../src';
 
-const EXIT_ANIMATION_DURATION = 310;
+const EXIT_ANIMATION_DURATION = 320;
 
 describe('toast', () => {
   it('renders a toast when the show button is clicked', async () => {
@@ -84,7 +84,7 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { position: 'top-center' }));
     const toastDOM1 = screen.getByText(TOAST_TEXT);
 
-    expect(toastDOM1.closest('.toast-list')).toHaveClass('top-center');
+    expect(toastDOM1.parentElement).toHaveClass('top-center');
   });
 
   it('limits visible toasts based on maxVisibleToasts', async () => {
@@ -162,11 +162,19 @@ describe('toast', () => {
     expect(toastElement).toHaveTextContent(NEW_TOAST_TEXT);
   });
 
-  it('...', async () => {
+  it('applies the specified theme to the toast', async () => {
     const TOAST_TEXT = 'message for theme';
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
     expect(toastElement).toHaveClass('toast-light');
+  });
+
+  it('applies the specified zIndex to the toast', async () => {
+    const TOAST_TEXT = 'message for zIndex';
+    await act(() => toast(TOAST_TEXT, { zIndex: 10 }));
+    const toastElement = screen.getByText(TOAST_TEXT);
+
+    expect(toastElement.parentElement).toHaveStyle('z-index: 10');
   });
 });

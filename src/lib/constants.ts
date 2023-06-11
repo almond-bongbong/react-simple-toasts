@@ -9,3 +9,8 @@ export const ToastPosition = {
   TOP_RIGHT: 'top-right',
   CENTER: 'center',
 } as const;
+
+export const Themes = {
+  LIGHT: 'light',
+  DARK: 'dark',
+} as const;
