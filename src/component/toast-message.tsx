@@ -47,6 +47,8 @@ function ToastMessage({
   });
 
   useLayoutEffect(() => {
+    if (isExit) return;
+
     const transform = `translate(${offsetX}, ${offsetY})`;
 
     setMessageStyle({
@@ -54,7 +56,7 @@ function ToastMessage({
       transform,
       WebkitTransform: transform,
     });
-  }, [offsetX, offsetY, zIndex]);
+  }, [isExit, offsetX, offsetY, zIndex]);
 
   useLayoutEffect(() => {
     if (messageDOM.current?.clientHeight == null || isEnter) return;

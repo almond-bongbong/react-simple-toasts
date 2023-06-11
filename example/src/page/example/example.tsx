@@ -343,7 +343,7 @@ export default function App() {
             <Button
               onClick={() =>
                 toast('Hello, World!', {
-                  maxVisibleToasts: 1,
+                  maxVisibleToasts: 3,
                 })
               }
             >
@@ -355,7 +355,7 @@ export default function App() {
 
 export default function App() {
   return (
-    <button onClick={() => toast('Hello, World!', { maxVisibleToasts: 1 })}>
+    <button onClick={() => toast('Hello, World!', { maxVisibleToasts: 3 })}>
       Show Toast
     </button>
   );

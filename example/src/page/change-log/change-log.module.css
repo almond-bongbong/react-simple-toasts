@@ -18,3 +18,7 @@
   list-style: disc;
   font-size: 15px;
 }
+
+.features > li + li {
+  margin-top: 10px;
+}
