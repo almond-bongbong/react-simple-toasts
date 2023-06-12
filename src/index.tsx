@@ -35,7 +35,6 @@ const init = () => {
 };
 
 const defaultOptions: Required<ConfigArgs> = {
-  time: 3000,
   duration: 3000,
   className: '',
   position: 'bottom-center',
@@ -64,9 +63,6 @@ export const toastConfig = (options: ConfigArgs) => {
 
   if (options.theme) {
     defaultOptions.theme = options.theme;
-  }
-  if (options.time) {
-    defaultOptions.time = options.time;
   }
   if (options.duration) {
     defaultOptions.duration = options.duration;
@@ -190,11 +186,10 @@ function renderToast(
     update: () => null,
   };
   if (!isBrowser()) return dummyReturn;
-
+    
   let closeTimer: number;
   const id = createId();
   const {
-    time = undefined,
     duration,
     clickable = false,
     clickClosable = defaultOptions.clickClosable,
@@ -209,7 +204,7 @@ function renderToast(
     onCloseStart = undefined,
   } = options || {};
   const durationTime =
-    duration || time || defaultOptions.duration || defaultOptions.time;
+    duration ||  defaultOptions.duration;
   const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
@@ -322,9 +317,7 @@ function toast(
   return renderToast(message, options);
 }
 
-export const createToast = (
-  options: Omit<ConfigArgs, 'time'>,
-): typeof toast => {
+export const createToast = (options: ConfigArgs): typeof toast => {
   const toastInstanceId = createId();
 
   return (message, durationOrOptions) => {
