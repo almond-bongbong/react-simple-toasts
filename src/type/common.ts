@@ -20,7 +20,7 @@ export interface ToastOptions {
   clickClosable?: boolean;
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
-  reverse?: boolean;
+  isReversedOrder?: boolean;
   render?: ((message: ReactNode) => ReactNode) | null;
   theme?: Theme | null;
   zIndex?: number | null;
@@ -42,7 +42,7 @@ export type ConfigArgs = Pick<
   | 'render'
   | 'theme'
   | 'zIndex'
-  | 'reverse'
+  | 'isReversedOrder'
 >;
 
 export interface Toast {

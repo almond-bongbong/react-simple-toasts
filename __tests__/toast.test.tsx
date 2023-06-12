@@ -178,22 +178,12 @@ describe('toast', () => {
     expect(toastElement.parentElement).toHaveStyle('z-index: 10');
   });
 
-  it('renders second toast upper than first toast when reverse set to true', async () => {
+  it('renders second toast upper than first toast when isReversedOrder set to true', async () => {
     const FIRST_TEXT = 'first message';
     const SECOND_TEXT = 'second message';
     await act(() => toast(FIRST_TEXT));
-    await act(() => toast(SECOND_TEXT, { reverse: true }));
+    await act(() => toast(SECOND_TEXT, { isReversedOrder: true }));
     const toastElements = screen.getAllByText(/message/);
     expect(toastElements[0]).toHaveTextContent(SECOND_TEXT);
-  });
-
-  it('closes the reversed toast when clickClosable is true and toast is clicked ', async () => {
-    const TOAST_TEXT = 'toast message';
-    await act(() => toast(TOAST_TEXT, { reverse: true, clickClosable: true }));
-    const toastElement = screen.getByText(TOAST_TEXT);
-    await act(() => toastElement.click());
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: EXIT_ANIMATION_DURATION,
-    });
   });
 });

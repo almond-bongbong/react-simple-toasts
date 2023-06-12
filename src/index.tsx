@@ -26,7 +26,12 @@ let toastComponentList: ToastComponent[] = [];
 export interface ToastProps
   extends Pick<
     ToastOptions,
-    'className' | 'clickable' | 'position' | 'reverse' | 'render' | 'onClick'
+    | 'className'
+    | 'clickable'
+    | 'position'
+    | 'isReversedOrder'
+    | 'render'
+    | 'onClick'
   > {
   message: ReactNode;
   isExit?: boolean;
@@ -51,7 +56,7 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
-  reverse: false,
+  isReversedOrder: false,
   theme: null,
   zIndex: null,
 };
@@ -99,8 +104,8 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.zIndex) {
     defaultOptions.zIndex = options.zIndex;
   }
-  if (options.reverse) {
-    defaultOptions.reverse = options.reverse;
+  if (options.isReversedOrder) {
+    defaultOptions.isReversedOrder = options.isReversedOrder;
   }
 };
 
@@ -214,7 +219,7 @@ function renderToast(
     className = defaultOptions.className,
     position = defaultOptions.position,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
-    reverse = defaultOptions.reverse,
+    isReversedOrder = defaultOptions.isReversedOrder,
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
@@ -272,7 +277,7 @@ function renderToast(
         className={className}
         clickable={clickable || clickClosable}
         position={position}
-        reverse={reverse}
+        isReversedOrder={isReversedOrder}
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
@@ -280,7 +285,7 @@ function renderToast(
       />
     ),
   };
-  if (reverse) toastComponentList.unshift(newToastComponent);
+  if (isReversedOrder) toastComponentList.unshift(newToastComponent);
   else toastComponentList.push(newToastComponent);
 
   const visibleToastOffset =
@@ -312,7 +317,7 @@ function renderToast(
             className={className}
             clickable={clickable || clickClosable}
             position={position}
-            reverse={reverse}
+            isReversedOrder={isReversedOrder}
             render={render}
             theme={theme}
             onClick={handleClick}
