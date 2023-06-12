@@ -11,7 +11,13 @@ import { ToastEnterEvent, ToastOptions } from '../type/common';
 export interface ToastMessageProps
   extends Pick<
     ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
+    | 'className'
+    | 'clickable'
+    | 'position'
+    | 'render'
+    | 'theme'
+    | 'onClick'
+    | 'reverse'
   > {
   id: number;
   message: ReactNode;

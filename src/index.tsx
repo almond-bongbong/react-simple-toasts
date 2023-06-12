@@ -23,37 +23,6 @@ import ToastMessage from './component/toast-message';
 
 let toastComponentList: ToastComponent[] = [];
 
-export interface ToastOptions {
-  /**
-   * @deprecated The time option is deprecated. Use duration instead.
-   */
-  time?: number;
-  duration?: number;
-  className?: string;
-  clickable?: boolean;
-  clickClosable?: boolean;
-  position?: Position;
-  maxVisibleToasts?: number | null;
-  reverse?: boolean;
-  render?: ((message: ReactNode) => ReactNode) | null;
-  onClick?: ClickHandler;
-  onClose?: () => void;
-  onCloseStart?: () => void;
-}
-
-export interface ConfigArgs
-  extends Pick<
-    ToastOptions,
-    | 'time'
-    | 'duration'
-    | 'className'
-    | 'clickClosable'
-    | 'position'
-    | 'maxVisibleToasts'
-    | 'reverse'
-    | 'render'
-  > {}
-
 export interface ToastProps
   extends Pick<
     ToastOptions,
@@ -62,20 +31,6 @@ export interface ToastProps
   message: ReactNode;
   isExit?: boolean;
 }
-
-export interface Toast {
-  close: () => void;
-  updateDuration: (duration?: number) => void;
-  update: (message: ReactNode, duration?: number) => void;
-}
-
-let toastComponentList: {
-  id: number;
-  message: ReactNode;
-  position: Position;
-  component: ReactElement;
-  isExit?: boolean;
-}[] = [];
 
 const init = () => {
   const toastContainer =
@@ -218,69 +173,6 @@ const renderDOM = () => {
 export const clearToasts = () => {
   toastComponentList.forEach((toast) => (toast.isExit = true));
   renderDOM();
-};
-
-const Toast = ({
-  message,
-  className,
-  clickable,
-  position,
-  isExit,
-  reverse,
-  render,
-  onClick,
-}: ToastProps): ReactElement => {
-  const messageDOM = useRef<HTMLDivElement>(null);
-  const [isEnter, setIsEnter] = useState(false);
-
-  useLayoutEffect(() => {
-    if (messageDOM.current && messageDOM.current.clientHeight) {
-      const height = messageDOM.current.clientHeight;
-      messageDOM.current.style.height = '0px';
-      setTimeout(() => {
-        if (messageDOM.current) messageDOM.current.style.height = `${height}px`;
-        setIsEnter(true);
-      }, 0);
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    const topOrCenter =
-      position && (position.indexOf('top') > -1 || position === 'center');
-    if (isExit && position && (topOrCenter || reverse)) {
-      if (messageDOM.current) messageDOM.current.style.height = '0px';
-    }
-  }, [isExit]);
-
-  const contentClassNames = [
-    styles['toast-content'],
-    clickable ? styles['clickable'] : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-
-  const clickableProps = {
-    onClick,
-    tabIndex: 0,
-    role: 'button',
-  };
-
-  return (
-    <div
-      ref={messageDOM}
-      className={`${styles['toast-message']} ${
-        isEnter ? 'toast-enter-active' : ''
-      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
-    >
-      {render ? (
-        render(message)
-      ) : (
-        <div className={contentClassNames} {...(clickable && clickableProps)}>
-          {message}
-        </div>
-      )}
-    </div>
-  );
 };
 
 function closeToast(
