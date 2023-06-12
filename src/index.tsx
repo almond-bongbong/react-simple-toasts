@@ -260,9 +260,6 @@ function renderToast(
       />
     ),
   });
-  const visibleToastOffset =
-    maxVisibleToasts && toastComponentList.length - maxVisibleToasts;
-  if (visibleToastOffset) toastComponentList.slice(visibleToastOffset);
 
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
