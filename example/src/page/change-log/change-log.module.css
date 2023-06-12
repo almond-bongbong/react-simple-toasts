@@ -17,8 +17,14 @@
   padding-left: 20px;
   list-style: disc;
   font-size: 15px;
+  color: #666;
 }
 
 .features > li + li {
   margin-top: 10px;
+}
+
+.features strong {
+  font-weight: 400;
+  color: #000;
 }

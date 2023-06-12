@@ -186,7 +186,7 @@ function renderToast(
     update: () => null,
   };
   if (!isBrowser()) return dummyReturn;
-    
+
   let closeTimer: number;
   const id = createId();
   const {
