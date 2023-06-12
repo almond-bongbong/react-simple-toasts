@@ -23,6 +23,56 @@ import ToastMessage from './component/toast-message';
 
 let toastComponentList: ToastComponent[] = [];
 
+export interface ToastOptions {
+  /**
+   * @deprecated The time option is deprecated. Use duration instead.
+   */
+  duration?: number;
+  className?: string;
+  clickable?: boolean;
+  clickClosable?: boolean;
+  position?: Position;
+  maxVisibleToasts?: number | null;
+  render?: ((message: ReactNode) => ReactNode) | null;
+  onClick?: ClickHandler;
+  onClose?: () => void;
+  onCloseStart?: () => void;
+}
+
+export interface ConfigArgs
+  extends Pick<
+    ToastOptions,
+    | 'duration'
+    | 'className'
+    | 'clickClosable'
+    | 'position'
+    | 'maxVisibleToasts'
+    | 'render'
+  > {}
+
+export interface ToastProps
+  extends Pick<
+    ToastOptions,
+    'className' | 'clickable' | 'position' | 'render' | 'onClick'
+  > {
+  message: ReactNode;
+  isExit?: boolean;
+}
+
+export interface Toast {
+  close: () => void;
+  updateDuration: (duration?: number) => void;
+  update: (message: ReactNode, duration?: number) => void;
+}
+
+let toastComponentList: {
+  id: number;
+  message: ReactNode;
+  position: Position;
+  component: ReactElement;
+  isExit?: boolean;
+}[] = [];
+
 const init = () => {
   const toastContainer =
     isBrowser() && document.getElementById(styles['toast_container']);
@@ -35,7 +85,6 @@ const init = () => {
 };
 
 const defaultOptions: Required<ConfigArgs> = {
-  time: 3000,
   duration: 3000,
   className: '',
   position: 'bottom-center',
@@ -64,9 +113,6 @@ export const toastConfig = (options: ConfigArgs) => {
 
   if (options.theme) {
     defaultOptions.theme = options.theme;
-  }
-  if (options.time) {
-    defaultOptions.time = options.time;
   }
   if (options.duration) {
     defaultOptions.duration = options.duration;
@@ -190,11 +236,10 @@ function renderToast(
     update: () => null,
   };
   if (!isBrowser()) return dummyReturn;
-
+    
   let closeTimer: number;
   const id = createId();
   const {
-    time = undefined,
     duration,
     clickable = false,
     clickClosable = defaultOptions.clickClosable,
@@ -209,7 +254,7 @@ function renderToast(
     onCloseStart = undefined,
   } = options || {};
   const durationTime =
-    duration || time || defaultOptions.duration || defaultOptions.time;
+    duration ||  defaultOptions.duration;
   const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
@@ -322,9 +367,7 @@ function toast(
   return renderToast(message, options);
 }
 
-export const createToast = (
-  options: Omit<ConfigArgs, 'time'>,
-): typeof toast => {
+export const createToast = (options: ConfigArgs): typeof toast => {
   const toastInstanceId = createId();
 
   return (message, durationOrOptions) => {
