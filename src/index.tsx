@@ -23,56 +23,6 @@ import ToastMessage from './component/toast-message';
 
 let toastComponentList: ToastComponent[] = [];
 
-export interface ToastOptions {
-  /**
-   * @deprecated The time option is deprecated. Use duration instead.
-   */
-  duration?: number;
-  className?: string;
-  clickable?: boolean;
-  clickClosable?: boolean;
-  position?: Position;
-  maxVisibleToasts?: number | null;
-  render?: ((message: ReactNode) => ReactNode) | null;
-  onClick?: ClickHandler;
-  onClose?: () => void;
-  onCloseStart?: () => void;
-}
-
-export interface ConfigArgs
-  extends Pick<
-    ToastOptions,
-    | 'duration'
-    | 'className'
-    | 'clickClosable'
-    | 'position'
-    | 'maxVisibleToasts'
-    | 'render'
-  > {}
-
-export interface ToastProps
-  extends Pick<
-    ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'onClick'
-  > {
-  message: ReactNode;
-  isExit?: boolean;
-}
-
-export interface Toast {
-  close: () => void;
-  updateDuration: (duration?: number) => void;
-  update: (message: ReactNode, duration?: number) => void;
-}
-
-let toastComponentList: {
-  id: number;
-  message: ReactNode;
-  position: Position;
-  component: ReactElement;
-  isExit?: boolean;
-}[] = [];
-
 const init = () => {
   const toastContainer =
     isBrowser() && document.getElementById(styles['toast_container']);

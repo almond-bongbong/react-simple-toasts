@@ -10,10 +10,6 @@ export type ToastClickHandler = (
 ) => void | Promise<void>;
 
 export interface ToastOptions {
-  /**
-   * @deprecated The time option is deprecated. Use duration instead.
-   */
-  time?: number;
   duration?: number;
   className?: string;
   clickable?: boolean;
@@ -32,7 +28,6 @@ export type ToastEnterEvent = { target: HTMLDivElement; height: number };
 
 export type ConfigArgs = Pick<
     ToastOptions,
-    | 'time'
     | 'duration'
     | 'className'
     | 'clickClosable'
