@@ -104,7 +104,7 @@ function ToastMessage({
       style={messageStyle}
     >
       {render ? (
-        render(message)
+        <div {...(clickable && clickableProps)}>{render(message)}</div>
       ) : (
         <div className={contentClassNames} {...(clickable && clickableProps)}>
           {message}
