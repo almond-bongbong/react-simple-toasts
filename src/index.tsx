@@ -23,6 +23,60 @@ import ToastMessage from './component/toast-message';
 
 let toastComponentList: ToastComponent[] = [];
 
+export interface ToastOptions {
+  /**
+   * @deprecated The time option is deprecated. Use duration instead.
+   */
+  time?: number;
+  duration?: number;
+  className?: string;
+  clickable?: boolean;
+  clickClosable?: boolean;
+  position?: Position;
+  maxVisibleToasts?: number | null;
+  reverse?: boolean;
+  render?: ((message: ReactNode) => ReactNode) | null;
+  onClick?: ClickHandler;
+  onClose?: () => void;
+  onCloseStart?: () => void;
+}
+
+export interface ConfigArgs
+  extends Pick<
+    ToastOptions,
+    | 'time'
+    | 'duration'
+    | 'className'
+    | 'clickClosable'
+    | 'position'
+    | 'maxVisibleToasts'
+    | 'reverse'
+    | 'render'
+  > {}
+
+export interface ToastProps
+  extends Pick<
+    ToastOptions,
+    'className' | 'clickable' | 'position' | 'reverse' | 'render' | 'onClick'
+  > {
+  message: ReactNode;
+  isExit?: boolean;
+}
+
+export interface Toast {
+  close: () => void;
+  updateDuration: (duration?: number) => void;
+  update: (message: ReactNode, duration?: number) => void;
+}
+
+let toastComponentList: {
+  id: number;
+  message: ReactNode;
+  position: Position;
+  component: ReactElement;
+  isExit?: boolean;
+}[] = [];
+
 const init = () => {
   const toastContainer =
     isBrowser() && document.getElementById(styles['toast_container']);
@@ -42,6 +96,7 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
+  reverse: false,
   theme: null,
   zIndex: null,
 };
@@ -88,6 +143,9 @@ export const toastConfig = (options: ConfigArgs) => {
   }
   if (options.zIndex) {
     defaultOptions.zIndex = options.zIndex;
+  }
+  if (options.reverse) {
+    defaultOptions.reverse = options.reverse;
   }
 };
 
@@ -162,6 +220,69 @@ export const clearToasts = () => {
   renderDOM();
 };
 
+const Toast = ({
+  message,
+  className,
+  clickable,
+  position,
+  isExit,
+  reverse,
+  render,
+  onClick,
+}: ToastProps): ReactElement => {
+  const messageDOM = useRef<HTMLDivElement>(null);
+  const [isEnter, setIsEnter] = useState(false);
+
+  useLayoutEffect(() => {
+    if (messageDOM.current && messageDOM.current.clientHeight) {
+      const height = messageDOM.current.clientHeight;
+      messageDOM.current.style.height = '0px';
+      setTimeout(() => {
+        if (messageDOM.current) messageDOM.current.style.height = `${height}px`;
+        setIsEnter(true);
+      }, 0);
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const topOrCenter =
+      position && (position.indexOf('top') > -1 || position === 'center');
+    if (isExit && position && (topOrCenter || reverse)) {
+      if (messageDOM.current) messageDOM.current.style.height = '0px';
+    }
+  }, [isExit]);
+
+  const contentClassNames = [
+    styles['toast-content'],
+    clickable ? styles['clickable'] : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const clickableProps = {
+    onClick,
+    tabIndex: 0,
+    role: 'button',
+  };
+
+  return (
+    <div
+      ref={messageDOM}
+      className={`${styles['toast-message']} ${
+        isEnter ? 'toast-enter-active' : ''
+      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
+    >
+      {render ? (
+        render(message)
+      ) : (
+        <div className={contentClassNames} {...(clickable && clickableProps)}>
+          {message}
+        </div>
+      )}
+    </div>
+  );
+};
+
 function closeToast(
   id: number,
   options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>,
@@ -201,6 +322,7 @@ function renderToast(
     className = defaultOptions.className,
     position = defaultOptions.position,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
+    reverse = defaultOptions.reverse,
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
@@ -246,7 +368,7 @@ function renderToast(
     }, duration);
   };
 
-  toastComponentList.push({
+  const newToastComponent = {
     id,
     message,
     position,
@@ -258,13 +380,17 @@ function renderToast(
         className={className}
         clickable={clickable || clickClosable}
         position={position}
+        reverse={reverse}
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
         onClick={handleClick}
       />
     ),
-  });
+  };
+  if (reverse) toastComponentList.unshift(newToastComponent);
+  else toastComponentList.push(newToastComponent);
+
   const visibleToastOffset =
     maxVisibleToasts && toastComponentList.length - maxVisibleToasts;
   if (visibleToastOffset) toastComponentList.slice(visibleToastOffset);
@@ -294,6 +420,7 @@ function renderToast(
             className={className}
             clickable={clickable || clickClosable}
             position={position}
+            reverse={reverse}
             render={render}
             theme={theme}
             onClick={handleClick}
