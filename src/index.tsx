@@ -264,9 +264,7 @@ function renderToast(
         onClick={handleClick}
       />
     ),
-  };
-  if (reverse) toastComponentList.unshift(newToastComponent);
-  else toastComponentList.push(newToastComponent);
+  });
 
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
