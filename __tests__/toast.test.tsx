@@ -177,4 +177,19 @@ describe('toast', () => {
 
     expect(toastElement.parentElement).toHaveStyle('z-index: 10');
   });
+
+  it('closes the toast rendered with render option when clickClosable is true and toast is clicked ', async () => {
+    const TOAST_TEXT = 'toast message';
+    await act(() =>
+      toast(TOAST_TEXT, {
+        clickClosable: true,
+        render: (message) => <div>{message}</div>,
+      }),
+    );
+    const toastElement = screen.getByText(TOAST_TEXT);
+    await act(() => toastElement.click());
+    await waitForElementToBeRemoved(toastElement, {
+      timeout: EXIT_ANIMATION_DURATION,
+    });
+  });
 });
