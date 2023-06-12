@@ -23,20 +23,6 @@ import ToastMessage from './component/toast-message';
 
 let toastComponentList: ToastComponent[] = [];
 
-export interface ToastProps
-  extends Pick<
-    ToastOptions,
-    | 'className'
-    | 'clickable'
-    | 'position'
-    | 'isReversedOrder'
-    | 'render'
-    | 'onClick'
-  > {
-  message: ReactNode;
-  isExit?: boolean;
-}
-
 const init = () => {
   const toastContainer =
     isBrowser() && document.getElementById(styles['toast_container']);
