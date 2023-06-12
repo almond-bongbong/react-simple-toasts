@@ -162,6 +162,68 @@ export const clearToasts = () => {
   renderDOM();
 };
 
+const Toast = ({
+  message,
+  className,
+  clickable,
+  position,
+  isExit,
+  render,
+  onClick,
+}: ToastProps): ReactElement => {
+  const messageDOM = useRef<HTMLDivElement>(null);
+  const [isEnter, setIsEnter] = useState(false);
+
+  useLayoutEffect(() => {
+    if (messageDOM.current && messageDOM.current.clientHeight) {
+      const height = messageDOM.current.clientHeight;
+      messageDOM.current.style.height = '0px';
+      setTimeout(() => {
+        if (messageDOM.current) messageDOM.current.style.height = `${height}px`;
+        setIsEnter(true);
+      }, 0);
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const topOrCenter =
+      position && (position.indexOf('top') > -1 || position === 'center');
+    if (isExit && position && topOrCenter) {
+      if (messageDOM.current) messageDOM.current.style.height = '0px';
+    }
+  }, [isExit]);
+
+  const contentClassNames = [
+    styles['toast-content'],
+    clickable ? styles['clickable'] : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const clickableProps = {
+    onClick,
+    tabIndex: 0,
+    role: 'button',
+  };
+
+  return (
+    <div
+      ref={messageDOM}
+      className={`${styles['toast-message']} ${
+        isEnter ? 'toast-enter-active' : ''
+      } ${isExit ? 'toast-exit-active' : ''} ${className}`}
+    >
+      {render ? (
+        <div {...(clickable && clickableProps)}>{render(message)}</div>
+      ) : (
+        <div className={contentClassNames} {...(clickable && clickableProps)}>
+          {message}
+        </div>
+      )}
+    </div>
+  );
+};
+
 function closeToast(
   id: number,
   options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>,
