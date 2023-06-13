@@ -192,4 +192,13 @@ describe('toast', () => {
       timeout: EXIT_ANIMATION_DURATION,
     });
   });
+
+  it('renders second toast upper than first toast when isReversedOrder set to true', async () => {
+    const FIRST_TEXT = 'first message';
+    const SECOND_TEXT = 'second message';
+    await act(() => toast(FIRST_TEXT));
+    await act(() => toast(SECOND_TEXT, { isReversedOrder: true }));
+    const toastElements = screen.getAllByText(/message/);
+    expect(toastElements[0]).toHaveTextContent(SECOND_TEXT);
+  });
 });

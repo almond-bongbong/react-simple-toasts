@@ -41,6 +41,7 @@ const defaultOptions: Required<ConfigArgs> = {
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
+  isReversedOrder: false,
   theme: null,
   zIndex: null,
 };
@@ -84,6 +85,9 @@ export const toastConfig = (options: ConfigArgs) => {
   }
   if (options.zIndex) {
     defaultOptions.zIndex = options.zIndex;
+  }
+  if (options.isReversedOrder) {
+    defaultOptions.isReversedOrder = options.isReversedOrder;
   }
 };
 
@@ -196,6 +200,7 @@ function renderToast(
     className = defaultOptions.className,
     position = defaultOptions.position,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
+    isReversedOrder = defaultOptions.isReversedOrder,
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
@@ -203,8 +208,7 @@ function renderToast(
     onClose = undefined,
     onCloseStart = undefined,
   } = options || {};
-  const durationTime =
-    duration ||  defaultOptions.duration;
+  const durationTime = duration || defaultOptions.duration;
   const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
@@ -241,7 +245,7 @@ function renderToast(
     }, duration);
   };
 
-  toastComponentList.push({
+  const newToastComponent = {
     id,
     message,
     position,
@@ -253,13 +257,16 @@ function renderToast(
         className={className}
         clickable={clickable || clickClosable}
         position={position}
+        isReversedOrder={isReversedOrder}
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
         onClick={handleClick}
       />
     ),
-  });
+  };
+  if (isReversedOrder) toastComponentList.unshift(newToastComponent);
+  else toastComponentList.push(newToastComponent);
 
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
@@ -286,6 +293,7 @@ function renderToast(
             className={className}
             clickable={clickable || clickClosable}
             position={position}
+            isReversedOrder={isReversedOrder}
             render={render}
             theme={theme}
             onClick={handleClick}

@@ -16,6 +16,7 @@ export interface ToastOptions {
   clickClosable?: boolean;
   position?: ToastPosition;
   maxVisibleToasts?: number | null;
+  isReversedOrder?: boolean;
   render?: ((message: ReactNode) => ReactNode) | null;
   theme?: Theme | null;
   zIndex?: number | null;
@@ -27,16 +28,17 @@ export interface ToastOptions {
 export type ToastEnterEvent = { target: HTMLDivElement; height: number };
 
 export type ConfigArgs = Pick<
-    ToastOptions,
-    | 'duration'
-    | 'className'
-    | 'clickClosable'
-    | 'position'
-    | 'maxVisibleToasts'
-    | 'render'
-    | 'theme'
-    | 'zIndex'
-  >
+  ToastOptions,
+  | 'duration'
+  | 'className'
+  | 'clickClosable'
+  | 'position'
+  | 'maxVisibleToasts'
+  | 'render'
+  | 'theme'
+  | 'zIndex'
+  | 'isReversedOrder'
+>;
 
 export interface Toast {
   close: () => void;
