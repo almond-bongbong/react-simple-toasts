@@ -27,4 +27,5 @@
 .features strong {
   font-weight: 400;
   color: #000;
+  text-decoration: underline;
 }

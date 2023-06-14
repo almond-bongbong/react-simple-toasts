@@ -205,6 +205,17 @@ export function MyComponent() {
               <td></td>
             </tr>
             <tr>
+              <td>isReversedOrder</td>
+              <td>
+                <code>boolean</code>
+              </td>
+              <td>
+                A boolean value that determines whether the order of toast messages
+                will be reversed. Default is <code>false</code>.
+              </td>
+              <td>5.1.0</td>
+            </tr>
+            <tr>
               <td>onClick</td>
               <td>
                 <code>function</code>
@@ -422,6 +433,17 @@ export function MyComponent() {
                 <code>null</code>.
               </td>
               <td></td>
+            </tr>
+            <tr>
+              <td>isReversedOrder</td>
+              <td>
+                <code>boolean</code>
+              </td>
+              <td>
+                A boolean value that determines whether the order of toast messages
+                will be reversed. Default is <code>false</code>.
+              </td>
+              <td>5.1.0</td>
             </tr>
           </tbody>
         </table>

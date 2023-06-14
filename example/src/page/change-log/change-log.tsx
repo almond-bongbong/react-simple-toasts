@@ -15,6 +15,22 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.1.0</h3>
+        <div className={styles.date}>
+          {dayjs(1686740905761).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>isReversedOrder Option:</strong> A new{' '}
+            <code>isReversedOrder</code> option has been added. By setting this
+            option to true, the order of the displayed toasts will be reversed.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.0.1</h3>
         <div className={styles.date}>
           {dayjs(1686577466589).format('YYYY.MM.DD')}
@@ -24,15 +40,16 @@ function ChangeLog() {
         <ul className={styles.features}>
           <li>
             <strong>Remove deprecated time option:</strong> The previously
-            deprecated <code>time</code> option has been removed in this version for better
-            performance and efficiency.
+            deprecated <code>time</code> option has been removed in this version
+            for better performance and efficiency.
           </li>
         </ul>
         <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
         <ul className={styles.features}>
           <li>
             <strong>Clickable with Render option:</strong> Fixed a bug where
-            click options were not working when the <code>render</code> option was used.
+            click options were not working when the <code>render</code> option
+            was used.
           </li>
         </ul>
       </section>

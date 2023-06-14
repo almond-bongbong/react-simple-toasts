@@ -11,13 +11,7 @@ import { ToastEnterEvent, ToastOptions } from '../type/common';
 export interface ToastMessageProps
   extends Pick<
     ToastOptions,
-    | 'className'
-    | 'clickable'
-    | 'position'
-    | 'render'
-    | 'theme'
-    | 'onClick'
-    | 'isReversedOrder'
+    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
   > {
   id: number;
   message: ReactNode;
@@ -40,7 +34,6 @@ function ToastMessage({
   offsetX,
   offsetY,
   zIndex,
-  isReversedOrder,
   onClick,
   _onEnter,
 }: ToastMessageProps): ReactElement {
@@ -51,9 +44,7 @@ function ToastMessage({
     transform: `translate(${offsetX}, ${
       isTopPosition
         ? parseInt(offsetY || '0') - 20
-        : isReversedOrder
-        ? parseInt(offsetY || '0') + 20
-        : 20
+        : parseInt(offsetY || '0') + 20
     }px)`,
   });
 

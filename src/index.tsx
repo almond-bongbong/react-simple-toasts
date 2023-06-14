@@ -257,7 +257,6 @@ function renderToast(
         className={className}
         clickable={clickable || clickClosable}
         position={position}
-        isReversedOrder={isReversedOrder}
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
@@ -293,7 +292,6 @@ function renderToast(
             className={className}
             clickable={clickable || clickClosable}
             position={position}
-            isReversedOrder={isReversedOrder}
             render={render}
             theme={theme}
             onClick={handleClick}
