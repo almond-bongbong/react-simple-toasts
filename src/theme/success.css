@@ -3,6 +3,7 @@
   padding: 10px 20px;
   border-radius: 5px;
   background-color: #43a047;
+  box-shadow: 0 0 7px rgba(67, 160, 71, 0.5);
   color: #fff;
   text-align: center;
 }
