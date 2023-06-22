@@ -8,7 +8,11 @@ import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser } from './lib/utils';
-import { SET_TIMEOUT_MAX, ToastPosition as Position } from './lib/constants';
+import {
+  SET_TIMEOUT_MAX,
+  Themes,
+  ToastPosition as Position,
+} from './lib/constants';
 import {
   ConfigArgs,
   Theme,
@@ -347,6 +351,8 @@ export const createToast = (options: ConfigArgs): typeof toast => {
 };
 
 export default toast;
+
+export { Themes };
 
 export type {
   ToastPosition,
