@@ -77,6 +77,7 @@ function ToastMessage({
   const messageClassNames = [
     styles['toast-message'],
     styles[position || 'bottom-center'],
+    `toast-${theme}-wrapper`,
     isEnter ? 'toast-enter-active' : '',
     isExit ? 'toast-exit-active' : '',
   ]
