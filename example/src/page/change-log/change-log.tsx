@@ -15,6 +15,23 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.2.0</h3>
+        <div className={styles.date}>
+          {dayjs().format('YYYY.MM.DD')} {/* Assuming it's added today */}
+        </div>
+
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Added new themes: <code>success</code>,{' '}
+            <code>info</code>,<code>warning</code>, <code>failure</code>, and{' '}
+            <code>frosted-glass</code>. These themes provide additional ways to
+            customize the appearance of the toast notifications.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.1.0</h3>
         <div className={styles.date}>
           {dayjs(1686740905761).format('YYYY.MM.DD')}

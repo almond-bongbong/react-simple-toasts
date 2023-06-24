@@ -14,6 +14,8 @@ export const Themes = {
   DARK: 'dark',
   LIGHT: 'light',
   SUCCESS: 'success',
+  INFO: 'info',
+  WARNING: 'warning',
   FAILURE: 'failure',
   FROSTED_GLASS: 'frosted-glass',
 } as const;

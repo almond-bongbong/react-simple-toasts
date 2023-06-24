@@ -1,0 +1,9 @@
+.toast-warning {
+  min-width: 200px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #f0ad4e;
+  box-shadow: 0 0 7px rgba(240, 173, 78, 0.5);
+  color: #fff;
+  text-align: center;
+}
