@@ -17,17 +17,26 @@
 }
 
 .section {
-  flex: 1 0 50%;
+  flex: 1 0 33.333333%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-/*.section:nth-child(n + 3) {*/
-/*  border-top: 1px solid #eee;*/
-/*}*/
+.section:nth-child(2) {
+  background-color: #292929;
+}
 
-.section:nth-child(even) {
+.section:nth-child(3) {
+  background: url(https://cdn.pixabay.com/photo/2014/07/30/02/00/iceberg-404966_1280.jpg);
+  background-size: cover;
+}
+
+.section:nth-child(3n),
+.section:nth-child(3n - 1) {
   border-left: 1px solid #ddd;
+}
+.section:nth-child(n + 4) {
+  border-top: 1px solid #ddd;
 }

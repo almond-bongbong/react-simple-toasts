@@ -10,8 +10,21 @@ function Preview() {
       <div className={styles.section}>
         <iframe src="/preview/section?theme=light" />
       </div>
-      <div className={styles.section}>section3</div>
-      <div className={styles.section}>section4</div>
+      <div className={styles.section}>
+        <iframe src="/preview/section?theme=frosted-glass" />
+      </div>
+      <div className={styles.section}>
+        <iframe src="/preview/section?theme=success" />
+      </div>
+      <div className={styles.section}>
+        <iframe src="/preview/section?theme=info" />
+      </div>
+      <div className={styles.section}>
+        <iframe src="/preview/section?theme=warning" />
+      </div>
+      <div className={styles.section}>
+        <iframe src="/preview/section?theme=failure" />
+      </div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ function Section() {
     let count = 0;
 
     const intervalId = window.setInterval(() => {
-      toast('Hello World!', { theme });
+      toast(theme, { theme });
       count += 1;
 
       if (count === 3) {
