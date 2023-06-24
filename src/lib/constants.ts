@@ -11,6 +11,9 @@ export const ToastPosition = {
 } as const;
 
 export const Themes = {
-  LIGHT: 'light',
   DARK: 'dark',
+  LIGHT: 'light',
+  SUCCESS: 'success',
+  FAILURE: 'failure',
+  FROSTED_GLASS: 'frosted-glass',
 } as const;
