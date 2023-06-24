@@ -1,0 +1,9 @@
+.toast-failure {
+  min-width: 200px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #d32f2f;
+  box-shadow: 0 0 7px rgba(211, 47, 47, 0.5);
+  color: #fff;
+  text-align: center;
+}

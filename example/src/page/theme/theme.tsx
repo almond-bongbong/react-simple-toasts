@@ -2,10 +2,12 @@ import React, { Fragment } from 'react';
 import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import styles from './theme.module.css';
-import toast, { ToastOptions } from 'react-simple-toasts';
+import toast, { Themes, ToastOptions } from 'react-simple-toasts';
 import themes from '../../assets/themes.json';
 
 function Theme() {
+  const themeList = Object.values(Themes);
+
   return (
     <div>
       <section id="introduction">
@@ -42,7 +44,7 @@ export default function App() {
         <h2>🎁 Built-in Themes</h2>
         <p>
           react-simple-toasts comes with built-in themes:{' '}
-          {themes.map((theme) => (
+          {themeList.map((theme) => (
             <Fragment key={theme}>
               <code>'{theme}'</code>
               {theme !== themes[themes.length - 1] ? ', ' : ''}
@@ -54,7 +56,7 @@ export default function App() {
 
         <div className={styles.area}>
           <div className={styles.playground}>
-            {themes.map((theme) => (
+            {themeList.map((theme) => (
               <Button
                 key={theme}
                 onClick={() => {
@@ -69,14 +71,14 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-${themes
+${themeList
   .map((theme) => `import 'react-simple-toasts/dist/theme/${theme}.css';`)
   .join('\n')}
 
 export default function App() {
   return (
     <>
-      ${themes
+      ${themeList
         .map(
           (
             theme,
@@ -250,7 +252,6 @@ export const Themes = {
             Declare the <code>.toast-[name]</code> selector in your CSS file and
             apply your styles. The <code>[name]</code> should match the name of
             your theme.
-
             <div className={styles.code}>
               <CommonHighlighter language="css">{`/* /src/theme/some.css */
 
