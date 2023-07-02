@@ -15,9 +15,23 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.2.1</h3>
+        <div className={styles.date}>
+          {dayjs(1688257564385).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Fixed styling for center position:</strong> Fixed a bug where incorrect styles were displayed when position was set to center.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.2.0</h3>
         <div className={styles.date}>
-          {dayjs().format('YYYY.MM.DD')} {/* Assuming it's added today */}
+          {dayjs(1687592209000).format('YYYY.MM.DD')}
         </div>
 
         <h4 className={styles.sub_title}>🎉 New Features</h4>
