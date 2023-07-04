@@ -15,6 +15,7 @@
     "build": "rollup -c",
     "build:theme": "postcss src/theme/*.css -d dist/theme",
     "postbuild": "npm run build:theme",
+    "prestart": "npm run build:theme",
     "start": "rollup -c -w",
     "start:theme": "postcss src/theme/*.css -d dist/theme -w",
     "prepare": "npm run test",
