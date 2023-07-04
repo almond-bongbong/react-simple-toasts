@@ -60,7 +60,7 @@ export default function App() {
               <Button
                 key={theme}
                 onClick={() => {
-                  toast('Hello, World!', {
+                  toast(theme, {
                     theme: theme as ToastOptions['theme'],
                   });
                 }}
@@ -82,7 +82,7 @@ export default function App() {
         .map(
           (
             theme,
-          ) => `<button onClick={() => toast('Hello, World!', { theme: '${theme}' })}>
+          ) => `<button onClick={() => toast('Hello, World!', { theme: Themes.${theme.toUpperCase()} })}>
         ${theme}
       </button>`,
         )

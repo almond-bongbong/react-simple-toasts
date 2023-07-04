@@ -8,6 +8,7 @@
 .toast-message.bottom-center {
   bottom: 30px;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 .toast-message.bottom-right {
   right: 30px;
@@ -20,6 +21,7 @@
 .toast-message.top-center {
   top: 30px;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 .toast-message.top-right {
   top: 30px;
@@ -28,6 +30,7 @@
 .toast-message.center {
   top: 50%;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 .toast-message {
   opacity: 0;
