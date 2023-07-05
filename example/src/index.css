@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=block');
 
 :root {
   --basic-font-size: 17px;
@@ -22,16 +22,16 @@ body {
 body {
   margin: 0;
   padding: 0;
-  background-color: #fefefe;
+  background-color: #f7f7f7;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  color: #444;
+  color: #393e46;
   font-size: var(--basic-font-size);
   line-height: 1.5;
 }
 
 h1 {
-  font-family: 'Patrick Hand SC', cursive;
+  font-family: 'Moirai One', sans-serif;
 }
 
 a {

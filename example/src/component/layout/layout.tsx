@@ -129,7 +129,7 @@ function Layout({ children }: Props) {
         <h1>
           <Link to="/">
             <img src={logo} alt="logo" />
-            <span>React Simple Toasts</span>
+            <span>RST</span>
           </Link>
         </h1>
         <div className={styles.meta}>
