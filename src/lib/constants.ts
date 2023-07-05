@@ -17,5 +17,6 @@ export const Themes = {
   INFO: 'info',
   WARNING: 'warning',
   FAILURE: 'failure',
+  PLAIN: 'plain',
   FROSTED_GLASS: 'frosted-glass',
 } as const;
