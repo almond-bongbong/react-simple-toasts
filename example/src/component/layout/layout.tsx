@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import styles from './layout.module.css';
-import logo from '../../assets/images/common/logo.png';
 import githubIcon from '../../assets/images/common/github-icon.png';
 import { AtLeast } from '../../type/utils';
 
@@ -128,7 +127,6 @@ function Layout({ children }: Props) {
       <header className={styles.header}>
         <h1>
           <Link to="/">
-            <img src={logo} alt="logo" />
             <span>RST</span>
           </Link>
         </h1>

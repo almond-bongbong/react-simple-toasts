@@ -6,6 +6,8 @@ import Api from './page/api';
 import Example from './page/example';
 import Theme from './page/theme';
 import ChangeLog from './page/change-log';
+import Preview from './page/preview';
+import Section from './page/preview/section';
 
 const router = createBrowserRouter(
   [
@@ -38,6 +40,14 @@ const router = createBrowserRouter(
           element: <ChangeLog />,
         },
       ],
+    },
+    {
+      path: '/preview',
+      element: <Preview />,
+    },
+    {
+      path: '/preview/section',
+      element: <Section />,
     },
   ],
   {
