@@ -20,10 +20,6 @@
   height: 250px;
 }
 
-.section:nth-child(2) {
-  background-color: #292929;
-}
-
 .section:nth-child(3) {
   background: url(https://cdn.pixabay.com/photo/2014/07/30/02/00/iceberg-404966_1280.jpg);
   background-size: cover;

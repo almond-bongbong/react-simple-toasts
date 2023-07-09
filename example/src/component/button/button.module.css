@@ -2,11 +2,10 @@
   display: inline-block;
   padding: 11px 20px;
   outline: 0;
-  border: 1px solid #ccc;
+  border: 0;
   border-radius: 3px;
-  background-color: #fff;
-  box-shadow: 0 1px 1px 0 rgba(100, 100, 100, 0.2);
-  color: #555;
+  background-color: #0075f2;
+  color: #fff;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
@@ -14,7 +13,7 @@
 }
 
 .button:active {
-  background-color: #fafafa;
+  opacity: 0.9;
 }
 
 .button:disabled {

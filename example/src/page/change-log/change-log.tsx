@@ -15,6 +15,20 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.3.0</h3>
+        <div className={styles.date}>
+          {dayjs(1688884298301).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Added new themes: <code>plain</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.2.1</h3>
         <div className={styles.date}>
           {dayjs(1688257564385).format('YYYY.MM.DD')}
@@ -23,7 +37,9 @@ function ChangeLog() {
         <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Fixed styling for center position:</strong> Fixed a bug where incorrect styles were displayed when position was set to center.
+            <strong>Fixed styling for center position:</strong> Fixed a bug
+            where incorrect styles were displayed when position was set to
+            center.
           </li>
         </ul>
       </section>
@@ -39,8 +55,7 @@ function ChangeLog() {
           <li>
             <strong>New Themes:</strong> Added new themes: <code>success</code>,{' '}
             <code>info</code>,<code>warning</code>, <code>failure</code>, and{' '}
-            <code>frosted-glass</code>. These themes provide additional ways to
-            customize the appearance of the toast notifications.
+            <code>frosted-glass</code>.
           </li>
         </ul>
       </section>
