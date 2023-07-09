@@ -14,6 +14,9 @@ function Preview() {
         <iframe src="/preview/section?theme=frosted-glass" />
       </div>
       <div className={styles.section}>
+        <iframe src="/preview/section?theme=plain" />
+      </div>
+      <div className={styles.section}>
         <iframe src="/preview/section?theme=success" />
       </div>
       <div className={styles.section}>
@@ -25,6 +28,7 @@ function Preview() {
       <div className={styles.section}>
         <iframe src="/preview/section?theme=failure" />
       </div>
+      <div className={styles.section} />
     </div>
   );
 }

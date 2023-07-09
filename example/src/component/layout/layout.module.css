@@ -13,7 +13,7 @@
   left: 0;
   z-index: 100;
   padding: 17px 30px;
-  background-color: rgba(238, 238, 238, 0.9);
+  background-color: #fff;
   box-shadow: 0 0 3px 1px rgba(57, 62, 70, 0.3);
 }
 
@@ -26,7 +26,7 @@
   vertical-align: middle;
   font-size: 28px;
   line-height: 32px;
-  color: #393e46;
+  color: #0075f2;
 }
 
 .header h1 img {
@@ -47,7 +47,6 @@
   left: 0;
   width: 280px;
   padding: 20px;
-  background-color: #eeeeee;
 }
 
 .navigation a {
@@ -56,23 +55,15 @@
   padding: 10px;
 }
 
-.navigation a:hover {
-  background-color: #f1f1f1;
-}
-
-.navigation :global(.active) {
-  color: #393e46;
-}
-
 .navigation :global(.active):before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  top: 5px;
+  bottom: 5px;
+  right: -20px;
   z-index: -1;
-  background-color: #f1f1f1;
+  width: 2px;
+  background-color: #4ecdc4;
 }
 
 .navigation > ul > li > :global(.active) {

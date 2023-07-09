@@ -1,7 +1,5 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  overflow: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -12,16 +10,14 @@
 
 .container iframe {
   width: 100%;
-  height: 80%;
+  height: 100%;
   border: 0;
 }
 
 .section {
-  flex: 1 0 33.333333%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  float: left;
+  width: 33.3333333333%;
+  height: 250px;
 }
 
 .section:nth-child(2) {
@@ -33,10 +29,11 @@
   background-size: cover;
 }
 
-.section:nth-child(3n),
-.section:nth-child(3n - 1) {
-  border-left: 1px solid #ddd;
+.section:nth-child(3n + 1),
+.section:nth-child(3n + 2) {
+  border-right: 1px solid #ddd;
 }
+
 .section:nth-child(n + 4) {
   border-top: 1px solid #ddd;
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap');
 
 :root {
   --basic-font-size: 17px;
@@ -22,16 +22,16 @@ body {
 body {
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
+  background-color: #fff;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  color: #393e46;
+  color: #292f36;
   font-size: var(--basic-font-size);
   line-height: 1.5;
 }
 
 h1 {
-  font-family: 'Moirai One', sans-serif;
+  font-family: 'Sonsie One', sans-serif;
 }
 
 a {

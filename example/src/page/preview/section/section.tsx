@@ -19,7 +19,7 @@ function Section() {
       toast(theme, { theme });
       count += 1;
 
-      if (count === 3) {
+      if (count === 1) {
         window.clearInterval(intervalId);
       }
     }, 1000);
