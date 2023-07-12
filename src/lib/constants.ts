@@ -19,4 +19,5 @@ export const Themes = {
   FAILURE: 'failure',
   PLAIN: 'plain',
   FROSTED_GLASS: 'frosted-glass',
+  PINK_DAWN: 'pink-dawn',
 } as const;

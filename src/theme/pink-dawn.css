@@ -1,0 +1,9 @@
+.toast-pink-dawn {
+  min-width: 200px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #f686bd 50%, #fe5d9f 100%);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+}
