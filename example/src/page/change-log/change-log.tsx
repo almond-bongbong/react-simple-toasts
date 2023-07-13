@@ -15,12 +15,27 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.4.0</h3>
+        <div className={styles.date}>
+          {dayjs(1689196653355).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Added new themes:{' '}
+            <code>pink-dawn</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.3.0</h3>
         <div className={styles.date}>
           {dayjs(1688884298301).format('YYYY.MM.DD')}
         </div>
 
-        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
             <strong>New Themes:</strong> Added new themes: <code>plain</code>.
@@ -50,7 +65,7 @@ function ChangeLog() {
           {dayjs(1687592209000).format('YYYY.MM.DD')}
         </div>
 
-        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
             <strong>New Themes:</strong> Added new themes: <code>success</code>,{' '}
