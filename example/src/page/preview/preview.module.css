@@ -1,3 +1,8 @@
+.wrapper {
+  height: 100%;
+  background: linear-gradient(15deg, #a6c1ff, #ffffff 60%, #ffffff);
+}
+
 .container {
   overflow: hidden;
   position: absolute;
@@ -17,19 +22,5 @@
 .section {
   float: left;
   width: 33.3333333333%;
-  height: 250px;
-}
-
-.section:nth-child(3) {
-  background: url(https://cdn.pixabay.com/photo/2014/07/30/02/00/iceberg-404966_1280.jpg);
-  background-size: cover;
-}
-
-.section:nth-child(3n + 1),
-.section:nth-child(3n + 2) {
-  border-right: 1px solid #ddd;
-}
-
-.section:nth-child(n + 4) {
-  border-top: 1px solid #ddd;
+  height: 120px;
 }

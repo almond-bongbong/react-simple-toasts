@@ -47,7 +47,7 @@ export default function App() {
           {themeList.map((theme) => (
             <Fragment key={theme}>
               <code>'{theme}'</code>
-              {theme !== themes[themes.length - 1] ? ', ' : ''}
+              {theme !== themeList[themeList.length - 1] ? ', ' : ''}
             </Fragment>
           ))}
           . You can use these themes to quickly style your toasts. Here is how
@@ -56,21 +56,25 @@ export default function App() {
 
         <div className={styles.area}>
           <div className={styles.playground}>
-            {themeList.map((theme) => (
-              <Button
-                key={theme}
-                onClick={() => {
-                  toast('Hello, World!', {
-                    theme: theme as ToastOptions['theme'],
-                  });
-                }}
-              >
-                {theme}
-              </Button>
-            ))}
+            <div className={styles.button_list}>
+              {themeList.map((theme) => (
+                <div className={styles.button_item}>
+                  <Button
+                    key={theme}
+                    onClick={() => {
+                      toast('Hello, World!', {
+                        theme: theme as ToastOptions['theme'],
+                      });
+                    }}
+                  >
+                    {theme}
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast from 'react-simple-toasts';
+            <CommonHighlighter>{`import toast, { Themes } from 'react-simple-toasts';
 ${themeList
   .map((theme) => `import 'react-simple-toasts/dist/theme/${theme}.css';`)
   .join('\n')}
@@ -138,6 +142,7 @@ import 'react-simple-toasts/dist/theme/dark.css';
 toastConfig({
   theme: 'dark',
 });`}</CommonHighlighter>
+            <br />
             <br />
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
 

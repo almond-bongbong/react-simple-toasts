@@ -1,4 +1,5 @@
 .code {
+  overflow-x: auto;
   margin-top: 20px;
 }
 
@@ -23,4 +24,14 @@
 
 .description {
   margin-top: 20px;
+}
+
+.button_list {
+  margin: -4px;
+  font-size: 0;
+}
+
+.button_item {
+  display: inline-block;
+  padding: 4px;
 }

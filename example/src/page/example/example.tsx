@@ -541,6 +541,7 @@ export default function App() {
             <CommonHighlighter>{`import { createToast } from 'react-simple-toasts';
 
 const myToast = createToast({
+  className: 'my-toast',
   render: (message) => <MyMessage>{message}</MyMessage>,
 });
 
@@ -558,6 +559,7 @@ export default function App() {
             <CommonHighlighter>{`import toast, { toastConfig } from 'react-simple-toasts';
 
 toastConfig({
+  className: 'my-toast',
   render: (message) => <MyMessage>{message}</MyMessage>,
 });
 
