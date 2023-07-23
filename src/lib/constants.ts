@@ -20,4 +20,5 @@ export const Themes = {
   PLAIN: 'plain',
   FROSTED_GLASS: 'frosted-glass',
   PINK_DAWN: 'pink-dawn',
+  CHROMA: 'chroma',
 } as const;
