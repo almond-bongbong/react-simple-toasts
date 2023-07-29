@@ -10,6 +10,4 @@ toastConfig({
   theme: 'dark',
 });
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <App />,
-);
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<App />);

@@ -41,14 +41,12 @@ export default function App() {
             default: <code>3000</code>
           </div>
           <p className={styles.description}>
-            The <code>duration</code> option, in milliseconds, allows you to
-            control how long the toast message is displayed. There are two
-            different ways to set it as shown in the example.
+            The <code>duration</code> option, in milliseconds, allows you to control how long the
+            toast message is displayed. There are two different ways to set it as shown in the
+            example.
           </p>
           <div className={styles.playground}>
-            <Button onClick={() => toast('Hello, World!', 1000)}>
-              Show Toast
-            </Button>
+            <Button onClick={() => toast('Hello, World!', 1000)}>Show Toast</Button>
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
@@ -75,23 +73,16 @@ export default function App() {
             default: <code>undefined</code>
           </div>
           <p className={styles.description}>
-            The <code>theme</code> option in the toast configuration allows you
-            to apply different styles to your toasts. If no theme is specified,
-            no default styles will be applied. You need to import the CSS file
-            for the desired theme as shown in the code example below. For the
-            available themes, please refer to the <a href="/api">API page</a>.
+            The <code>theme</code> option in the toast configuration allows you to apply different
+            styles to your toasts. If no theme is specified, no default styles will be applied. You
+            need to import the CSS file for the desired theme as shown in the code example below.
+            For the available themes, please refer to the <a href="/api">API page</a>.
           </p>
           <div className={styles.playground}>
-            <Button onClick={() => toast('Hello, World!', { theme: null })}>
-              No theme
-            </Button>
+            <Button onClick={() => toast('Hello, World!', { theme: null })}>No theme</Button>
 
-            <Button onClick={() => toast('Hello, World!', { theme: 'dark' })}>
-              Dark Toast
-            </Button>
-            <Button onClick={() => toast('Hello, World!', { theme: 'light' })}>
-              Light Toast
-            </Button>
+            <Button onClick={() => toast('Hello, World!', { theme: 'dark' })}>Dark Toast</Button>
+            <Button onClick={() => toast('Hello, World!', { theme: 'light' })}>Light Toast</Button>
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
@@ -120,9 +111,9 @@ export default function App() {
             default: <code>undefined</code>
           </div>
           <p className={styles.description}>
-            The <code>className</code> option allows you to customize the style
-            of the toast message. You can provide your own CSS class name and
-            define the styles in your CSS file as shown in the example.
+            The <code>className</code> option allows you to customize the style of the toast
+            message. You can provide your own CSS class name and define the styles in your CSS file
+            as shown in the example.
           </p>
           <div className={styles.playground}>
             <Button
@@ -168,11 +159,10 @@ export default function App() {
           </div>
 
           <p className={styles.description}>
-            The <code>clickable</code> option allows you to make the toast
-            message interactive, meaning it can be clicked. Once{' '}
-            <code>clickable</code> is set to true, you can provide an{' '}
-            <code>onClick</code> handler to execute an action when the toast is
-            clicked, as demonstrated in the example.
+            The <code>clickable</code> option allows you to make the toast message interactive,
+            meaning it can be clicked. Once <code>clickable</code> is set to true, you can provide
+            an <code>onClick</code> handler to execute an action when the toast is clicked, as
+            demonstrated in the example.
           </p>
           <div className={styles.playground}>
             <Button
@@ -216,11 +206,10 @@ export default function App() {
           </div>
 
           <p className={styles.description}>
-            The <code>clickClosable</code> prop allows users to dismiss the
-            toast by clicking on it. When set to <code>true</code>, a click
-            anywhere on the toast message will close the toast. This provides an
-            additional, user-friendly way to dismiss toasts, beyond waiting for
-            them to automatically disappear.
+            The <code>clickClosable</code> prop allows users to dismiss the toast by clicking on it.
+            When set to <code>true</code>, a click anywhere on the toast message will close the
+            toast. This provides an additional, user-friendly way to dismiss toasts, beyond waiting
+            for them to automatically disappear.
           </p>
 
           <div className={styles.playground}>
@@ -256,13 +245,12 @@ export default function App() {
           </div>
 
           <p className={styles.description}>
-            The <code>position</code> prop determines the location on the screen
-            where the toast will appear. Available positions include{' '}
-            <code>'top-left'</code>,<code>'top-center'</code>,{' '}
-            <code>'top-right'</code>, <code>'bottom-left'</code>,{' '}
-            <code>'bottom-center'</code>,<code>'bottom-right'</code>, and{' '}
-            <code>'center'</code>. This gives you the flexibility to ensure that
-            the toast doesn't interfere with other important UI elements.
+            The <code>position</code> prop determines the location on the screen where the toast
+            will appear. Available positions include <code>'top-left'</code>,
+            <code>'top-center'</code>, <code>'top-right'</code>, <code>'bottom-left'</code>,{' '}
+            <code>'bottom-center'</code>,<code>'bottom-right'</code>, and <code>'center'</code>.
+            This gives you the flexibility to ensure that the toast doesn't interfere with other
+            important UI elements.
           </p>
 
           <div className={styles.playground}>
@@ -331,12 +319,11 @@ export default function App() {
           </div>
 
           <p className={styles.description}>
-            The <code>maxVisibleToasts</code> prop sets a limit to the number of
-            toasts that can be displayed on the screen at the same time. If more
-            toasts are triggered while the limit is reached, they will be queued
-            and displayed as older toasts disappear. This helps prevent a
-            scenario where a large number of toasts are displayed
-            simultaneously, potentially disrupting the user experience.
+            The <code>maxVisibleToasts</code> prop sets a limit to the number of toasts that can be
+            displayed on the screen at the same time. If more toasts are triggered while the limit
+            is reached, they will be queued and displayed as older toasts disappear. This helps
+            prevent a scenario where a large number of toasts are displayed simultaneously,
+            potentially disrupting the user experience.
           </p>
 
           <div className={styles.playground}>
@@ -373,13 +360,11 @@ export default function App() {
           <h3>Infinite Toast</h3>
 
           <p className={styles.description}>
-            If you want to create a toast notification that stays on the screen
-            indefinitely until manually closed, you can pass{' '}
-            <code>Infinity</code> as the duration. This will create an "infinite
-            toast". The example below shows how to create an infinite toast and
-            provide a button for manually closing it. This can be useful in
-            scenarios where you want to make sure a critical message is not
-            missed by the user.
+            If you want to create a toast notification that stays on the screen indefinitely until
+            manually closed, you can pass <code>Infinity</code> as the duration. This will create an
+            "infinite toast". The example below shows how to create an infinite toast and provide a
+            button for manually closing it. This can be useful in scenarios where you want to make
+            sure a critical message is not missed by the user.
           </p>
 
           <div className={styles.playground}>
@@ -433,12 +418,11 @@ export default function App() {
           <h3>Updating Toasts in Real-time</h3>
 
           <p className={styles.description}>
-            The example below demonstrates how to dynamically update the content
-            of a toast message in real-time. Here, a countdown timer is
-            implemented to show the remaining lifetime of the toast. It's
-            updated every 100 milliseconds until the toast is automatically
-            closed after 5 seconds. The <code>update</code> function of the
-            toast instance is used to accomplish this.
+            The example below demonstrates how to dynamically update the content of a toast message
+            in real-time. Here, a countdown timer is implemented to show the remaining lifetime of
+            the toast. It's updated every 100 milliseconds until the toast is automatically closed
+            after 5 seconds. The <code>update</code> function of the toast instance is used to
+            accomplish this.
           </p>
 
           <div className={styles.playground}>
@@ -447,10 +431,7 @@ export default function App() {
                 const toastCreatedAt = Date.now();
                 const updatableToast = toast('Toast will close in 5s', 5000);
                 setInterval(() => {
-                  const remainingTime = Math.max(
-                    0,
-                    5000 - (Date.now() - toastCreatedAt),
-                  );
+                  const remainingTime = Math.max(0, 5000 - (Date.now() - toastCreatedAt));
                   updatableToast?.update(
                     `Toast will close in ${(remainingTime / 1000).toFixed(1)}s`,
                   );
@@ -496,11 +477,10 @@ export default function App() {
             default: <code>undefined</code>
           </div>
           <p className={styles.description}>
-            The <code>render</code> prop allows you to fully customize the
-            content of the toast. You can return a JSX or a React component to
-            replace the default toast content. However, note that when this prop
-            is used, only the base animation applies and all default styles are
-            discarded.
+            The <code>render</code> prop allows you to fully customize the content of the toast. You
+            can return a JSX or a React component to replace the default toast content. However,
+            note that when this prop is used, only the base animation applies and all default styles
+            are discarded.
           </p>
           <div className={styles.playground}>
             <Button
@@ -531,9 +511,8 @@ export default function App() {
 }`}</CommonHighlighter>
           </div>
           <p className={styles.description}>
-            The <code>render</code> option is typically used with{' '}
-            <code>createToast</code> or <code>toastConfig</code> for creating
-            more complex and customizable toast notifications.
+            The <code>render</code> option is typically used with <code>createToast</code> or{' '}
+            <code>toastConfig</code> for creating more complex and customizable toast notifications.
           </p>
           <br />
           <h4>createToast</h4>
@@ -572,9 +551,8 @@ export default function App() {
 }`}</CommonHighlighter>
           </div>
           <p className={styles.description}>
-            For the differences between <code>createToast</code> and{' '}
-            <code>toastConfig</code>, please refer to the{' '}
-            <Link to="/api#toast-config">API documentation</Link>.
+            For the differences between <code>createToast</code> and <code>toastConfig</code>,
+            please refer to the <Link to="/api#toast-config">API documentation</Link>.
           </p>
         </div>
       </section>
