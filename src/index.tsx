@@ -174,7 +174,7 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
 
 function renderToast(
   message: ReactNode,
-  options?: ToastOptions & { toastInstanceId?: number } & ConfigArgs,
+  options?: ToastOptions & { toastInstanceId?: number } & { offsetX?: number; offsetY?: number },
 ): Toast {
   const dummyReturn = {
     close: () => null,

@@ -48,7 +48,7 @@ function ToastMessage({
     transform: `translate(${offsetX}, ${
       isCenterPosition
         ? 'calc(50% - 20px)'
-        : `${hasTopPosition ? parseInt(offsetY || '0') - 20 : parseInt(offsetY || '0') + 20}px`
+        : `${parseInt(offsetY || '0') + 20 * (hasTopPosition ? -1 : 1)}px`
     })`,
   });
 
@@ -59,8 +59,6 @@ function ToastMessage({
     hasCenterPosition || isCenterPosition ? '50%' : hasLeftPosition ? baseOffsetX : undefined;
 
   useLayoutEffect(() => {
-    if (isExit) return;
-
     const transform = `translate(${offsetX}, ${offsetY})`;
 
     setMessageStyle({
@@ -72,7 +70,7 @@ function ToastMessage({
       transform,
       WebkitTransform: transform,
     });
-  }, [isExit, offsetX, offsetY, zIndex, top, right, bottom, left]);
+  }, [offsetX, offsetY, zIndex, top, right, bottom, left]);
 
   useLayoutEffect(() => {
     if (messageDOM.current?.clientHeight == null || isEnter) return;
