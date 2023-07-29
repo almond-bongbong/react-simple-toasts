@@ -92,7 +92,7 @@ describe('createToast', () => {
     expect(onCloseStart2).not.toHaveBeenCalled();
   });
 
-  it('...', async () => {
+  it('applies offsetX and offsetY correctly for each toast position', async () => {
     const OFFSET = 50;
     const myToast = createToast({
       offsetX: OFFSET,
