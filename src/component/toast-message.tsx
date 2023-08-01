@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode, useLayoutEffect, useRef, useState } fro
 import styles from '../style.css';
 import { ToastEnterEvent, ToastOptions } from '../type/common';
 import { ToastPosition } from '../lib/constants';
+import moduleClassNames from '../theme/themes.json';
 
 export interface ToastMessageProps
   extends Pick<
@@ -89,7 +90,7 @@ function ToastMessage({
   const messageClassNames = [
     styles['toast-message'],
     styles[position || 'bottom-center'],
-    `toast-${theme}-wrapper`,
+    moduleClassNames[`toast-${theme}-wrapper`],
     isEnter ? 'toast-enter-active' : '',
     isExit ? 'toast-exit-active' : '',
   ]
@@ -99,7 +100,7 @@ function ToastMessage({
   const contentClassNames = [
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
-    `toast-${theme}`,
+    moduleClassNames[`toast-${theme}`],
     className,
   ]
     .filter(Boolean)
