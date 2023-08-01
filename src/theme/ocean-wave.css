@@ -1,0 +1,10 @@
+.toast-ocean-wave {
+  min-width: 200px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #1a237e;
+  background-image: radial-gradient(circle at top right, #64b5f6, #1a237e);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  text-align: center;
+}
