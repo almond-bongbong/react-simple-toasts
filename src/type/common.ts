@@ -5,9 +5,7 @@ export type ToastPosition = (typeof Position)[keyof typeof Position];
 
 export type Theme = (typeof Themes)[keyof typeof Themes];
 
-export type ToastClickHandler = (
-  e: SyntheticEvent<HTMLDivElement>,
-) => void | Promise<void>;
+export type ToastClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 
 export interface ToastOptions {
   duration?: number;
@@ -38,7 +36,10 @@ export type ConfigArgs = Pick<
   | 'theme'
   | 'zIndex'
   | 'isReversedOrder'
->;
+> & {
+  offsetX?: number;
+  offsetY?: number;
+};
 
 export interface Toast {
   close: () => void;

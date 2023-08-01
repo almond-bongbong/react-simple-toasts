@@ -1,18 +1,9 @@
-import React, {
-  cloneElement,
-  Fragment,
-  ReactNode,
-  SyntheticEvent,
-} from 'react';
+import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react';
 import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser } from './lib/utils';
-import {
-  SET_TIMEOUT_MAX,
-  Themes,
-  ToastPosition as Position,
-} from './lib/constants';
+import { SET_TIMEOUT_MAX, Themes, ToastPosition as Position } from './lib/constants';
 import {
   ConfigArgs,
   Theme,
@@ -28,8 +19,7 @@ import ToastMessage from './component/toast-message';
 let toastComponentList: ToastComponent[] = [];
 
 const init = () => {
-  const toastContainer =
-    isBrowser() && document.getElementById(styles['toast_container']);
+  const toastContainer = isBrowser() && document.getElementById(styles['toast_container']);
   if (isBrowser() && !toastContainer) {
     addRootElement(createElement(styles['toast_container']));
   }
@@ -42,6 +32,8 @@ const defaultOptions: Required<ConfigArgs> = {
   duration: 3000,
   className: '',
   position: 'bottom-center',
+  offsetX: 30,
+  offsetY: 30,
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
@@ -54,9 +46,7 @@ const isValidPosition = (position: ToastPosition): boolean => {
   const positionList = Object.values(Position);
   if (!positionList.includes(position)) {
     throw new Error(
-      `Invalid position value. Expected one of ${positionList.join(
-        ', ',
-      )} but got ${position}`,
+      `Invalid position value. Expected one of ${positionList.join(', ')} but got ${position}`,
     );
   }
 
@@ -93,6 +83,12 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.isReversedOrder) {
     defaultOptions.isReversedOrder = options.isReversedOrder;
   }
+  if (options.offsetX) {
+    defaultOptions.offsetX = options.offsetX;
+  }
+  if (options.offsetY) {
+    defaultOptions.offsetY = options.offsetY;
+  }
 };
 
 function ToastContainer() {
@@ -127,16 +123,11 @@ function ToastContainer() {
           return acc + (toast.height ?? 0) + MARGIN;
         }, 0);
 
-        const offsetX =
-          t.position.includes('left') || t.position.includes('right')
-            ? '0%'
-            : '-50%';
+        const offsetX = t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
         const offsetYAlpha = t.position.includes('top') ? 1 : -1;
         const baseOffsetY = bottomToastsHeight * offsetYAlpha;
         const offsetY =
-          t.position === 'center'
-            ? `calc(-50% - ${baseOffsetY * -1}px)`
-            : `${baseOffsetY}px`;
+          t.position === 'center' ? `calc(-50% - ${baseOffsetY * -1}px)` : `${baseOffsetY}px`;
 
         return (
           <Fragment key={t.id}>
@@ -166,10 +157,7 @@ export const clearToasts = () => {
   renderDOM();
 };
 
-function closeToast(
-  id: number,
-  options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>,
-) {
+function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>) {
   const index = toastComponentList.findIndex((t) => t.id === id);
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
@@ -186,7 +174,7 @@ function closeToast(
 
 function renderToast(
   message: ReactNode,
-  options?: ToastOptions & { toastInstanceId?: number },
+  options?: ToastOptions & { toastInstanceId?: number } & { offsetX?: number; offsetY?: number },
 ): Toast {
   const dummyReturn = {
     close: () => null,
@@ -203,6 +191,8 @@ function renderToast(
     clickClosable = defaultOptions.clickClosable,
     className = defaultOptions.className,
     position = defaultOptions.position,
+    offsetX = defaultOptions.offsetX,
+    offsetY = defaultOptions.offsetY,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     isReversedOrder = defaultOptions.isReversedOrder,
     render = defaultOptions.render,
@@ -221,9 +211,7 @@ function renderToast(
 
   init();
 
-  const handleClick: ToastClickHandler = (
-    e: SyntheticEvent<HTMLDivElement>,
-  ) => {
+  const handleClick: ToastClickHandler = (e: SyntheticEvent<HTMLDivElement>) => {
     if (clickClosable) {
       if (closeTimer) {
         clearTimeout(closeTimer);
@@ -261,6 +249,8 @@ function renderToast(
         className={className}
         clickable={clickable || clickClosable}
         position={position}
+        baseOffsetX={offsetX}
+        baseOffsetY={offsetY}
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
@@ -296,6 +286,8 @@ function renderToast(
             className={className}
             clickable={clickable || clickClosable}
             position={position}
+            baseOffsetX={offsetX}
+            baseOffsetY={offsetY}
             render={render}
             theme={theme}
             onClick={handleClick}
@@ -313,14 +305,9 @@ function renderToast(
 
 function toast(message: ReactNode, duration?: number): Toast;
 function toast(message: ReactNode, options?: ToastOptions): Toast;
-function toast(
-  message: ReactNode,
-  durationOrOptions?: number | ToastOptions,
-): Toast {
+function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): Toast {
   const options =
-    typeof durationOrOptions === 'number'
-      ? { duration: durationOrOptions }
-      : durationOrOptions;
+    typeof durationOrOptions === 'number' ? { duration: durationOrOptions } : durationOrOptions;
   return renderToast(message, options);
 }
 
@@ -334,10 +321,7 @@ export const createToast = (options: ConfigArgs): typeof toast => {
         duration: durationOrOptions || options.duration,
       });
     }
-    if (
-      durationOrOptions === undefined ||
-      typeof durationOrOptions === 'object'
-    ) {
+    if (durationOrOptions === undefined || typeof durationOrOptions === 'object') {
       const mergedOptions = {
         toastInstanceId,
         ...options,

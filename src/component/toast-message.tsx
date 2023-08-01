@@ -1,12 +1,7 @@
-import React, {
-  ReactElement,
-  ReactNode,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactElement, ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import styles from '../style.css';
 import { ToastEnterEvent, ToastOptions } from '../type/common';
+import { ToastPosition } from '../lib/constants';
 
 export interface ToastMessageProps
   extends Pick<
@@ -18,6 +13,8 @@ export interface ToastMessageProps
   isExit?: boolean;
   offsetX?: string;
   offsetY?: string;
+  baseOffsetX?: number;
+  baseOffsetY?: number;
   zIndex?: number;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
@@ -33,32 +30,47 @@ function ToastMessage({
   theme,
   offsetX,
   offsetY,
+  baseOffsetX,
+  baseOffsetY,
   zIndex,
   onClick,
   _onEnter,
 }: ToastMessageProps): ReactElement {
   const messageDOM = useRef<HTMLDivElement>(null);
-  const isTopPosition = position?.includes('top');
+  const hasTopPosition = position?.includes('top');
+  const hasBottomPosition = position?.includes('bottom');
+  const hasRightPosition = position?.includes('right');
+  const hasLeftPosition = position?.includes('left');
+  const hasCenterPosition = position?.includes('-center');
+  const isCenterPosition = position === ToastPosition.CENTER;
   const [isEnter, setIsEnter] = useState(false);
   const [messageStyle, setMessageStyle] = useState<React.CSSProperties>({
     transform: `translate(${offsetX}, ${
-      isTopPosition
-        ? parseInt(offsetY || '0') - 20
-        : parseInt(offsetY || '0') + 20
-    }px)`,
+      isCenterPosition
+        ? 'calc(50% - 20px)'
+        : `${parseInt(offsetY || '0') + 20 * (hasTopPosition ? -1 : 1)}px`
+    })`,
   });
 
-  useLayoutEffect(() => {
-    if (isExit) return;
+  const top = isCenterPosition ? '50%' : hasTopPosition ? baseOffsetY : undefined;
+  const bottom = hasBottomPosition ? baseOffsetY : undefined;
+  const right = hasRightPosition ? baseOffsetX : undefined;
+  const left =
+    hasCenterPosition || isCenterPosition ? '50%' : hasLeftPosition ? baseOffsetX : undefined;
 
+  useLayoutEffect(() => {
     const transform = `translate(${offsetX}, ${offsetY})`;
 
     setMessageStyle({
+      top,
+      right,
+      bottom,
+      left,
       zIndex,
       transform,
       WebkitTransform: transform,
     });
-  }, [isExit, offsetX, offsetY, zIndex]);
+  }, [offsetX, offsetY, zIndex, top, right, bottom, left]);
 
   useLayoutEffect(() => {
     if (messageDOM.current?.clientHeight == null || isEnter) return;
@@ -100,12 +112,7 @@ function ToastMessage({
   };
 
   return (
-    <div
-      ref={messageDOM}
-      id={id.toString()}
-      className={messageClassNames}
-      style={messageStyle}
-    >
+    <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle}>
       {render ? (
         <div {...(clickable && clickableProps)}>{render(message)}</div>
       ) : (

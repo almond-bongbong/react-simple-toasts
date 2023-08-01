@@ -91,4 +91,37 @@ describe('createToast', () => {
     overridenClickClosableToastElement.click();
     expect(onCloseStart2).not.toHaveBeenCalled();
   });
+
+  it('applies offsetX and offsetY correctly for each toast position', async () => {
+    const OFFSET = 50;
+    const myToast = createToast({
+      offsetX: OFFSET,
+      offsetY: OFFSET,
+    });
+
+    const positions = Object.values(ToastPosition);
+    for (const position of positions) {
+      const TOAST_TEXT = `message for position ${position}`;
+      await act(() => myToast(TOAST_TEXT, { position }));
+      const toastElement = screen.getByText(TOAST_TEXT);
+      const hasTop = position.includes('top');
+      const hasBottom = position.includes('bottom');
+      const hasLeft = position.includes('left');
+      const hasRight = position.includes('right');
+
+      if (position === ToastPosition.CENTER) {
+        expect(toastElement.parentElement).not.toHaveStyle({
+          top: expect.anything(),
+          bottom: expect.anything(),
+        });
+      } else {
+        expect(toastElement.parentElement).toHaveStyle({
+          ...(hasTop && { top: `${OFFSET}px` }),
+          ...(hasBottom && { bottom: `${OFFSET}px` }),
+          ...(hasLeft && { left: `${OFFSET}px` }),
+          ...(hasRight && { right: `${OFFSET}px` }),
+        });
+      }
+    }
+  });
 });
