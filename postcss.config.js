@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 
 const config = ({ env }) => {
   const isThemeEnv = env === 'theme';
@@ -12,16 +11,14 @@ const config = ({ env }) => {
       require('postcss-modules')({
         getJSON: (cssFileName, json) => {
           const path = require('path');
-          const jsonFileName = path.resolve('./src/theme/themes.json');
-          const savedJsonFile = fs.existsSync(jsonFileName)
-            ? fs.readFileSync(jsonFileName, 'utf8')
-            : null;
+          const jsonFile = path.resolve('./src/theme/themes.json');
+          const savedJsonFile = fs.existsSync(jsonFile) ? fs.readFileSync(jsonFile, 'utf8') : null;
           const savedJson = JSON.parse(savedJsonFile);
           const newJson = {
             ...savedJson,
             ...json,
           };
-          fs.writeFileSync(jsonFileName, JSON.stringify(newJson));
+          fs.writeFileSync(jsonFile, JSON.stringify(newJson));
         },
       }),
     ],
