@@ -6,6 +6,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
+import themeModuleClassNames from '../src/theme/themes.json';
 import toast from '../src';
 
 const EXIT_ANIMATION_DURATION = 320;
@@ -167,7 +168,7 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
-    expect(toastElement).toHaveClass('toast-light');
+    expect(toastElement).toHaveClass(themeModuleClassNames['toast-light']);
   });
 
   it('applies the specified zIndex to the toast', async () => {
