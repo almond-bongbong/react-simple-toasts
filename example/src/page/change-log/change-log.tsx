@@ -15,6 +15,50 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.6.0</h3>
+        <div className={styles.date}>
+          {dayjs(1690979544805).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Added new themes:{' '}
+            <code>blue-dusk</code>, <code>ocean-wave</code>.
+          </li>
+        </ul>
+
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Offset Options:</strong> Added new offset options: <code>offsetX</code> and <code>offsetY</code>. These options allow you to control the horizontal and vertical distance of the toast message from the edge of the viewport.
+          </li>
+        </ul>
+
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>CSS Modules for Theme classNames:</strong> CSS Modules have been applied to theme classNames. This allows for better local scoping of CSS by default and reduces the chance of globally scoped CSS interfering with the components.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
+        <h3>5.5.0</h3>
+        <div className={styles.date}>
+          {dayjs(1690070400000).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Added new themes:{' '}
+            <code>chroma</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.4.0</h3>
         <div className={styles.date}>
           {dayjs(1689196653355).format('YYYY.MM.DD')}
