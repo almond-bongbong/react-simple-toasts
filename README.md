@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/banner.png" alt="banner" style="width: 100%">
+  <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/banner.png" alt="banner" style="width: 100%">
 </p>
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts)
