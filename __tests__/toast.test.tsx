@@ -6,7 +6,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import themeModuleClassNames from '../src/theme/themes.json';
+import themeModuleClassNames from '../src/theme/theme-classnames.json';
 import toast from '../src';
 
 const EXIT_ANIMATION_DURATION = 320;

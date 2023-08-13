@@ -11,7 +11,7 @@ const config = ({ env }) => {
       require('postcss-modules')({
         getJSON: (cssFileName, json) => {
           const path = require('path');
-          const jsonFile = path.resolve('./src/theme/themes.json');
+          const jsonFile = path.resolve('./src/theme/theme-classnames.json');
           const savedJsonFile = fs.existsSync(jsonFile) ? fs.readFileSync(jsonFile, 'utf8') : null;
           const savedJson = JSON.parse(savedJsonFile);
           const newJson = {

@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useLayoutEffect, useRef, useState } fro
 import styles from '../style.css';
 import { ToastEnterEvent, ToastOptions } from '../type/common';
 import { ToastPosition } from '../lib/constants';
-import moduleClassNames from '../theme/themes.json';
+import moduleClassNames from '../theme/theme-classnames.json';
 
 export interface ToastMessageProps
   extends Pick<

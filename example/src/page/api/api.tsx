@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import styles from './api.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
-import themes from '../../assets/themes.json';
+import { Themes } from '../../../../src/lib/constants';
 
 function Api() {
+  const themes = Object.values(Themes);
+
   return (
     <div className={styles.apis}>
       <section id="toast">
