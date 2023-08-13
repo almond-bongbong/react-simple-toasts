@@ -3,7 +3,6 @@ import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import styles from './theme.module.css';
 import toast, { Themes, ToastOptions } from 'react-simple-toasts';
-import themes from '../../assets/themes.json';
 
 function Theme() {
   const themeList = Object.values(Themes);
