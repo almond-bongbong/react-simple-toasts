@@ -15,6 +15,30 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.6.1</h3>
+        <div className={styles.date}>
+          {dayjs(1690979544805).format('YYYY.MM.DD')}
+        </div>
+
+        <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Fixed Failed Tests:</strong> Resolved issues related to failing tests.
+          </li>
+        </ul>
+
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Build System Enhancement for Development:</strong> Improved the build system for a smoother development experience.
+          </li>
+          <li>
+            <strong>Code Cleanup:</strong> Removed unnecessary code for better maintainability and performance.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.6.0</h3>
         <div className={styles.date}>
           {dayjs(1690979544805).format('YYYY.MM.DD')}
