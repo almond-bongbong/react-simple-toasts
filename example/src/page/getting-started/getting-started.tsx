@@ -7,10 +7,7 @@ function GettingStarted() {
     <div>
       <section id="installation">
         <h2>📦 Installation</h2>
-        <p>
-          To get started with React Simple Toasts, install the package using npm
-          or yarn:
-        </p>
+        <p>To get started with React Simple Toasts, install the package using npm or yarn:</p>
         <br />
         <CommonHighlighter>{`// with npm
 npm install react-simple-toasts
@@ -23,9 +20,8 @@ yarn add react-simple-toasts`}</CommonHighlighter>
         <p>
           Here is a simple example of how to use React Simple Toasts.
           <br />
-          As of version 4.0.0, a theme must be explicitly imported and set as a
-          configuration option. Without a specified theme, no styles will be
-          applied to the toast message.
+          As of version 4.0.0, a theme must be explicitly imported and set as a configuration
+          option. Without a specified theme, no styles will be applied to the toast message.
         </p>
         <br />
         <CommonHighlighter>
@@ -50,7 +46,8 @@ function App() {
 
 export default App;`}
         </CommonHighlighter>
-        <br />
+      </section>
+      <section>
         <h3>🌟 Benefits of using React Simple Toasts:</h3>
         <ul className={styles.benefits}>
           <li>No need for Provider or any wrapper components.</li>
