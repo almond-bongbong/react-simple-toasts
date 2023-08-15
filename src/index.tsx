@@ -2,7 +2,7 @@ import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react'
 import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
-import { createId, isBrowser } from './lib/utils';
+import { createId, isBrowser, reverse } from './lib/utils';
 import { SET_TIMEOUT_MAX, Themes, ToastPosition as Position } from './lib/constants';
 import {
   ConfigArgs,
@@ -105,18 +105,14 @@ function ToastContainer() {
   return (
     <>
       {toastComponentList.map((t) => {
-        const bottomToasts = [];
-        const cloneToastComponentList = [...toastComponentList];
+        const toastComponents = t.position.includes('top')
+          ? reverse(toastComponentList)
+          : toastComponentList;
 
-        if (t.position.includes('top')) cloneToastComponentList.reverse();
-
-        for (let i = cloneToastComponentList.length - 1; i >= 0; i--) {
-          const toast = cloneToastComponentList[i];
-          if (toast.id === t.id) break;
-          if (toast.position === t.position && !toast.isExit) {
-            bottomToasts.push({ id: toast.id, height: toast.height });
-          }
-        }
+        const currentIndex = toastComponents.findIndex((toast) => toast.id === t.id);
+        const bottomToasts = toastComponents
+          .slice(currentIndex + 1)
+          .filter((toast) => toast.position === t.position && !toast.isExit);
 
         const bottomToastsHeight = bottomToasts.reduce((acc, toast) => {
           const MARGIN = 10;
