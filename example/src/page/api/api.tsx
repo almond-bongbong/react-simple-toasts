@@ -455,6 +455,16 @@ export function MyComponent() {
               </td>
               <td>5.6.0</td>
             </tr>
+            <tr>
+              <td>gap</td>
+              <td>
+                <code>number</code>
+              </td>
+              <td>
+                The vertical gap (in pixels) between consecutive toast messages. This value determines the vertical distance between toasts. Default is <code>10</code>.
+              </td>
+              <td>5.7.0</td>
+            </tr>
           </tbody>
         </table>
         <br />

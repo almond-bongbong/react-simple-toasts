@@ -65,11 +65,11 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.clickClosable) defaultOptions.clickClosable = options.clickClosable;
   if (options.render) defaultOptions.render = options.render;
   if (options.maxVisibleToasts) defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
-  if (options.zIndex) defaultOptions.zIndex = options.zIndex;
   if (options.isReversedOrder) defaultOptions.isReversedOrder = options.isReversedOrder;
-  if (options.offsetX) defaultOptions.offsetX = options.offsetX;
-  if (options.offsetY) defaultOptions.offsetY = options.offsetY;
-  if (options.gap) defaultOptions.gap = options.gap;
+  if (options.zIndex != null) defaultOptions.zIndex = options.zIndex;
+  if (options.offsetX != null) defaultOptions.offsetX = options.offsetX;
+  if (options.offsetY != null) defaultOptions.offsetY = options.offsetY;
+  if (options.gap != null) defaultOptions.gap = options.gap;
 };
 
 function ToastContainer() {
@@ -96,8 +96,7 @@ function ToastContainer() {
           .filter((toast) => toast.position === t.position && !toast.isExit);
 
         const bottomToastsHeight = bottomToasts.reduce((acc, toast) => {
-          const MARGIN = 10;
-          return acc + (toast.height ?? 0) + MARGIN;
+          return acc + (toast.height ?? 0) + t.gap;
         }, 0);
 
         const offsetX = t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
@@ -151,7 +150,12 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
 
 function renderToast(
   message: ReactNode,
-  options?: ToastOptions & { toastInstanceId?: number } & { offsetX?: number; offsetY?: number },
+  options?: ToastOptions & {
+    toastInstanceId?: number;
+    offsetX?: number;
+    offsetY?: number;
+    gap?: number;
+  },
 ): Toast {
   const dummyReturn = {
     close: () => null,
@@ -170,6 +174,7 @@ function renderToast(
     position = defaultOptions.position,
     offsetX = defaultOptions.offsetX,
     offsetY = defaultOptions.offsetY,
+    gap = defaultOptions.gap,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     isReversedOrder = defaultOptions.isReversedOrder,
     render = defaultOptions.render,
@@ -219,6 +224,7 @@ function renderToast(
     message,
     position,
     startCloseTimer,
+    gap,
     component: (
       <ToastMessage
         id={id}

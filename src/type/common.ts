@@ -55,5 +55,6 @@ export interface ToastComponent {
   component: ReactElement;
   isExit?: boolean;
   height?: number;
+  gap: number;
   startCloseTimer: (duration?: number, callback?: () => void) => void;
 }
