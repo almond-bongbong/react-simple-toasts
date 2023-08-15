@@ -2,7 +2,7 @@ import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react'
 import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
-import { createId, isBrowser } from './lib/utils';
+import { createId, isBrowser, reverse } from './lib/utils';
 import { SET_TIMEOUT_MAX, Themes, ToastPosition as Position } from './lib/constants';
 import {
   ConfigArgs,
@@ -34,6 +34,7 @@ const defaultOptions: Required<ConfigArgs> = {
   position: 'bottom-center',
   offsetX: 30,
   offsetY: 30,
+  gap: 10,
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
@@ -56,39 +57,19 @@ const isValidPosition = (position: ToastPosition): boolean => {
 export const toastConfig = (options: ConfigArgs) => {
   if (!isBrowser()) return;
 
-  if (options.theme) {
-    defaultOptions.theme = options.theme;
-  }
-  if (options.duration) {
-    defaultOptions.duration = options.duration;
-  }
-  if (options.className) {
-    defaultOptions.className = options.className;
-  }
-  if (options.position && isValidPosition(options.position)) {
+  if (options.theme) defaultOptions.theme = options.theme;
+  if (options.duration) defaultOptions.duration = options.duration;
+  if (options.className) defaultOptions.className = options.className;
+  if (options.position && isValidPosition(options.position))
     defaultOptions.position = options.position;
-  }
-  if (options.clickClosable) {
-    defaultOptions.clickClosable = options.clickClosable;
-  }
-  if (options.render) {
-    defaultOptions.render = options.render;
-  }
-  if (options.maxVisibleToasts) {
-    defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
-  }
-  if (options.zIndex) {
-    defaultOptions.zIndex = options.zIndex;
-  }
-  if (options.isReversedOrder) {
-    defaultOptions.isReversedOrder = options.isReversedOrder;
-  }
-  if (options.offsetX) {
-    defaultOptions.offsetX = options.offsetX;
-  }
-  if (options.offsetY) {
-    defaultOptions.offsetY = options.offsetY;
-  }
+  if (options.clickClosable) defaultOptions.clickClosable = options.clickClosable;
+  if (options.render) defaultOptions.render = options.render;
+  if (options.maxVisibleToasts) defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
+  if (options.isReversedOrder) defaultOptions.isReversedOrder = options.isReversedOrder;
+  if (options.zIndex != null) defaultOptions.zIndex = options.zIndex;
+  if (options.offsetX != null) defaultOptions.offsetX = options.offsetX;
+  if (options.offsetY != null) defaultOptions.offsetY = options.offsetY;
+  if (options.gap != null) defaultOptions.gap = options.gap;
 };
 
 function ToastContainer() {
@@ -105,22 +86,17 @@ function ToastContainer() {
   return (
     <>
       {toastComponentList.map((t) => {
-        const bottomToasts = [];
-        const cloneToastComponentList = [...toastComponentList];
+        const toastComponents = t.position.includes('top')
+          ? reverse(toastComponentList)
+          : toastComponentList;
 
-        if (t.position.includes('top')) cloneToastComponentList.reverse();
-
-        for (let i = cloneToastComponentList.length - 1; i >= 0; i--) {
-          const toast = cloneToastComponentList[i];
-          if (toast.id === t.id) break;
-          if (toast.position === t.position && !toast.isExit) {
-            bottomToasts.push({ id: toast.id, height: toast.height });
-          }
-        }
+        const currentIndex = toastComponents.findIndex((toast) => toast.id === t.id);
+        const bottomToasts = toastComponents
+          .slice(currentIndex + 1)
+          .filter((toast) => toast.position === t.position && !toast.isExit);
 
         const bottomToastsHeight = bottomToasts.reduce((acc, toast) => {
-          const MARGIN = 10;
-          return acc + (toast.height ?? 0) + MARGIN;
+          return acc + (toast.height ?? 0) + t.gap;
         }, 0);
 
         const offsetX = t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
@@ -174,7 +150,12 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
 
 function renderToast(
   message: ReactNode,
-  options?: ToastOptions & { toastInstanceId?: number } & { offsetX?: number; offsetY?: number },
+  options?: ToastOptions & {
+    toastInstanceId?: number;
+    offsetX?: number;
+    offsetY?: number;
+    gap?: number;
+  },
 ): Toast {
   const dummyReturn = {
     close: () => null,
@@ -193,6 +174,7 @@ function renderToast(
     position = defaultOptions.position,
     offsetX = defaultOptions.offsetX,
     offsetY = defaultOptions.offsetY,
+    gap = defaultOptions.gap,
     maxVisibleToasts = defaultOptions.maxVisibleToasts,
     isReversedOrder = defaultOptions.isReversedOrder,
     render = defaultOptions.render,
@@ -242,6 +224,7 @@ function renderToast(
     message,
     position,
     startCloseTimer,
+    gap,
     component: (
       <ToastMessage
         id={id}

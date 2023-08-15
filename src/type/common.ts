@@ -39,6 +39,7 @@ export type ConfigArgs = Pick<
 > & {
   offsetX?: number;
   offsetY?: number;
+  gap?: number;
 };
 
 export interface Toast {
@@ -54,5 +55,6 @@ export interface ToastComponent {
   component: ReactElement;
   isExit?: boolean;
   height?: number;
+  gap: number;
   startCloseTimer: (duration?: number, callback?: () => void) => void;
 }

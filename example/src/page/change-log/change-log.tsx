@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './change-log.module.css';
 import dayjs from 'dayjs';
+import styles from './change-log.module.css';
 
 function ChangeLog() {
   return (
@@ -8,17 +8,29 @@ function ChangeLog() {
       <section id="introduction">
         <h2>📚 Introduction</h2>
         <p>
-          This page provides information about the changes and updates made in
-          each version of react-simple-toasts. Please refer to this page for the
-          details of new features, improvements, and bug fixes in each version.
+          This page provides information about the changes and updates made in each version of
+          react-simple-toasts. Please refer to this page for the details of new features,
+          improvements, and bug fixes in each version.
         </p>
       </section>
 
       <section className={styles.new}>
+        <h3>5.7.0</h3>
+        <div className={styles.date}>{dayjs(1692063912987).format('YYYY.MM.DD')}</div>
+
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Gap Configuration Option:</strong> Added a new <code>gap</code> option that
+            allows you to control the distance between toast messages. This new feature provides
+            greater flexibility in customizing the appearance of the toasts.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.6.1</h3>
-        <div className={styles.date}>
-          {dayjs(1690979544805).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1690979544805).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
         <ul className={styles.features}>
@@ -30,78 +42,74 @@ function ChangeLog() {
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Build System Enhancement for Development:</strong> Improved the build system for a smoother development experience.
+            <strong>Build System Enhancement for Development:</strong> Improved the build system for
+            a smoother development experience.
           </li>
           <li>
-            <strong>Code Cleanup:</strong> Removed unnecessary code for better maintainability and performance.
+            <strong>Code Cleanup:</strong> Removed unnecessary code for better maintainability and
+            performance.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.6.0</h3>
-        <div className={styles.date}>
-          {dayjs(1690979544805).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1690979544805).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
-            <strong>New Themes:</strong> Added new themes:{' '}
-            <code>blue-dusk</code>, <code>ocean-wave</code>.
+            <strong>New Themes:</strong> Added new themes: <code>blue-dusk</code>,{' '}
+            <code>ocean-wave</code>.
           </li>
         </ul>
 
         <h4 className={styles.sub_title}>🎉 New Features</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Offset Options:</strong> Added new offset options: <code>offsetX</code> and <code>offsetY</code>. These options allow you to control the horizontal and vertical distance of the toast message from the edge of the viewport.
+            <strong>Offset Options:</strong> Added new offset options: <code>offsetX</code> and{' '}
+            <code>offsetY</code>. These options allow you to control the horizontal and vertical
+            distance of the toast message from the edge of the viewport.
           </li>
         </ul>
 
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
         <ul className={styles.features}>
           <li>
-            <strong>CSS Modules for Theme classNames:</strong> CSS Modules have been applied to theme classNames. This allows for better local scoping of CSS by default and reduces the chance of globally scoped CSS interfering with the components.
+            <strong>CSS Modules for Theme classNames:</strong> CSS Modules have been applied to
+            theme classNames. This allows for better local scoping of CSS by default and reduces the
+            chance of globally scoped CSS interfering with the components.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.5.0</h3>
-        <div className={styles.date}>
-          {dayjs(1690070400000).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1690070400000).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
-            <strong>New Themes:</strong> Added new themes:{' '}
-            <code>chroma</code>.
+            <strong>New Themes:</strong> Added new themes: <code>chroma</code>.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.4.0</h3>
-        <div className={styles.date}>
-          {dayjs(1689196653355).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1689196653355).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
-            <strong>New Themes:</strong> Added new themes:{' '}
-            <code>pink-dawn</code>.
+            <strong>New Themes:</strong> Added new themes: <code>pink-dawn</code>.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.3.0</h3>
-        <div className={styles.date}>
-          {dayjs(1688884298301).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1688884298301).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
@@ -113,118 +121,101 @@ function ChangeLog() {
 
       <section className={styles.new}>
         <h3>5.2.1</h3>
-        <div className={styles.date}>
-          {dayjs(1688257564385).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1688257564385).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Fixed styling for center position:</strong> Fixed a bug
-            where incorrect styles were displayed when position was set to
-            center.
+            <strong>Fixed styling for center position:</strong> Fixed a bug where incorrect styles
+            were displayed when position was set to center.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.2.0</h3>
-        <div className={styles.date}>
-          {dayjs(1687592209000).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1687592209000).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
         <ul className={styles.features}>
           <li>
-            <strong>New Themes:</strong> Added new themes: <code>success</code>,{' '}
-            <code>info</code>,<code>warning</code>, <code>failure</code>, and{' '}
-            <code>frosted-glass</code>.
+            <strong>New Themes:</strong> Added new themes: <code>success</code>, <code>info</code>,
+            <code>warning</code>, <code>failure</code>, and <code>frosted-glass</code>.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.1.0</h3>
-        <div className={styles.date}>
-          {dayjs(1686740905761).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1686740905761).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🎉 New Features</h4>
         <ul className={styles.features}>
           <li>
-            <strong>isReversedOrder Option:</strong> A new{' '}
-            <code>isReversedOrder</code> option has been added. By setting this
-            option to true, the order of the displayed toasts will be reversed.
+            <strong>isReversedOrder Option:</strong> A new <code>isReversedOrder</code> option has
+            been added. By setting this option to true, the order of the displayed toasts will be
+            reversed.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.0.1</h3>
-        <div className={styles.date}>
-          {dayjs(1686577466589).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1686577466589).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Remove deprecated time option:</strong> The previously
-            deprecated <code>time</code> option has been removed in this version
-            for better performance and efficiency.
+            <strong>Remove deprecated time option:</strong> The previously deprecated{' '}
+            <code>time</code> option has been removed in this version for better performance and
+            efficiency.
           </li>
         </ul>
         <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Clickable with Render option:</strong> Fixed a bug where
-            click options were not working when the <code>render</code> option
-            was used.
+            <strong>Clickable with Render option:</strong> Fixed a bug where click options were not
+            working when the <code>render</code> option was used.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>5.0.0</h3>
-        <div className={styles.date}>
-          {dayjs(1686444450563).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1686444450563).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🎉 New Features</h4>
         <ul className={styles.features}>
           <li>
-            <strong>zIndex Options:</strong> We have added zIndex options. You
-            can now set the css z-index property for individual toast messages
-            or for the entire message.
+            <strong>zIndex Options:</strong> We have added zIndex options. You can now set the css
+            z-index property for individual toast messages or for the entire message.
           </li>
         </ul>
 
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
         <ul className={styles.features}>
           <li>
-            <strong>HTML Structure of Toast Messages:</strong> We have improved
-            and refactored the HTML structure of the toast messages. This was
-            done for improved scalability with continuous updates.
+            <strong>HTML Structure of Toast Messages:</strong> We have improved and refactored the
+            HTML structure of the toast messages. This was done for improved scalability with
+            continuous updates.
           </li>
           <li>
-            <strong>Animation Simplification:</strong> We have streamlined the
-            overall animations. Particularly, the animation for toast messages
-            appearing from the top has been improved to be more UX-friendly.
+            <strong>Animation Simplification:</strong> We have streamlined the overall animations.
+            Particularly, the animation for toast messages appearing from the top has been improved
+            to be more UX-friendly.
           </li>
         </ul>
       </section>
 
       <section className={styles.new}>
         <h3>4.0.0</h3>
-        <div className={styles.date}>
-          {dayjs(1686100642000).format('YYYY.MM.DD')}
-        </div>
+        <div className={styles.date}>{dayjs(1686100642000).format('YYYY.MM.DD')}</div>
 
         <h4 className={styles.sub_title}>🎉 New Features</h4>
         <ul className={styles.features}>
           <li>
-            <strong>Theme Support:</strong> react-simple-toasts now supports
-            theming. You can use built-in themes ('dark' and 'light') or create
-            your own custom themes using CSS.
+            <strong>Theme Support:</strong> react-simple-toasts now supports theming. You can use
+            built-in themes ('dark' and 'light') or create your own custom themes using CSS.
           </li>
         </ul>
       </section>
