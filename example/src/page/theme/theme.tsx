@@ -12,9 +12,8 @@ function Theme() {
       <section id="introduction">
         <h2>📚 Introduction</h2>
         <p>
-          The theme functionality in react-simple-toasts allows for
-          customisation of toast appearances. No theme is applied by default
-          unless explicitly specified.
+          The theme functionality in react-simple-toasts allows for customisation of toast
+          appearances. No theme is applied by default unless explicitly specified.
         </p>
 
         <div className={styles.playground}>
@@ -49,17 +48,16 @@ export default function App() {
               {theme !== themeList[themeList.length - 1] ? ', ' : ''}
             </Fragment>
           ))}
-          . You can use these themes to quickly style your toasts. Here is how
-          you can use these themes:
+          . You can use these themes to quickly style your toasts. Here is how you can use these
+          themes:
         </p>
 
         <div className={styles.area}>
           <div className={styles.playground}>
             <div className={styles.button_list}>
               {themeList.map((theme) => (
-                <div className={styles.button_item}>
+                <div key={theme} className={styles.button_item}>
                   <Button
-                    key={theme}
                     onClick={() => {
                       toast('Hello, World!', {
                         theme: theme as ToastOptions['theme'],
@@ -74,9 +72,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast, { Themes } from 'react-simple-toasts';
-${themeList
-  .map((theme) => `import 'react-simple-toasts/dist/theme/${theme}.css';`)
-  .join('\n')}
+${themeList.map((theme) => `import 'react-simple-toasts/dist/theme/${theme}.css';`).join('\n')}
 
 export default function App() {
 
@@ -103,17 +99,12 @@ export default function App() {
 
       <section id="setting-a-theme">
         <h2>🎨 Setting a Theme</h2>
-        <p>
-          There are several ways to set a theme for your toasts. Here are some
-          examples:
-        </p>
+        <p>There are several ways to set a theme for your toasts. Here are some examples:</p>
         <br />
 
         <div className={styles.area}>
           <h3>Setting a theme in toast function</h3>
-          <p>
-            You can directly specify a theme when calling the toast function.
-          </p>
+          <p>You can directly specify a theme when calling the toast function.</p>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
@@ -130,10 +121,7 @@ export default function App() {
 
         <div className={styles.area}>
           <h3>Setting a global theme</h3>
-          <p>
-            You can set a global theme that will be used for all toasts by
-            default.
-          </p>
+          <p>You can set a global theme that will be used for all toasts by default.</p>
           <div className={styles.code}>
             <CommonHighlighter>{`// index.js
 import 'react-simple-toasts/dist/theme/dark.css';
@@ -158,8 +146,8 @@ export default function App() {
         <div className={styles.area}>
           <h3>Creating a themed toast function</h3>
           <p>
-            You can create a toast function with a specified theme that can be
-            used throughout your application.
+            You can create a toast function with a specified theme that can be used throughout your
+            application.
           </p>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
@@ -181,21 +169,16 @@ export default function App() {
       <section id="custom-theme">
         <h2>🛠 Custom Theme</h2>
         <p>
-          If the built-in themes do not suit your needs, you can easily create
-          your own custom theme. To do this, simply specify your own CSS class
-          by using the <code>className</code> property. You can apply this
-          property when calling the toast function, setting global
-          configurations, or creating a toast function. Here is an example of
-          how you can create a custom theme:
+          If the built-in themes do not suit your needs, you can easily create your own custom
+          theme. To do this, simply specify your own CSS class by using the <code>className</code>{' '}
+          property. You can apply this property when calling the toast function, setting global
+          configurations, or creating a toast function. Here is an example of how you can create a
+          custom theme:
         </p>
 
         <div className={styles.area}>
           <div className={styles.playground}>
-            <Button
-              onClick={() =>
-                toast('Hello, World!', { theme: null, className: 'my-toast' })
-              }
-            >
+            <Button onClick={() => toast('Hello, World!', { theme: null, className: 'my-toast' })}>
               Custom toast
             </Button>
           </div>
@@ -227,9 +210,8 @@ export default function App() {
       <section id="contributing-theme">
         <h2>🤝 Contributing Theme</h2>
         <p>
-          If you've created a theme that you believe would be beneficial to
-          others, you're welcome to contribute it to the react-simple-toasts
-          library. Here are the steps to do so:
+          If you've created a theme that you believe would be beneficial to others, you're welcome
+          to contribute it to the react-simple-toasts library. Here are the steps to do so:
         </p>
         <ul className={styles.list}>
           <li>
@@ -249,17 +231,15 @@ export const Themes = {
             <br />
           </li>
           <li>
-            Create a CSS file with the same name as your theme, and add it to
-            the{' '}
+            Create a CSS file with the same name as your theme, and add it to the{' '}
             <a href="https://github.com/almond-bongbong/react-simple-toasts/tree/master/src/theme">
               theme folder
             </a>
             .
           </li>
           <li>
-            Declare the <code>.toast-[name]</code> selector in your CSS file and
-            apply your styles. The <code>[name]</code> should match the name of
-            your theme.
+            Declare the <code>.toast-[name]</code> selector in your CSS file and apply your styles.
+            The <code>[name]</code> should match the name of your theme.
             <div className={styles.code}>
               <CommonHighlighter language="css">{`/* /src/theme/some.css */
 
@@ -270,8 +250,8 @@ export const Themes = {
           </li>
         </ul>
         <p className={styles.description}>
-          We appreciate your contributions and look forward to seeing your
-          creative and unique themes!
+          We appreciate your contributions and look forward to seeing your creative and unique
+          themes!
         </p>
       </section>
     </div>

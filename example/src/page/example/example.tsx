@@ -16,7 +16,7 @@ function Example() {
         <h2>🔬 Simple Example</h2>
         <p>Here's a simple example of how to use our package:</p>
         <br />
-        <div className={styles.area}>
+        <div id="basic-usage" className={styles.area}>
           <h3>Basic Usage</h3>
           <div className={styles.playground}>
             <Button onClick={() => toast('Hello, World!')}>Show Toast</Button>
@@ -34,7 +34,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="duration" className={styles.area}>
           <h3>Duration</h3>
 
           <div className={styles.default}>
@@ -66,7 +66,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="theme" className={styles.area}>
           <h3>Theme</h3>
 
           <div className={styles.default}>
@@ -104,7 +104,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="class-name" className={styles.area}>
           <h3>className</h3>
 
           <div className={styles.default}>
@@ -151,7 +151,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="clickable" className={styles.area}>
           <h3>clickable</h3>
 
           <div className={styles.default}>
@@ -198,7 +198,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="click-closable" className={styles.area}>
           <h3>clickClosable</h3>
 
           <div className={styles.default}>
@@ -237,7 +237,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="position" className={styles.area}>
           <h3>position</h3>
 
           <div className={styles.default}>
@@ -311,7 +311,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="max-visible" className={styles.area}>
           <h3>maxVisibleToasts</h3>
 
           <div className={styles.default}>
@@ -356,8 +356,8 @@ export default function App() {
         <p>This is a more advanced example with additional options:</p>
         <br />
 
-        <div className={styles.area}>
-          <h3>Infinite Toast</h3>
+        <div id="infinity-duration" className={styles.area}>
+          <h3>Infinity Duration</h3>
 
           <p className={styles.description}>
             If you want to create a toast notification that stays on the screen indefinitely until
@@ -366,6 +366,39 @@ export default function App() {
             button for manually closing it. This can be useful in scenarios where you want to make
             sure a critical message is not missed by the user.
           </p>
+
+          <br />
+          <h4>
+            With <code>clickClosable</code>
+          </h4>
+          <div className={styles.playground}>
+            <Button
+              onClick={() => toast('Hello, World!', { duration: Infinity, clickClosable: true })}
+            >
+              Show Toast
+            </Button>
+          </div>
+          <div className={styles.code}>
+            <CommonHighlighter>{`import toast, { Toast } from 'react-simple-toasts';
+
+export default function App() {
+  const handleShowClick = () => {
+    toast('Hello, World!', {
+      duration: Infinity,
+      clickClosable: true,
+    });
+  };
+
+  return (
+    <button onClick={handleShowClick}>
+      Show Toast
+    </button>
+  );
+}`}</CommonHighlighter>
+          </div>
+
+          <br />
+          <h4>Manual Control</h4>
 
           <div className={styles.playground}>
             <Button
@@ -391,7 +424,7 @@ export default function App() {
   const [infiniteToast, setInfiniteToast] = useState<Toast | null>(null);
 
   const handleShowClick = () => {
-    const infiniteToast = toast('Hello, World!', Infinity);
+    const infiniteToast = toast('Hello, World!', { duration: Infinity });
     setInfiniteToast(infiniteToast);
   };
 
@@ -402,10 +435,16 @@ export default function App() {
 
   return (
     <>
-      <button onClick={handleShowClick}>
+      <button
+        disabled={infiniteToast}
+        onClick={handleShowClick}
+      >
         Show Toast
       </button>
-      <button onClick={handleCloseClick}>
+      <button
+        disabled={!infiniteToast} 
+        onClick={handleCloseClick}
+      >
         Close Toast
       </button>
     </>
@@ -414,7 +453,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={styles.area}>
+        <div id="updating-toast" className={styles.area}>
           <h3>Updating Toasts in Real-time</h3>
 
           <p className={styles.description}>
@@ -448,11 +487,11 @@ export default function App() {
   const handleClick = () => {
     const DURATION = 5000;
     const toastCreatedAt = Date.now();
-    const updatableToast = toast('Toast will close in 5s', DURATION);
+    const myToast = toast('Toast will close in 5s', DURATION);
 
     setInterval(() => {
       const remainingTime = Math.max(0, DURATION - (Date.now() - toastCreatedAt));
-      updatableToast?.update(\`Toast will close in \${(remainingTime / 1000).toFixed(1)}s\`);
+      myToast.update(\`Toast will close in \${(remainingTime / 1000).toFixed(1)}s\`);
     }, 100);
   };
 
