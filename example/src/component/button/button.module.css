@@ -2,7 +2,7 @@
   display: inline-block;
   padding: 11px 20px;
   outline: 0;
-  border: 0;
+  border: 1px solid #0075f2;
   border-radius: 3px;
   background-color: #0075f2;
   color: #fff;

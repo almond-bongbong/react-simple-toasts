@@ -41,6 +41,7 @@
 }
 
 .navigation {
+  overflow-y: auto;
   position: fixed;
   top: var(--header-height);
   bottom: 0;
@@ -58,9 +59,9 @@
 .navigation :global(.active):before {
   content: '';
   position: absolute;
-  top: 5px;
-  bottom: 5px;
-  right: -20px;
+  top: 4px;
+  bottom: 4px;
+  right: -10px;
   z-index: -1;
   width: 2px;
   background-color: #4ecdc4;
@@ -79,8 +80,13 @@
 }
 
 .navigation li li :global(.active) {
-  color: #393e46;
-  background-color: transparent;
+  color: #000;
+}
+
+.navigation li li li a {
+  padding: 8px;
+  color: #666;
+  font-size: 14px;
 }
 
 .container {

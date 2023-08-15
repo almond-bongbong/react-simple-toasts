@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import styles from './layout.module.css';
 import githubIcon from '../../assets/images/common/github-icon.png';
 import { AtLeast } from '../../type/utils';
+import styles from './layout.module.css';
 
 interface Props {
   children: ReactNode;
@@ -35,15 +35,15 @@ const MENU: Menu[] = [
     path: '/api',
     children: [
       {
-        name: 'toast',
+        name: 'Toast',
         hash: '#toast',
       },
       {
-        name: 'createToast, toastConfig',
+        name: 'Toast Config',
         hash: '#toast-config',
       },
       {
-        name: 'clearToasts',
+        name: 'Clearing Toasts',
         hash: '#clear-toasts',
       },
     ],
@@ -55,10 +55,54 @@ const MENU: Menu[] = [
       {
         name: 'Simple Example',
         hash: '#simple-example',
+        children: [
+          {
+            name: 'Basic Usage',
+            hash: '#basic-usage',
+          },
+          {
+            name: 'Duration',
+            hash: '#duration',
+          },
+          {
+            name: 'Theme',
+            hash: '#theme',
+          },
+          {
+            name: 'Class Name',
+            hash: '#class-name',
+          },
+          {
+            name: 'Clickable',
+            hash: '#clickable',
+          },
+          {
+            name: 'Click Closable',
+            hash: '#click-closable',
+          },
+          {
+            name: 'Position',
+            hash: '#position',
+          },
+          {
+            name: 'Max Visible',
+            hash: '#max-visible',
+          },
+        ],
       },
       {
         name: 'Advanced Example',
         hash: '#advanced-example',
+        children: [
+          {
+            name: 'Infinity Duration',
+            hash: '#infinity-duration',
+          },
+          {
+            name: 'Updating Toast',
+            hash: '#updating-toast',
+          },
+        ],
       },
       {
         name: 'Custom Example',
@@ -113,7 +157,7 @@ function Layout({ children }: Props) {
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const positionY = target.getBoundingClientRect().top + scrollTop;
-    const topOffset = 100;
+    const topOffset = 80;
 
     isScrollingProgrammaticallyRef.current = true;
     window.scrollTo({
@@ -148,20 +192,31 @@ function Layout({ children }: Props) {
               {menu.children && (
                 <ul>
                   {menu.children.map((child) => {
-                    const link = child.path
-                      ? child.path
-                      : `${menu.path}${child.hash}`;
-                    const isActive =
-                      `${location.pathname}${location.hash}` === link;
+                    const link = child.path ? child.path : `${menu.path}${child.hash}`;
+                    const isActive = `${location.pathname}${location.hash}` === link;
 
                     return (
                       <li key={child.name}>
-                        <NavLink
-                          to={link}
-                          className={() => (isActive ? 'active' : '')}
-                        >
+                        <NavLink to={link} className={() => (isActive ? 'active' : '')}>
                           {child.name}
                         </NavLink>
+
+                        {child.children && (
+                          <ul>
+                            {child.children.map((grandChild) => {
+                              const link = `${menu.path}${grandChild.hash}`;
+                              const isActive = `${location.pathname}${location.hash}` === link;
+
+                              return (
+                                <li key={grandChild.name}>
+                                  <NavLink to={link} className={() => (isActive ? 'active' : '')}>
+                                    {grandChild.name}
+                                  </NavLink>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
                       </li>
                     );
                   })}
