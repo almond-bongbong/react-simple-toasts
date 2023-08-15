@@ -34,6 +34,7 @@ const defaultOptions: Required<ConfigArgs> = {
   position: 'bottom-center',
   offsetX: 30,
   offsetY: 30,
+  gap: 10,
   clickClosable: false,
   render: null,
   maxVisibleToasts: null,
@@ -56,39 +57,19 @@ const isValidPosition = (position: ToastPosition): boolean => {
 export const toastConfig = (options: ConfigArgs) => {
   if (!isBrowser()) return;
 
-  if (options.theme) {
-    defaultOptions.theme = options.theme;
-  }
-  if (options.duration) {
-    defaultOptions.duration = options.duration;
-  }
-  if (options.className) {
-    defaultOptions.className = options.className;
-  }
-  if (options.position && isValidPosition(options.position)) {
+  if (options.theme) defaultOptions.theme = options.theme;
+  if (options.duration) defaultOptions.duration = options.duration;
+  if (options.className) defaultOptions.className = options.className;
+  if (options.position && isValidPosition(options.position))
     defaultOptions.position = options.position;
-  }
-  if (options.clickClosable) {
-    defaultOptions.clickClosable = options.clickClosable;
-  }
-  if (options.render) {
-    defaultOptions.render = options.render;
-  }
-  if (options.maxVisibleToasts) {
-    defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
-  }
-  if (options.zIndex) {
-    defaultOptions.zIndex = options.zIndex;
-  }
-  if (options.isReversedOrder) {
-    defaultOptions.isReversedOrder = options.isReversedOrder;
-  }
-  if (options.offsetX) {
-    defaultOptions.offsetX = options.offsetX;
-  }
-  if (options.offsetY) {
-    defaultOptions.offsetY = options.offsetY;
-  }
+  if (options.clickClosable) defaultOptions.clickClosable = options.clickClosable;
+  if (options.render) defaultOptions.render = options.render;
+  if (options.maxVisibleToasts) defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
+  if (options.zIndex) defaultOptions.zIndex = options.zIndex;
+  if (options.isReversedOrder) defaultOptions.isReversedOrder = options.isReversedOrder;
+  if (options.offsetX) defaultOptions.offsetX = options.offsetX;
+  if (options.offsetY) defaultOptions.offsetY = options.offsetY;
+  if (options.gap) defaultOptions.gap = options.gap;
 };
 
 function ToastContainer() {

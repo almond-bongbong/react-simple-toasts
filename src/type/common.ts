@@ -39,6 +39,7 @@ export type ConfigArgs = Pick<
 > & {
   offsetX?: number;
   offsetY?: number;
+  gap?: number;
 };
 
 export interface Toast {
