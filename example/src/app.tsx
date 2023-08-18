@@ -8,6 +8,7 @@ import Theme from './page/theme';
 import ChangeLog from './page/change-log';
 import Preview from './page/preview';
 import Section from './page/preview/section';
+import Interaction from "./page/preview/interaction";
 
 const router = createBrowserRouter(
   [
@@ -48,6 +49,10 @@ const router = createBrowserRouter(
     {
       path: '/preview/section',
       element: <Section />,
+    },
+    {
+      path: '/preview/interaction',
+      element: <Interaction />,
     },
   ],
   {
