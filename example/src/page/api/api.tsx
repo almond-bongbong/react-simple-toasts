@@ -73,7 +73,7 @@ export function MyComponent() {
             <tr>
               <td>durationOrOptions</td>
               <td>
-                <code>number</code>, <code>object</code>
+                <code>number</code>, <code>object</code>, <code>null</code>
               </td>
               <td>
                 Either the duration for the toast (in milliseconds) or an object containing options
@@ -101,7 +101,8 @@ export function MyComponent() {
               </td>
               <td>
                 The duration (in milliseconds) for which the toast message will be displayed.
-                Default is <code>3000</code>.
+                Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep the
+                toast message displayed indefinitely.
               </td>
               <td></td>
             </tr>
@@ -331,7 +332,8 @@ export function MyComponent() {
               </td>
               <td>
                 The duration (in milliseconds) for which the toast message will be displayed.
-                Default is <code>3000</code>.
+                Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep the
+                toast message displayed indefinitely.
               </td>
               <td></td>
             </tr>
@@ -461,7 +463,8 @@ export function MyComponent() {
                 <code>number</code>
               </td>
               <td>
-                The vertical gap (in pixels) between consecutive toast messages. This value determines the vertical distance between toasts. Default is <code>10</code>.
+                The vertical gap (in pixels) between consecutive toast messages. This value
+                determines the vertical distance between toasts. Default is <code>10</code>.
               </td>
               <td>5.7.0</td>
             </tr>
