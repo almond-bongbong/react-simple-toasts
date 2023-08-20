@@ -13,15 +13,7 @@ function Home() {
           in your React applications.
         </p>
         <br />
-        <Button
-          onClick={() =>
-            toast(
-              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, fugiat, id! Accusantium debitis dolorem eius natus quasi quod reiciendis sint! Aliquid consectetur, facere incidunt labore molestiae nesciunt nihil repudiandae tempora!',
-            )
-          }
-        >
-          Try a Toast!
-        </Button>
+        <Button onClick={() => toast('Hello, World')}>Try a Toast!</Button>
       </section>
 
       <section className={styles.section}>
