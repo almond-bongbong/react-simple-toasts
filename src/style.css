@@ -5,6 +5,8 @@
   opacity: 0;
   position: fixed;
   z-index: 1000;
+  width: max-content;
+  max-width: 90%;
   transition: opacity 0.3s, transform 0.3s;
 }
 .top-center,
