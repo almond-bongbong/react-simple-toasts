@@ -17,7 +17,12 @@ function Api() {
           object that allows you to control the toast message currently being displayed.
         </p>
         <div className={styles.code}>
-          <CommonHighlighter>{`import toast from 'react-simple-toasts';
+          <CommonHighlighter>{`import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
+
+toastConfig({
+  theme: 'dark',
+});
 
 export function MyComponent() {
   return (
@@ -461,7 +466,8 @@ export function MyComponent() {
                 <code>number</code>
               </td>
               <td>
-                The vertical gap (in pixels) between consecutive toast messages. This value determines the vertical distance between toasts. Default is <code>10</code>.
+                The vertical gap (in pixels) between consecutive toast messages. This value
+                determines the vertical distance between toasts. Default is <code>10</code>.
               </td>
               <td>5.7.0</td>
             </tr>

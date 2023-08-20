@@ -22,7 +22,12 @@ function Example() {
             <Button onClick={() => toast('Hello, World!')}>Show Toast</Button>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast from 'react-simple-toasts';
+            <CommonHighlighter>{`import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
+
+toastConfig({
+  theme: 'dark',
+});
 
 export default function App() {
   return (
@@ -51,18 +56,11 @@ export default function App() {
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
 
-export default function App() {
-  return (
-    <>
-      <button onClick={() => toast('Hello, World!', 1000)}>
-        Show Toast
-      </button>
-      <button onClick={() => toast('Hello, World!', { duration: 1000 })}>
-        Show Toast
-      </button>
-    </>
-  );
-}`}</CommonHighlighter>
+toast('Hello, World!', 1000);
+
+// OR
+
+toast('Hello, World!', { duration: 1000 })`}</CommonHighlighter>
           </div>
         </div>
 
@@ -76,7 +74,8 @@ export default function App() {
             The <code>theme</code> option in the toast configuration allows you to apply different
             styles to your toasts. If no theme is specified, no default styles will be applied. You
             need to import the CSS file for the desired theme as shown in the code example below.
-            For the available themes, please refer to the <a href="/api">API page</a>.
+            For the available themes, please refer to the{' '}
+            <a href="/theme#built-in-themes">Built in Themes page</a>.
           </p>
           <div className={styles.playground}>
             <Button onClick={() => toast('Hello, World!', { theme: null })}>No theme</Button>
@@ -92,9 +91,14 @@ import 'react-simple-toasts/dist/theme/light.css';
 export default function App() {
   return (
     <>
+      <Button onClick={() => toast('Hello, World!')}>
+        No theme
+      </Button>
+      
       <Button onClick={() => toast('Hello, World!', { theme: 'dark' })}>
         Dark Toast
       </Button>
+      
       <Button onClick={() => toast('Hello, World!', { theme: 'light' })}>
         Light Toast
       </Button>
@@ -168,7 +172,6 @@ export default function App() {
             <Button
               onClick={() =>
                 toast('Hello, World!', {
-                  duration: 5000,
                   clickable: true,
                   onClick: () => alert('Clicked!'),
                 })
@@ -178,23 +181,10 @@ export default function App() {
             </Button>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast from 'react-simple-toasts';
-
-export default function App() {
-
-  const handleClick = () => {
-    toast('Hello, World!', {
-      clickable: true,
-      onClick: () => alert('Clicked!'),
-    });
-  }
-
-  return (
-    <button onClick={handleClick}>
-      Show Toast
-    </button>
-  );
-}`}</CommonHighlighter>
+            <CommonHighlighter>{`toast('Hello, World!', {
+  clickable: true,
+  onClick: () => alert('Clicked!'),
+});`}</CommonHighlighter>
           </div>
         </div>
 
@@ -216,7 +206,6 @@ export default function App() {
             <Button
               onClick={() =>
                 toast('Hello, World!', {
-                  duration: 5000,
                   clickClosable: true,
                 })
               }
@@ -225,15 +214,7 @@ export default function App() {
             </Button>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast from 'react-simple-toasts';
-
-export default function App() {
-  return (
-    <button onClick={() => toast('Hello, World!', { clickClosable: true })}>
-      Show Toast
-    </button>
-  );
-}`}</CommonHighlighter>
+            <CommonHighlighter>{`toast('Hello, World!', { clickClosable: true })`}</CommonHighlighter>
           </div>
         </div>
 
@@ -278,36 +259,13 @@ export default function App() {
             </Button>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast, { ToastPosition } from 'react-simple-toasts';
-
-export default function App() {
-  const [position, setPosition] = useState<ToastPosition>('bottom-center');
-
-  const handleClick = () => {
-    toast('Hello, World!', { position });
-  }
-
-  return (
-      <>
-        <select
-          value={position}
-          onChange={(e) => setPosition(e.target.value as ToastPosition)}
-        >
-          <option value="top-left">Top Left</option>
-          <option value="top-center">Top Center</option>
-          <option value="top-right">Top Right</option>
-          <option value="bottom-left">Bottom Left</option>
-          <option value="bottom-center">Bottom Center</option>
-          <option value="bottom-right">Bottom Right</option>
-          <option value="center">Center</option>
-        </select>
-
-        <button onClick={handleClick}>
-          Show Toast
-        </button>
-      </>
-  );
-}`}</CommonHighlighter>
+            <CommonHighlighter>{`toast('Hello, World!', { position: 'top-left' });
+toast('Hello, World!', { position: 'top-center' });
+toast('Hello, World!', { position: 'top-right' });
+toast('Hello, World!', { position: 'bottom-left' });
+toast('Hello, World!', { position: 'bottom-center' });
+toast('Hello, World!', { position: 'bottom-right' });
+toast('Hello, World!', { position: 'center' });`}</CommonHighlighter>
           </div>
         </div>
 
@@ -338,15 +296,7 @@ export default function App() {
             </Button>
           </div>
           <div className={styles.code}>
-            <CommonHighlighter>{`import toast from 'react-simple-toasts';
-
-export default function App() {
-  return (
-    <button onClick={() => toast('Hello, World!', { maxVisibleToasts: 3 })}>
-      Show Toast
-    </button>
-  );
-}`}</CommonHighlighter>
+            <CommonHighlighter>{`toast('Hello, World!', { maxVisibleToasts: 3 })`}</CommonHighlighter>
           </div>
         </div>
       </section>
