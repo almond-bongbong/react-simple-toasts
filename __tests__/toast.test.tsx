@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  act,
-  render,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { act, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import themeModuleClassNames from '../src/theme/theme-classnames.json';
 import toast from '../src';
+import { generateMessage } from '../src/lib/utils';
 
 const EXIT_ANIMATION_DURATION = 320;
 
 describe('toast', () => {
   it('renders a toast when the show button is clicked', async () => {
-    const TOAST_TEXT = 'Hello Message';
+    const TOAST_TEXT = generateMessage();
     render(
       <button type="button" onClick={() => toast(TOAST_TEXT)}>
         show
@@ -27,7 +22,7 @@ describe('toast', () => {
   });
 
   it('displays the toast for the specified duration and then removes it', async () => {
-    const TOAST_TEXT = 'message for duration';
+    const TOAST_TEXT = generateMessage();
     const DURATION = 500;
     await act(() => toast(TOAST_TEXT, DURATION));
 
@@ -38,7 +33,7 @@ describe('toast', () => {
   });
 
   it('renders toast with infinite duration until manually closed', async () => {
-    const TOAST_TEXT = 'message for infinity duration';
+    const TOAST_TEXT = generateMessage();
     const infiniteToast = await act(() => toast(TOAST_TEXT, Infinity));
 
     const toastElement = screen.getByText(TOAST_TEXT);
@@ -49,7 +44,7 @@ describe('toast', () => {
   });
 
   it('renders and removes toast based on specified duration in options', async () => {
-    const TOAST_TEXT = 'message for duration with options';
+    const TOAST_TEXT = generateMessage();
     const DURATION = 500;
     await act(() => toast(TOAST_TEXT, { duration: DURATION }));
 
@@ -60,7 +55,7 @@ describe('toast', () => {
   });
 
   it('applies custom className to toast container', async () => {
-    const TOAST_TEXT = 'message for classname';
+    const TOAST_TEXT = generateMessage();
     const CLASSNAME = 'test-classname';
     await act(() => toast(TOAST_TEXT, { className: CLASSNAME }));
 
@@ -69,7 +64,7 @@ describe('toast', () => {
   });
 
   it('closes the toast when clickClosable is true and toast is clicked', async () => {
-    const TOAST_TEXT = 'message for closeable';
+    const TOAST_TEXT = generateMessage();
     await act(() => toast(TOAST_TEXT, { clickClosable: true }));
 
     const toastDOM = screen.getByText(TOAST_TEXT);
@@ -81,7 +76,7 @@ describe('toast', () => {
   });
 
   it('renders toast with specified position', async () => {
-    const TOAST_TEXT = 'message for top-center';
+    const TOAST_TEXT = generateMessage();
     await act(() => toast(TOAST_TEXT, { position: 'top-center' }));
     const toastDOM1 = screen.getByText(TOAST_TEXT);
 
@@ -89,7 +84,7 @@ describe('toast', () => {
   });
 
   it('limits visible toasts based on maxVisibleToasts', async () => {
-    const TOAST_TEXT = 'message for maxVisibleToasts';
+    const TOAST_TEXT = generateMessage();
     await act(() => {
       toast(TOAST_TEXT);
       toast(TOAST_TEXT, { maxVisibleToasts: 1 });
@@ -107,7 +102,7 @@ describe('toast', () => {
   });
 
   it('renders custom toast content with render prop', async () => {
-    const TOAST_TEXT = 'message for custom render';
+    const TOAST_TEXT = generateMessage();
     const render = () => <div className="custom-class">custom render</div>;
     await act(() => toast(TOAST_TEXT, { render }));
 
@@ -116,7 +111,7 @@ describe('toast', () => {
   });
 
   it('triggers onClick event when toast is clicked', async () => {
-    const TOAST_TEXT = 'message for click';
+    const TOAST_TEXT = generateMessage();
     const onClick = jest.fn();
     await act(() => toast(TOAST_TEXT, { clickable: true, onClick }));
 
@@ -126,12 +121,10 @@ describe('toast', () => {
   });
 
   it('calls onCloseStart and onClose when toast is clicked with clickClosable set to true', async () => {
-    const TOAST_TEXT = 'message for onClose';
+    const TOAST_TEXT = generateMessage();
     const onCloseStart = jest.fn();
     const onClose = jest.fn();
-    await act(() =>
-      toast(TOAST_TEXT, { onCloseStart, onClose, clickClosable: true }),
-    );
+    await act(() => toast(TOAST_TEXT, { onCloseStart, onClose, clickClosable: true }));
 
     const toastDOM = screen.getByText(TOAST_TEXT);
     await act(() => toastDOM.click());
@@ -140,7 +133,7 @@ describe('toast', () => {
   });
 
   it('updates the toast duration and removes the toast after the new duration', async () => {
-    const TOAST_TEXT = 'message for updateDuration';
+    const TOAST_TEXT = generateMessage();
     const DURATION = Infinity;
     const NEW_DURATION = 500;
     const toastInstance = await act(() => toast(TOAST_TEXT, DURATION));
@@ -154,8 +147,8 @@ describe('toast', () => {
   });
 
   it('updates the content of the displayed toast', async () => {
-    const TOAST_TEXT = 'message for updateContent';
-    const NEW_TOAST_TEXT = 'new message for updateContent';
+    const TOAST_TEXT = generateMessage();
+    const NEW_TOAST_TEXT = generateMessage();
     const toastInstance = await act(() => toast(TOAST_TEXT));
     const toastElement = screen.getByText(TOAST_TEXT);
 
@@ -164,7 +157,7 @@ describe('toast', () => {
   });
 
   it('applies the specified theme to the toast', async () => {
-    const TOAST_TEXT = 'message for theme';
+    const TOAST_TEXT = generateMessage();
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
@@ -172,7 +165,7 @@ describe('toast', () => {
   });
 
   it('applies the specified zIndex to the toast', async () => {
-    const TOAST_TEXT = 'message for zIndex';
+    const TOAST_TEXT = generateMessage();
     await act(() => toast(TOAST_TEXT, { zIndex: 10 }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
@@ -180,7 +173,7 @@ describe('toast', () => {
   });
 
   it('closes the toast rendered with render option when clickClosable is true and toast is clicked ', async () => {
-    const TOAST_TEXT = 'toast message';
+    const TOAST_TEXT = generateMessage();
     await act(() =>
       toast(TOAST_TEXT, {
         clickClosable: true,
@@ -195,11 +188,25 @@ describe('toast', () => {
   });
 
   it('renders second toast upper than first toast when isReversedOrder set to true', async () => {
-    const FIRST_TEXT = 'first message';
-    const SECOND_TEXT = 'second message';
+    const FIRST_TEXT = generateMessage();
+    const SECOND_TEXT = generateMessage();
     await act(() => toast(FIRST_TEXT));
     await act(() => toast(SECOND_TEXT, { isReversedOrder: true }));
     const toastElements = screen.getAllByText(/message/);
     expect(toastElements[0]).toHaveTextContent(SECOND_TEXT);
+  });
+
+  it('applies theme class to toast when theme is specified and does not apply it when theme is not specified', async () => {
+    const TOAST_TEXT = generateMessage();
+    const toastContentClassName = 'toast-theme-content';
+    await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
+
+    const toastDOM = screen.getByText(TOAST_TEXT);
+    expect(toastDOM).toHaveClass(toastContentClassName);
+
+    const TOAST_TEXT2 = generateMessage();
+    await act(() => toast(TOAST_TEXT2));
+    const toastDOM2 = screen.getByText(TOAST_TEXT2);
+    expect(toastDOM2).not.toHaveClass(toastContentClassName);
   });
 });

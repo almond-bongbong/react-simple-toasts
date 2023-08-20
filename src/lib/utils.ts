@@ -9,3 +9,17 @@ export const reverse = <T>(arr: T[]) => {
   }
   return result;
 };
+
+export const rgbToRgba = (rgb: string, alpha: number) => {
+  const [r, g, b] = rgb
+    .replace(/[rgb(]|[)]/g, '')
+    .split(',')
+    .map((v) => v.trim());
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+export const classes = (...args: (string | undefined)[]) => args.filter(Boolean).join(' ');
+
+export const generateMessage = () => {
+  return `message ${Math.random().toString(36).substring(2)}`;
+};
