@@ -113,3 +113,35 @@
   font-size: 14px;
   text-align: center;
 }
+
+@media screen and (max-width: 1200px) {
+  .header {
+    display: block;
+    padding: 17px 20px;
+    text-align: center;
+  }
+
+  .header h1 span {
+    margin-left: 0;
+  }
+
+  .header .meta {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+
+  .navigation {
+    transform: translateX(-100%);
+  }
+
+  .container {
+    overflow-x: hidden;
+    margin-left: 0;
+  }
+
+  .content {
+    padding: 30px 20px 100px;
+  }
+}
