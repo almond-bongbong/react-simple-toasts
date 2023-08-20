@@ -7,6 +7,11 @@
   z-index: 1000;
   transition: opacity 0.3s, transform 0.3s;
 }
+.top-center,
+.bottom-center,
+.center {
+  left: 50%;
+}
 .toast-message:global(.toast-enter-active),
 .toast-message:global(.toast-appear-active) {
   opacity: 1;
