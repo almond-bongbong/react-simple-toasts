@@ -8,7 +8,7 @@ export type Theme = (typeof Themes)[keyof typeof Themes];
 export type ToastClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 
 export interface ToastOptions {
-  duration?: number;
+  duration?: number | null;
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
@@ -44,7 +44,7 @@ export type ConfigArgs = Pick<
 
 export interface Toast {
   close: () => void;
-  updateDuration: (duration?: number) => void;
+  updateDuration: (duration?: ToastOptions['duration']) => void;
   update: (message: ReactNode, duration?: number) => void;
 }
 
