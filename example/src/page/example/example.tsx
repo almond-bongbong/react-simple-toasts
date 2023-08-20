@@ -349,12 +349,96 @@ export default function App() {
 }`}</CommonHighlighter>
           </div>
         </div>
+
+        <div id="loading" className={styles.area}>
+          <h3>loading</h3>
+          <div className={styles.default}>
+            default: <code>false</code>
+          </div>
+          <p className={styles.description}>
+            The loading option provides the functionality to display a loading indicator within a
+            toast message. This option is useful for visually indicating to the user that a lengthy
+            operation is in progress. The color of the loading indicator is determined by the color
+            of the message in the toast. The loading option can be set as true or as a Promise
+            object, and there are two ways to use it
+          </p>
+          <div className={styles.playground}>
+            <Button onClick={() => toast('Synchronizing...', { loading: true })}>Show Toast</Button>
+          </div>
+          <div className={styles.code}>
+            <CommonHighlighter>{`toast('Synchronizing...', { loading: true });`}</CommonHighlighter>
+          </div>
+          <br />
+          Or, to simulate a lengthy operation, you can use a Promise that resolves after a delay.
+          The following example demonstrates a dummy Promise that resolves after 3 seconds, but in a
+          real-world scenario, this could represent an actual asynchronous task:
+          <div className={styles.code}>
+            <CommonHighlighter>{`const taskPromise = new Promise((resolve) => setTimeout(resolve, 3000));
+
+toast('Synchronizing...', { loading: taskPromise });`}</CommonHighlighter>
+          </div>
+        </div>
       </section>
 
       <section id="advanced-example">
         <h2>🚀 Advanced Example</h2>
         <p>This is a more advanced example with additional options:</p>
         <br />
+
+        <div id="promise-based-loading" className={styles.area}>
+          <h3>Promise Based Loading</h3>
+          <p className={styles.description}>
+            This example demonstrates how to use a Promise to control a loading indicator in a toast
+            message. A loading indicator is shown while the Promise is pending. Once resolved, the
+            toast updates to a success message with a different theme and duration.
+          </p>
+          <div className={styles.playground}>
+            <Button
+              onClick={() => {
+                const taskPromise = new Promise((resolve) => setTimeout(resolve, 2000));
+
+                const taskToast = toast('Task started...', {
+                  theme: 'info',
+                  loading: taskPromise,
+                  duration: Infinity,
+                });
+
+                taskPromise.then(() =>
+                  taskToast.update({
+                    message: 'Task completed!',
+                    duration: 2000,
+                    theme: 'success',
+                  }),
+                );
+              }}
+            >
+              Show Toast
+            </Button>
+          </div>
+          <div className={styles.code}>
+            <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/info.css';
+import 'react-simple-toasts/dist/theme/success.css';
+
+// ...            
+
+const taskPromise = new Promise((resolve) => setTimeout(resolve, 2000));
+
+const taskToast = toast('Task started...', {
+  theme: 'info',
+  loading: taskPromise,
+  duration: Infinity,
+});
+
+taskPromise.then(() =>
+  taskToast.update({
+    message: 'Task completed!',
+    duration: 2000,
+    theme: 'success',
+  }),
+);`}</CommonHighlighter>
+          </div>
+        </div>
 
         <div id="infinity-duration" className={styles.area}>
           <h3>Infinity Duration</h3>
@@ -468,8 +552,11 @@ export default function App() {
             <Button
               onClick={() => {
                 const toastCreatedAt = Date.now();
-                const updatableToast = toast('Toast will close in 5s', 5000);
-                setInterval(() => {
+                const updatableToast = toast('Toast will close in 5s', {
+                  duration: 5000,
+                  onClose: () => clearInterval(interval),
+                });
+                const interval = setInterval(() => {
                   const remainingTime = Math.max(0, 5000 - (Date.now() - toastCreatedAt));
                   updatableToast?.update(
                     `Toast will close in ${(remainingTime / 1000).toFixed(1)}s`,
@@ -487,9 +574,13 @@ export default function App() {
   const handleClick = () => {
     const DURATION = 5000;
     const toastCreatedAt = Date.now();
-    const myToast = toast('Toast will close in 5s', DURATION);
+    
+    const myToast = toast('Toast will close in 5s', {
+      duration: DURATION,
+      onClose: () => clearInterval(interval),
+    });
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       const remainingTime = Math.max(0, DURATION - (Date.now() - toastCreatedAt));
       myToast.update(\`Toast will close in \${(remainingTime / 1000).toFixed(1)}s\`);
     }, 100);

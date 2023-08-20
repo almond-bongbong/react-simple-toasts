@@ -21,5 +21,5 @@ export const rgbToRgba = (rgb: string, alpha: number) => {
 export const classes = (...args: (string | undefined)[]) => args.filter(Boolean).join(' ');
 
 export const generateMessage = () => {
-  return `message ${Math.random().toString(36).substring(2)}`;
+  return `message ${Math.random().toString(36).substring(2) + Date.now()}`;
 };

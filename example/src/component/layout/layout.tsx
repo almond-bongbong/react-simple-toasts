@@ -88,12 +88,20 @@ const MENU: Menu[] = [
             name: 'Max Visible',
             hash: '#max-visible',
           },
+          {
+            name: 'Loading',
+            hash: '#loading',
+          },
         ],
       },
       {
         name: 'Advanced Example',
         hash: '#advanced-example',
         children: [
+          {
+            name: 'Promise Based Loading',
+            hash: '#Promise-based-loading',
+          },
           {
             name: 'Infinity Duration',
             hash: '#infinity-duration',

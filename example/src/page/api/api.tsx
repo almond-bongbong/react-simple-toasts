@@ -252,8 +252,21 @@ export function MyComponent() {
         <h3>Toast Return Object</h3>
         <p style={{ marginBottom: 15 }}>
           When you call the <code>toast</code> function, it returns a <code>Toast</code> object that
-          you can use to control the displayed toast message. The <code>Toast</code> object includes
-          the following methods:
+          you can use to control the displayed toast message. These methods can be invoked at any
+          time to manage the toast message before its duration has elapsed.
+        </p>
+        <div className={styles.code}>
+          <CommonHighlighter>{`const myToast = toast('Hello, world!', Infinity);
+
+// ...
+
+<button onClick={() => myToast.close()}>
+  Close Toast Message
+</button>`}</CommonHighlighter>
+        </div>
+
+        <p style={{ margin: '30px 0 15px' }}>
+          The <code>Toast</code> object includes the following methods:
         </p>
         <table className={styles.table}>
           <thead>
@@ -285,21 +298,66 @@ export function MyComponent() {
               <td>Updates the message and duration of the currently displayed toast message.</td>
               <td>3.5.0</td>
             </tr>
+            <tr>
+              <td>
+                <code>update(options: ToastUpdateOptions)</code>
+              </td>
+              <td>
+                Updates the currently displayed toast message with new options specified in the{' '}
+                <code>ToastUpdateOptions</code> object. This allows for more granular control over
+                the toast's content and behavior.
+              </td>
+              <td>6.0.0</td>
+            </tr>
           </tbody>
         </table>
-        <p style={{ marginTop: 15 }}>
-          These methods can be invoked at any time to manage the toast message before its duration
-          has elapsed.
-        </p>
-        <div className={styles.code}>
-          <CommonHighlighter>{`const myToast = toast('Hello, world!', Infinity);
 
-// ...
-
-<button onClick={() => myToast.close()}>
-  Close Toast Message
-</button>`}</CommonHighlighter>
-        </div>
+        <br />
+        <h4>ToastUpdateOptions Object Properties</h4>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>message</td>
+              <td>
+                <code>string</code>, <code>ReactNode</code>
+              </td>
+              <td>The new message to display in the toast.</td>
+            </tr>
+            <tr>
+              <td>duration</td>
+              <td>
+                <code>number</code>
+              </td>
+              <td>
+                The new duration (in milliseconds) for which the toast message will be displayed.
+              </td>
+            </tr>
+            <tr>
+              <td>loading</td>
+              <td>
+                <code>boolean</code>,<code>Promise</code>
+              </td>
+              <td>
+                Indicates whether the toast is in a loading state or accepts a Promise to
+                automatically handle loading behavior.
+              </td>
+            </tr>
+            <tr>
+              <td>theme</td>
+              <td>
+                <code>string</code>
+              </td>
+              <td>The new theme to apply to the toast. Must be one of the predefined themes.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section id="toast-config">
@@ -461,7 +519,8 @@ export function MyComponent() {
                 <code>number</code>
               </td>
               <td>
-                The vertical gap (in pixels) between consecutive toast messages. This value determines the vertical distance between toasts. Default is <code>10</code>.
+                The vertical gap (in pixels) between consecutive toast messages. This value
+                determines the vertical distance between toasts. Default is <code>10</code>.
               </td>
               <td>5.7.0</td>
             </tr>

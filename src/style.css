@@ -15,8 +15,43 @@
   opacity: 0;
 }
 .toast-content {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toast-theme-content {
+  transition: all 0.2s;
 }
 .clickable {
   cursor: pointer;
+}
+.loading .spinner-wrap {
+  visibility: visible;
+  opacity: 1;
+  width: 1.1em;
+  margin-right: 12px;
+}
+.spinner-wrap {
+  display: inline-block;
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  margin-right: 0;
+}
+.spinner {
+  display: block;
+  overflow: hidden;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  vertical-align: middle;
+  text-indent: -99999px;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
