@@ -23,7 +23,7 @@ export interface ToastOptions {
   onCloseStart?: () => void;
 }
 
-export type ToastEnterEvent = { target: HTMLDivElement; height: number };
+export type ToastEnterEvent = { target: HTMLDivElement; width: number; height: number };
 
 export type ConfigArgs = Pick<
   ToastOptions,
@@ -54,6 +54,7 @@ export interface ToastComponent {
   position: ToastPosition;
   component: ReactElement;
   isExit?: boolean;
+  width?: number;
   height?: number;
   gap: number;
   startCloseTimer: (duration?: number, callback?: () => void) => void;

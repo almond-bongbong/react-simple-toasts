@@ -73,7 +73,7 @@ export const toastConfig = (options: ConfigArgs) => {
 };
 
 function ToastContainer() {
-  const handleToastEnter = (t: ToastComponent, e: { height: number }) => {
+  const handleToastEnter = (t: ToastComponent, e: ToastEnterEvent) => {
     toastComponentList.forEach((toast) => {
       if (toast.id !== t.id) return;
       toast.startCloseTimer();

@@ -74,12 +74,14 @@ function ToastMessage({
   }, [offsetX, offsetY, zIndex, top, right, bottom, left]);
 
   useLayoutEffect(() => {
-    if (messageDOM.current?.clientHeight == null || isEnter) return;
+    if (messageDOM.current == null || isEnter) return;
 
+    const width = messageDOM.current.clientWidth;
     const height = messageDOM.current.clientHeight;
     if (messageDOM.current) {
       _onEnter?.({
         target: messageDOM.current,
+        width,
         height,
       });
     }
