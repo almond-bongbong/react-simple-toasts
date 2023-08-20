@@ -311,10 +311,11 @@ toast('Hello, World!', { position: 'center' });`}</CommonHighlighter>
 
           <p className={styles.description}>
             If you want to create a toast notification that stays on the screen indefinitely until
-            manually closed, you can pass <code>Infinity</code> as the duration. This will create an
-            "infinite toast". The example below shows how to create an infinite toast and provide a
-            button for manually closing it. This can be useful in scenarios where you want to make
-            sure a critical message is not missed by the user.
+            manually closed, you can pass <code>0</code>, <code>null</code>, or{' '}
+            <code>Infinity</code> as the duration. This will create an "infinite toast". The example
+            below shows how to create an infinite toast and provide a button for manually closing
+            it. This can be useful in scenarios where you want to make sure a critical message is
+            not missed by the user.
           </p>
 
           <br />
@@ -334,7 +335,7 @@ toast('Hello, World!', { position: 'center' });`}</CommonHighlighter>
 export default function App() {
   const handleShowClick = () => {
     toast('Hello, World!', {
-      duration: Infinity,
+      duration: null,
       clickClosable: true,
     });
   };
@@ -374,7 +375,7 @@ export default function App() {
   const [infiniteToast, setInfiniteToast] = useState<Toast | null>(null);
 
   const handleShowClick = () => {
-    const infiniteToast = toast('Hello, World!', { duration: Infinity });
+    const infiniteToast = toast('Hello, World!', { duration: null });
     setInfiniteToast(infiniteToast);
   };
 
