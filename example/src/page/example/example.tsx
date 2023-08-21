@@ -75,7 +75,7 @@ toast('Hello, World!', { duration: 1000 })`}</CommonHighlighter>
             styles to your toasts. If no theme is specified, no default styles will be applied. You
             need to import the CSS file for the desired theme as shown in the code example below.
             For the available themes, please refer to the{' '}
-            <a href="/theme#built-in-themes">Built in Themes page</a>.
+            <Link to="/theme#built-in-themes">Built in Themes page</Link>.
           </p>
           <div className={styles.playground}>
             <Button onClick={() => toast('Hello, World!', { theme: null })}>No theme</Button>
