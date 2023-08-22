@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import githubIcon from '../../assets/images/common/github-icon.png';
 import { AtLeast } from '../../type/utils';
@@ -145,6 +145,7 @@ const MENU: Menu[] = [
 function Layout({ children }: Props) {
   const location = useLocation();
   const isScrollingProgrammaticallyRef = useRef(false);
+  const [openNavigation, setOpenNavigation] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -169,6 +170,15 @@ function Layout({ children }: Props) {
   return (
     <>
       <header className={styles.header}>
+        <button
+          type="button"
+          className={[styles.navigation_trigger, openNavigation && styles.active]
+            .filter(Boolean)
+            .join(' ')}
+          onClick={() => setOpenNavigation((prev) => !prev)}
+        >
+          open menu
+        </button>
         <h1>
           <Link to="/">
             <span>RST</span>
@@ -184,7 +194,18 @@ function Layout({ children }: Props) {
           </a>
         </div>
       </header>
-      <nav className={styles.navigation}>
+
+      <button
+        type="button"
+        className={[styles.close_menu, openNavigation && styles.active].filter(Boolean).join(' ')}
+        onClick={() => setOpenNavigation(false)}
+      >
+        close menu
+      </button>
+
+      <nav
+        className={[styles.navigation, openNavigation && styles.active].filter(Boolean).join(' ')}
+      >
         <ul>
           {MENU.map((menu) => (
             <li key={menu.name}>

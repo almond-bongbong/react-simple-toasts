@@ -59,201 +59,205 @@ export function MyComponent() {
         <br />
 
         <h4>Main Parameters</h4>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>message</td>
-              <td>
-                <code>string</code>, <code>ReactNode</code>
-              </td>
-              <td>The message to display in the toast.</td>
-            </tr>
-            <tr>
-              <td>durationOrOptions</td>
-              <td>
-                <code>number</code>, <code>object</code>, <code>null</code>
-              </td>
-              <td>
-                Either the duration for the toast (in milliseconds) or an object containing options
-                for the toast.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={styles.table_wrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>message</td>
+                <td>
+                  <code>string</code>, <code>ReactNode</code>
+                </td>
+                <td>The message to display in the toast.</td>
+              </tr>
+              <tr>
+                <td>durationOrOptions</td>
+                <td>
+                  <code>number</code>, <code>object</code>, <code>null</code>
+                </td>
+                <td>
+                  Either the duration for the toast (in milliseconds) or an object containing
+                  options for the toast.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <br />
         <h4>Options Object Properties</h4>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>duration</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The duration (in milliseconds) for which the toast message will be displayed.
-                Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep the
-                toast message displayed indefinitely.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>theme</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>
-                The theme property specifies the visual theme of the toast message. Available
-                options include
-                {themes.map((name, i) => (
-                  <Fragment key={name}>
-                    <code key={name}>'{name}'</code>
-                    {i < themes.length - 1 ? ', ' : ''}
-                  </Fragment>
-                ))}
-                .
-              </td>
-              <td>4.0.0</td>
-            </tr>
-            <tr>
-              <td>zIndex</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                Sets the stack order of the toast. Higher values will render the toast on top.
-                Default is <code>1000</code>.
-              </td>
-              <td>5.0.0</td>
-            </tr>
-            <tr>
-              <td>className</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>A string of classes to apply to the toast container.</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>clickable</td>
-              <td>
-                <code>boolean</code>
-              </td>
-              <td>
-                A boolean value that determines whether the toast message is clickable. Default is{' '}
-                <code>false</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>clickClosable</td>
-              <td>
-                <code>boolean</code>
-              </td>
-              <td>
-                A boolean value that determines whether the toast message can be closed by clicking
-                on it. Default is <code>false</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>position</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>
-                A string that sets the position of the toast message. Available options are{' '}
-                <code>'bottom-left'</code>, <code>'bottom-center'</code>,{' '}
-                <code>'bottom-right'</code>, <code>'top-left'</code>, <code>'top-center'</code>,{' '}
-                <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
-                <code>'bottom-center'</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>maxVisibleToasts</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The maximum number of toast messages that can be displayed simultaneously. Default
-                is <code>null</code>, which allows an unlimited number of toasts.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>render</td>
-              <td>
-                <code>function</code>
-              </td>
-              <td>
-                A function that returns a ReactNode to render as the toast message. The function
-                takes a <code>message</code> argument, which is the message to display in the toast.
-                Default is <code>null</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>isReversedOrder</td>
-              <td>
-                <code>boolean</code>
-              </td>
-              <td>
-                A boolean value that determines whether the order of toast messages will be
-                reversed. Default is <code>false</code>.
-              </td>
-              <td>5.1.0</td>
-            </tr>
-            <tr>
-              <td>onClick</td>
-              <td>
-                <code>function</code>
-              </td>
-              <td>
-                A function to be called when the toast message is clicked. This function takes an{' '}
-                <code>event</code> argument, which is the click event. Must be used with{' '}
-                <code>clickable: true</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>onClose</td>
-              <td>
-                <code>function</code>
-              </td>
-              <td>
-                A function to be called when the toast message is closed and the closing animation
-                is finished.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>onCloseStart</td>
-              <td>
-                <code>function</code>
-              </td>
-              <td>
-                A function to be called when the toast message starts closing, right before the
-                closing animation begins.
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={styles.table_wrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>duration</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The duration (in milliseconds) for which the toast message will be displayed.
+                  Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep
+                  the toast message displayed indefinitely.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>theme</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  The theme property specifies the visual theme of the toast message. Available
+                  options include
+                  {themes.map((name, i) => (
+                    <Fragment key={name}>
+                      <code key={name}>'{name}'</code>
+                      {i < themes.length - 1 ? ', ' : ''}
+                    </Fragment>
+                  ))}
+                  .
+                </td>
+                <td>4.0.0</td>
+              </tr>
+              <tr>
+                <td>zIndex</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  Sets the stack order of the toast. Higher values will render the toast on top.
+                  Default is <code>1000</code>.
+                </td>
+                <td>5.0.0</td>
+              </tr>
+              <tr>
+                <td>className</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>A string of classes to apply to the toast container.</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>clickable</td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  A boolean value that determines whether the toast message is clickable. Default is{' '}
+                  <code>false</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>clickClosable</td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  A boolean value that determines whether the toast message can be closed by
+                  clicking on it. Default is <code>false</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>position</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  A string that sets the position of the toast message. Available options are{' '}
+                  <code>'bottom-left'</code>, <code>'bottom-center'</code>,{' '}
+                  <code>'bottom-right'</code>, <code>'top-left'</code>, <code>'top-center'</code>,{' '}
+                  <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
+                  <code>'bottom-center'</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>maxVisibleToasts</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The maximum number of toast messages that can be displayed simultaneously. Default
+                  is <code>null</code>, which allows an unlimited number of toasts.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>render</td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  A function that returns a ReactNode to render as the toast message. The function
+                  takes a <code>message</code> argument, which is the message to display in the
+                  toast. Default is <code>null</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>isReversedOrder</td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  A boolean value that determines whether the order of toast messages will be
+                  reversed. Default is <code>false</code>.
+                </td>
+                <td>5.1.0</td>
+              </tr>
+              <tr>
+                <td>onClick</td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  A function to be called when the toast message is clicked. This function takes an{' '}
+                  <code>event</code> argument, which is the click event. Must be used with{' '}
+                  <code>clickable: true</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>onClose</td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  A function to be called when the toast message is closed and the closing animation
+                  is finished.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>onCloseStart</td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  A function to be called when the toast message starts closing, right before the
+                  closing animation begins.
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <br />
         <h3>Toast Return Object</h3>
         <p style={{ marginBottom: 15 }}>
@@ -261,38 +265,40 @@ export function MyComponent() {
           you can use to control the displayed toast message. The <code>Toast</code> object includes
           the following methods:
         </p>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Description</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>close()</code>
-              </td>
-              <td>Closes the currently displayed toast message.</td>
-              <td>3.3.0</td>
-            </tr>
-            <tr>
-              <td>
-                <code>updateDuration(newDuration: number)</code>
-              </td>
-              <td>Updates the duration of the currently displayed toast message.</td>
-              <td>3.5.0</td>
-            </tr>
-            <tr>
-              <td>
-                <code>update(message: ReactNode, duration?: number)</code>
-              </td>
-              <td>Updates the message and duration of the currently displayed toast message.</td>
-              <td>3.5.0</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={styles.table_wrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Description</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>close()</code>
+                </td>
+                <td>Closes the currently displayed toast message.</td>
+                <td>3.3.0</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>updateDuration(newDuration: number)</code>
+                </td>
+                <td>Updates the duration of the currently displayed toast message.</td>
+                <td>3.5.0</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>update(message: ReactNode, duration?: number)</code>
+                </td>
+                <td>Updates the message and duration of the currently displayed toast message.</td>
+                <td>3.5.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p style={{ marginTop: 15 }}>
           These methods can be invoked at any time to manage the toast message before its duration
           has elapsed.
@@ -320,161 +326,163 @@ export function MyComponent() {
         </p>
         <br />
 
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>duration</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The duration (in milliseconds) for which the toast message will be displayed.
-                Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep the
-                toast message displayed indefinitely.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>theme</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>
-                The theme property specifies the visual theme of the toast message. Available
-                options include
-                {themes.map((name, i) => (
-                  <Fragment key={name}>
-                    <code key={name}>'{name}'</code>
-                    {i < themes.length - 1 ? ', ' : ''}
-                  </Fragment>
-                ))}
-                .
-              </td>
-              <td>4.0.0</td>
-            </tr>
-            <tr>
-              <td>zIndex</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                Sets the stack order of the toast. Higher values will render the toast on top.
-                Default is <code>1000</code>.
-              </td>
-              <td>5.0.0</td>
-            </tr>
-            <tr>
-              <td>className</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>A string of classes to apply to the toast container.</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>clickClosable</td>
-              <td>
-                <code>boolean</code>
-              </td>
-              <td>
-                A boolean value that determines whether the toast message can be closed by clicking
-                on it. Default is <code>false</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>position</td>
-              <td>
-                <code>string</code>
-              </td>
-              <td>
-                A string that sets the position of the toast message. Available options are{' '}
-                <code>'bottom-left'</code>, <code>'bottom-center'</code>,{' '}
-                <code>'bottom-right'</code>, <code>'top-left'</code>, <code>'top-center'</code>,{' '}
-                <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
-                <code>'bottom-center'</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>maxVisibleToasts</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The maximum number of toast messages that can be displayed simultaneously. Default
-                is <code>null</code>, which allows an unlimited number of toasts.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>render</td>
-              <td>
-                <code>function</code>
-              </td>
-              <td>
-                A function that returns a ReactNode to render as the toast message. The function
-                takes a <code>message</code> argument, which is the message to display in the toast.
-                Default is <code>null</code>.
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>isReversedOrder</td>
-              <td>
-                <code>boolean</code>
-              </td>
-              <td>
-                A boolean value that determines whether the order of toast messages will be
-                reversed. Default is <code>false</code>.
-              </td>
-              <td>5.1.0</td>
-            </tr>
-            <tr>
-              <td>offsetX</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The horizontal offset (in pixels) from the edge of the viewport. This value
-                determines the left or right distance of the toast depending on the toast's
-                position. Default is <code>30</code>.
-              </td>
-              <td>5.6.0</td>
-            </tr>
-            <tr>
-              <td>offsetY</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The vertical offset (in pixels) from the edge of the viewport. This value determines
-                the top or bottom distance of the toast depending on the toast's position. Default
-                is <code>30</code>.
-              </td>
-              <td>5.6.0</td>
-            </tr>
-            <tr>
-              <td>gap</td>
-              <td>
-                <code>number</code>
-              </td>
-              <td>
-                The vertical gap (in pixels) between consecutive toast messages. This value
-                determines the vertical distance between toasts. Default is <code>10</code>.
-              </td>
-              <td>5.7.0</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={styles.table_wrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>duration</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The duration (in milliseconds) for which the toast message will be displayed.
+                  Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep
+                  the toast message displayed indefinitely.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>theme</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  The theme property specifies the visual theme of the toast message. Available
+                  options include
+                  {themes.map((name, i) => (
+                    <Fragment key={name}>
+                      <code key={name}>'{name}'</code>
+                      {i < themes.length - 1 ? ', ' : ''}
+                    </Fragment>
+                  ))}
+                  .
+                </td>
+                <td>4.0.0</td>
+              </tr>
+              <tr>
+                <td>zIndex</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  Sets the stack order of the toast. Higher values will render the toast on top.
+                  Default is <code>1000</code>.
+                </td>
+                <td>5.0.0</td>
+              </tr>
+              <tr>
+                <td>className</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>A string of classes to apply to the toast container.</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>clickClosable</td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  A boolean value that determines whether the toast message can be closed by
+                  clicking on it. Default is <code>false</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>position</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  A string that sets the position of the toast message. Available options are{' '}
+                  <code>'bottom-left'</code>, <code>'bottom-center'</code>,{' '}
+                  <code>'bottom-right'</code>, <code>'top-left'</code>, <code>'top-center'</code>,{' '}
+                  <code>'top-right'</code>, and <code>'center'</code>. Default is{' '}
+                  <code>'bottom-center'</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>maxVisibleToasts</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The maximum number of toast messages that can be displayed simultaneously. Default
+                  is <code>null</code>, which allows an unlimited number of toasts.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>render</td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  A function that returns a ReactNode to render as the toast message. The function
+                  takes a <code>message</code> argument, which is the message to display in the
+                  toast. Default is <code>null</code>.
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>isReversedOrder</td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  A boolean value that determines whether the order of toast messages will be
+                  reversed. Default is <code>false</code>.
+                </td>
+                <td>5.1.0</td>
+              </tr>
+              <tr>
+                <td>offsetX</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The horizontal offset (in pixels) from the edge of the viewport. This value
+                  determines the left or right distance of the toast depending on the toast's
+                  position. Default is <code>30</code>.
+                </td>
+                <td>5.6.0</td>
+              </tr>
+              <tr>
+                <td>offsetY</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The vertical offset (in pixels) from the edge of the viewport. This value
+                  determines the top or bottom distance of the toast depending on the toast's
+                  position. Default is <code>30</code>.
+                </td>
+                <td>5.6.0</td>
+              </tr>
+              <tr>
+                <td>gap</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The vertical gap (in pixels) between consecutive toast messages. This value
+                  determines the vertical distance between toasts. Default is <code>10</code>.
+                </td>
+                <td>5.7.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <br />
 
         <h3>createToast(options)</h3>
