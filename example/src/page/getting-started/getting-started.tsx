@@ -9,11 +9,13 @@ function GettingStarted() {
         <h2>📦 Installation</h2>
         <p>To get started with React Simple Toasts, install the package using npm or yarn:</p>
         <br />
-        <CommonHighlighter>{`// with npm
+        <div className={styles.code}>
+          <CommonHighlighter>{`// with npm
 npm install react-simple-toasts
 
 // with yarn
 yarn add react-simple-toasts`}</CommonHighlighter>
+        </div>
       </section>
       <section id="usage">
         <h2>🛠 Usage</h2>
@@ -24,8 +26,9 @@ yarn add react-simple-toasts`}</CommonHighlighter>
           option. Without a specified theme, no styles will be applied to the toast message.
         </p>
         <br />
-        <CommonHighlighter>
-          {`import React from 'react';
+        <div className={styles.code}>
+          <CommonHighlighter>
+            {`import React from 'react';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css'; // import the desired theme
 
@@ -45,7 +48,8 @@ function App() {
 }
 
 export default App;`}
-        </CommonHighlighter>
+          </CommonHighlighter>
+        </div>
       </section>
       <section>
         <h3>🌟 Benefits of using React Simple Toasts:</h3>

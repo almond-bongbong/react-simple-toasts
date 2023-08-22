@@ -147,4 +147,8 @@ select {
   h3 {
     font-size: 18px;
   }
+
+  table {
+    width: 600px;
+  }
 }
