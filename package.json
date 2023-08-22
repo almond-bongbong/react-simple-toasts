@@ -1,7 +1,7 @@
 {
   "name": "react-simple-toasts",
-  "version": "5.7.0",
-  "description": "React Simple Toasts is a simple and easy-to-use toast message popup for React.",
+  "version": "5.7.1",
+  "description": "Lightweight, user-friendly toast message library for React applications. Add beautiful notifications to your React apps.",
   "author": "almond-bongbong",
   "homepage": "https://github.com/almond-bongbong/react-simple-toasts",
   "license": "MIT",

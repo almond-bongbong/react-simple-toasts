@@ -101,10 +101,12 @@ function ToastMessage({
   useIsomorphicLayoutEffect(() => {
     if (messageDOM.current?.clientHeight == null || isEnter) return;
 
+    const width = messageDOM.current.clientWidth;
     const height = messageDOM.current.clientHeight;
     if (messageDOM.current) {
       _onEnter?.({
         target: messageDOM.current,
+        width,
         height,
       });
     }

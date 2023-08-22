@@ -75,7 +75,7 @@ export const toastConfig = (options: ConfigArgs) => {
 };
 
 function ToastContainer() {
-  const handleToastEnter = (t: ToastComponent, e: { height: number }) => {
+  const handleToastEnter = (t: ToastComponent, e: ToastEnterEvent) => {
     toastComponentList.forEach((toast) => {
       if (toast.id !== t.id) return;
       toast.startCloseTimer();
@@ -187,7 +187,7 @@ function renderToast(
     onClose = undefined,
     onCloseStart = undefined,
   } = options || {};
-  const durationTime = duration || defaultOptions.duration;
+  const durationTime = duration === undefined ? defaultOptions.duration : duration;
   const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
@@ -207,7 +207,7 @@ function renderToast(
   };
 
   const startCloseTimer = (duration = durationTime, callback?: () => void) => {
-    if (duration > SET_TIMEOUT_MAX) return;
+    if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
     }
@@ -262,7 +262,10 @@ function renderToast(
     updateDuration: (newDuration = durationTime) => {
       startCloseTimer(newDuration);
     },
-    update: (messageOrOptions: ReactNode | ToastUpdateOptions, updateDuration?: number) => {
+    update: (
+      messageOrOptions: ReactNode | ToastUpdateOptions,
+      updateDuration?: ToastOptions['duration'],
+    ) => {
       const index = toastComponentList.findIndex((t) => t.id === id);
       const newDuration = isToastUpdateOptions(messageOrOptions)
         ? messageOrOptions.duration
@@ -303,11 +306,13 @@ function renderToast(
   };
 }
 
-function toast(message: ReactNode, duration?: number): Toast;
+function toast(message: ReactNode, duration?: number | null): Toast;
 function toast(message: ReactNode, options?: ToastOptions): Toast;
-function toast(message: ReactNode, durationOrOptions?: number | ToastOptions): Toast {
+function toast(message: ReactNode, durationOrOptions?: number | null | ToastOptions): Toast {
   const options =
-    typeof durationOrOptions === 'number' ? { duration: durationOrOptions } : durationOrOptions;
+    typeof durationOrOptions === 'number' || durationOrOptions === null
+      ? { duration: durationOrOptions }
+      : durationOrOptions;
   return renderToast(message, options);
 }
 

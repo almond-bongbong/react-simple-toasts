@@ -26,3 +26,10 @@
 .button + .button {
   margin-left: 8px;
 }
+
+@media screen and (max-width: 1200px) {
+  .button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}

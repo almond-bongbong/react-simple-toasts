@@ -8,7 +8,7 @@ export type Theme = (typeof Themes)[keyof typeof Themes];
 export type ToastClickHandler = (e: SyntheticEvent<HTMLDivElement>) => void | Promise<void>;
 
 export interface ToastOptions {
-  duration?: number;
+  duration?: number | null;
   className?: string;
   clickable?: boolean;
   clickClosable?: boolean;
@@ -24,7 +24,7 @@ export interface ToastOptions {
   onCloseStart?: () => void;
 }
 
-export type ToastEnterEvent = { target: HTMLDivElement; height: number };
+export type ToastEnterEvent = { target: HTMLDivElement; width: number; height: number };
 
 export type ConfigArgs = Pick<
   ToastOptions,
@@ -50,12 +50,12 @@ export type ToastUpdateOptions = {
   theme?: Theme;
 };
 export type ToastUpdateArgs =
-  | [message: ReactNode, duration?: number]
+  | [message: ReactNode, duration?: ToastOptions['duration']]
   | [options: ToastUpdateOptions];
 
 export interface Toast {
   close: () => void;
-  updateDuration: (duration?: number) => void;
+  updateDuration: (duration?: ToastOptions['duration']) => void;
   update: (...args: ToastUpdateArgs) => void;
 }
 
@@ -65,6 +65,7 @@ export interface ToastComponent {
   position: ToastPosition;
   component: ReactElement;
   isExit?: boolean;
+  width?: number;
   height?: number;
   gap: number;
   startCloseTimer: (duration?: number, callback?: () => void) => void;

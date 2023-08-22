@@ -1,3 +1,8 @@
 .code {
   margin-top: 10px;
+  overflow-x: auto;
+}
+
+.table_wrap {
+  overflow-x: auto;
 }

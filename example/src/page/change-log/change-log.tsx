@@ -15,6 +15,27 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.7.1</h3>
+        <div className={styles.date}>{dayjs(1692359510375).format('YYYY.MM.DD')}</div>{' '}
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Duration Configuration:</strong> Added support for <code>0</code> and{' '}
+            <code>null</code> as the <code>duration</code> option. This allows the toast messages
+            not to close automatically when using these values. The existing <code>Infinity</code>{' '}
+            option will continue to create an "infinite toast."
+          </li>
+        </ul>
+        <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Fixed Long Message Positioning:</strong> Fixed an issue where the position was
+            not calculated correctly for messages that break into multiple lines.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.7.0</h3>
         <div className={styles.date}>{dayjs(1692063912987).format('YYYY.MM.DD')}</div>
 

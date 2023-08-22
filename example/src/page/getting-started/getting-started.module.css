@@ -2,3 +2,7 @@
   padding-left: 24px;
   list-style: disc;
 }
+
+.code {
+  overflow-x: auto;
+}

@@ -209,4 +209,38 @@ describe('toast', () => {
     const toastDOM2 = screen.getByText(TOAST_TEXT2);
     expect(toastDOM2).not.toHaveClass(toastContentClassName);
   });
+
+  it('should display the toast message indefinitely when duration is set to 0 or null', async () => {
+    const TOAST_TEXT = generateMessage();
+
+    jest.useFakeTimers(); // Use fake timers
+
+    await act(() => toast(TOAST_TEXT, 0));
+    await act(() => {
+      jest.runAllTimers(); // Run all pending timers
+      return Promise.resolve();
+    });
+
+    const toastElement = screen.getByText(TOAST_TEXT);
+    expect(toastElement).toBeInTheDocument();
+
+    jest.useRealTimers(); // Revert to real timers
+  });
+
+  it('should display the toast message indefinitely when duration is set to null', async () => {
+    const TOAST_TEXT = generateMessage();
+
+    jest.useFakeTimers(); // Use fake timers
+
+    await act(() => toast(TOAST_TEXT, null));
+    await act(() => {
+      jest.runAllTimers(); // Run all pending timers
+      return Promise.resolve();
+    });
+
+    const toastElement = screen.getByText(TOAST_TEXT);
+    expect(toastElement).toBeInTheDocument();
+
+    jest.useRealTimers(); // Revert to real timers
+  });
 });
