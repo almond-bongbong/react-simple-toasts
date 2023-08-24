@@ -1,8 +1,29 @@
-import React, { ReactElement, ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import React, { ReactElement, ReactNode, useRef, useState } from 'react';
 import styles from '../style.css';
 import { ToastEnterEvent, ToastOptions } from '../type/common';
 import { ToastPosition } from '../lib/constants';
 import moduleClassNames from '../theme/theme-classnames.json';
+import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
+import { classes, rgbToRgba } from '../lib/utils';
+
+interface LoadingProps {
+  color?: string;
+}
+
+function Loading({ color }: LoadingProps) {
+  const translucentColor = color && rgbToRgba(color, 0.3);
+
+  return (
+    <span className={styles['spinner-wrap']}>
+      <span
+        className={styles.spinner}
+        style={{ border: `2px solid ${translucentColor}`, borderTopColor: color }}
+      >
+        loading
+      </span>
+    </span>
+  );
+}
 
 export interface ToastMessageProps
   extends Pick<
@@ -17,6 +38,7 @@ export interface ToastMessageProps
   baseOffsetX?: number;
   baseOffsetY?: number;
   zIndex?: number;
+  loading?: boolean | Promise<unknown>;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
 
@@ -34,6 +56,7 @@ function ToastMessage({
   baseOffsetX,
   baseOffsetY,
   zIndex,
+  loading,
   onClick,
   _onEnter,
 }: ToastMessageProps): ReactElement {
@@ -52,6 +75,8 @@ function ToastMessage({
         : `${parseInt(offsetY || '0') + 20 * (hasTopPosition ? -1 : 1)}px`
     })`,
   });
+  const [localLoading, setLocalLoading] = useState<boolean>(!!loading);
+  const [loadingColor, setLoadingColor] = useState<string>();
 
   const top = isCenterPosition ? '50%' : hasTopPosition ? baseOffsetY : undefined;
   const bottom = hasBottomPosition ? baseOffsetY : undefined;
@@ -59,7 +84,7 @@ function ToastMessage({
   const left =
     hasCenterPosition || isCenterPosition ? '50%' : hasLeftPosition ? baseOffsetX : undefined;
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const transform = `translate(${offsetX}, ${offsetY})`;
 
     setMessageStyle({
@@ -73,8 +98,8 @@ function ToastMessage({
     });
   }, [offsetX, offsetY, zIndex, top, right, bottom, left]);
 
-  useLayoutEffect(() => {
-    if (messageDOM.current == null || isEnter) return;
+  useIsomorphicLayoutEffect(() => {
+    if (messageDOM.current?.clientHeight == null || isEnter) return;
 
     const width = messageDOM.current.clientWidth;
     const height = messageDOM.current.clientHeight;
@@ -89,24 +114,43 @@ function ToastMessage({
     setIsEnter(true);
   }, [isEnter, _onEnter]);
 
-  const messageClassNames = [
+  useIsomorphicLayoutEffect(() => {
+    if (!messageDOM.current) return;
+
+    const messageText = messageDOM.current.querySelector('span');
+    const textColor = messageText && window.getComputedStyle(messageText).color;
+    if (!textColor) return;
+
+    setLoadingColor(textColor);
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    if (loading instanceof Promise) {
+      setLocalLoading(true);
+      loading.then(() => {
+        setLocalLoading(false);
+      });
+      return;
+    }
+    setLocalLoading(!!loading);
+  }, [loading]);
+
+  const messageClassNames = classes(
     styles['toast-message'],
     styles[position || 'bottom-center'],
     moduleClassNames[`toast-${theme}-wrapper`],
     isEnter ? 'toast-enter-active' : '',
     isExit ? 'toast-exit-active' : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+    localLoading ? styles['loading'] : '',
+  );
 
-  const contentClassNames = [
+  const contentClassNames = classes(
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
     moduleClassNames[`toast-${theme}`],
+    theme ? styles['toast-theme-content'] : '',
     className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  );
 
   const clickableProps = {
     onClick,
@@ -116,13 +160,10 @@ function ToastMessage({
 
   return (
     <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle}>
-      {render ? (
-        <div {...(clickable && clickableProps)}>{render(message)}</div>
-      ) : (
-        <div className={contentClassNames} {...(clickable && clickableProps)}>
-          {message}
-        </div>
-      )}
+      <div className={contentClassNames} {...(clickable && clickableProps)}>
+        {localLoading && <Loading color={loadingColor} />}
+        {render ? render(message) : message}
+      </div>
     </div>
   );
 }

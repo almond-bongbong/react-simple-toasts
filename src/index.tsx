@@ -13,8 +13,10 @@ import {
   ToastEnterEvent,
   ToastOptions,
   ToastPosition,
+  ToastUpdateOptions,
 } from './type/common';
 import ToastMessage from './component/toast-message';
+import { isToastUpdateOptions } from './lib/type-guard';
 
 let toastComponentList: ToastComponent[] = [];
 
@@ -180,6 +182,7 @@ function renderToast(
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
+    loading,
     onClick = undefined,
     onClose = undefined,
     onCloseStart = undefined,
@@ -237,6 +240,7 @@ function renderToast(
         render={render}
         theme={theme}
         zIndex={zIndex || undefined}
+        loading={loading}
         onClick={handleClick}
       />
     ),
@@ -258,28 +262,44 @@ function renderToast(
     updateDuration: (newDuration = durationTime) => {
       startCloseTimer(newDuration);
     },
-    update: (newMessage: ReactNode, newDuration?: number) => {
+    update: (
+      messageOrOptions: ReactNode | ToastUpdateOptions,
+      updateDuration?: ToastOptions['duration'],
+    ) => {
       const index = toastComponentList.findIndex((t) => t.id === id);
+      const newDuration = isToastUpdateOptions(messageOrOptions)
+        ? messageOrOptions.duration
+        : updateDuration;
+
       if (toastComponentList[index]) {
-        toastComponentList[index].message = newMessage;
+        const finalMessage =
+          (isToastUpdateOptions(messageOrOptions) ? messageOrOptions.message : messageOrOptions) ??
+          message;
+        const finalLoading = isToastUpdateOptions(messageOrOptions)
+          ? messageOrOptions.loading ?? loading
+          : false;
+        const finalTheme = isToastUpdateOptions(messageOrOptions) ? messageOrOptions.theme : theme;
+
+        toastComponentList[index].message = finalMessage;
         toastComponentList[index].component = (
           <ToastMessage
             id={id}
-            message={newMessage}
+            message={finalMessage}
             className={className}
             clickable={clickable || clickClosable}
             position={position}
             baseOffsetX={offsetX}
             baseOffsetY={offsetY}
             render={render}
-            theme={theme}
+            theme={finalTheme}
+            loading={finalLoading}
             onClick={handleClick}
           />
         );
       }
       renderDOM();
 
-      if (newDuration) {
+      if (newDuration !== undefined) {
         startCloseTimer(newDuration);
       }
     },

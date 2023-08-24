@@ -17,12 +17,7 @@ function Api() {
           object that allows you to control the toast message currently being displayed.
         </p>
         <div className={styles.code}>
-          <CommonHighlighter>{`import toast, { toastConfig } from 'react-simple-toasts';
-import 'react-simple-toasts/dist/theme/dark.css';
-
-toastConfig({
-  theme: 'dark',
-});
+          <CommonHighlighter>{`import toast from 'react-simple-toasts';
 
 export function MyComponent() {
   return (
@@ -79,7 +74,7 @@ export function MyComponent() {
               <tr>
                 <td>durationOrOptions</td>
                 <td>
-                  <code>number</code>, <code>object</code>, <code>null</code>
+                  <code>number</code>, <code>object</code>
                 </td>
                 <td>
                   Either the duration for the toast (in milliseconds) or an object containing
@@ -90,7 +85,9 @@ export function MyComponent() {
           </table>
         </div>
         <br />
-        <h4>Options Object Properties</h4>
+        <h4>
+          <code>Options</code> Object Properties
+        </h4>
         <div className={styles.table_wrap}>
           <table className={styles.table}>
             <thead>
@@ -109,8 +106,7 @@ export function MyComponent() {
                 </td>
                 <td>
                   The duration (in milliseconds) for which the toast message will be displayed.
-                  Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep
-                  the toast message displayed indefinitely.
+                  Default is <code>3000</code>.
                 </td>
                 <td></td>
               </tr>
@@ -222,6 +218,18 @@ export function MyComponent() {
                 <td>5.1.0</td>
               </tr>
               <tr>
+                <td>loading</td>
+                <td>
+                  <code>boolean</code>, <code>Promise</code>
+                </td>
+                <td>
+                  The loading option provides the functionality to display a loading indicator
+                  within a toast message. It can be set as a boolean value or as a Promise object,
+                  allowing for more customized loading behavior.
+                </td>
+                <td>5.8.0</td>
+              </tr>
+              <tr>
                 <td>onClick</td>
                 <td>
                   <code>function</code>
@@ -262,8 +270,21 @@ export function MyComponent() {
         <h3>Toast Return Object</h3>
         <p style={{ marginBottom: 15 }}>
           When you call the <code>toast</code> function, it returns a <code>Toast</code> object that
-          you can use to control the displayed toast message. The <code>Toast</code> object includes
-          the following methods:
+          you can use to control the displayed toast message. These methods can be invoked at any
+          time to manage the toast message before its duration has elapsed.
+        </p>
+        <div className={styles.code}>
+          <CommonHighlighter>{`const myToast = toast('Hello, world!', Infinity);
+
+// ...
+
+<button onClick={() => myToast.close()}>
+  Close Toast Message
+</button>`}</CommonHighlighter>
+        </div>
+
+        <p style={{ margin: '30px 0 15px' }}>
+          The <code>Toast</code> object includes the following methods:
         </p>
         <div className={styles.table_wrap}>
           <table className={styles.table}>
@@ -296,21 +317,70 @@ export function MyComponent() {
                 <td>Updates the message and duration of the currently displayed toast message.</td>
                 <td>3.5.0</td>
               </tr>
+              <tr>
+                <td>
+                  <code>update(options: ToastUpdateOptions)</code>
+                </td>
+                <td>
+                  Updates the currently displayed toast message with new options specified in the{' '}
+                  <code>ToastUpdateOptions</code> object. This allows for more granular control over
+                  the toast's content and behavior.
+                </td>
+                <td>5.8.0</td>
+              </tr>
             </tbody>
           </table>
         </div>
-        <p style={{ marginTop: 15 }}>
-          These methods can be invoked at any time to manage the toast message before its duration
-          has elapsed.
-        </p>
-        <div className={styles.code}>
-          <CommonHighlighter>{`const myToast = toast('Hello, world!', Infinity);
 
-// ...
-
-<button onClick={() => myToast.close()}>
-  Close Toast Message
-</button>`}</CommonHighlighter>
+        <br />
+        <h4>
+          <code>ToastUpdateOptions</code> Object Properties
+        </h4>
+        <div className={styles.table_wrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>message</td>
+                <td>
+                  <code>string</code>, <code>ReactNode</code>
+                </td>
+                <td>The new message to display in the toast.</td>
+              </tr>
+              <tr>
+                <td>duration</td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>
+                  The new duration (in milliseconds) for which the toast message will be displayed.
+                </td>
+              </tr>
+              <tr>
+                <td>loading</td>
+                <td>
+                  <code>boolean</code>,<code>Promise</code>
+                </td>
+                <td>
+                  Indicates whether the toast is in a loading state or accepts a Promise to
+                  automatically handle loading behavior.
+                </td>
+              </tr>
+              <tr>
+                <td>theme</td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>The new theme to apply to the toast. Must be one of the predefined themes.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -344,8 +414,7 @@ export function MyComponent() {
                 </td>
                 <td>
                   The duration (in milliseconds) for which the toast message will be displayed.
-                  Default is <code>3000</code>. Set to <code>0</code> or <code>null</code> to keep
-                  the toast message displayed indefinitely.
+                  Default is <code>3000</code>.
                 </td>
                 <td></td>
               </tr>

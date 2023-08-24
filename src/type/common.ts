@@ -18,6 +18,7 @@ export interface ToastOptions {
   render?: ((message: ReactNode) => ReactNode) | null;
   theme?: Theme | null;
   zIndex?: number | null;
+  loading?: boolean | Promise<unknown>;
   onClick?: ToastClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -42,10 +43,20 @@ export type ConfigArgs = Pick<
   gap?: number;
 };
 
+export type ToastUpdateOptions = {
+  message?: ReactNode;
+  duration?: number;
+  loading?: boolean;
+  theme?: Theme;
+};
+export type ToastUpdateArgs =
+  | [message: ReactNode, duration?: ToastOptions['duration']]
+  | [options: ToastUpdateOptions];
+
 export interface Toast {
   close: () => void;
   updateDuration: (duration?: ToastOptions['duration']) => void;
-  update: (message: ReactNode, duration?: number) => void;
+  update: (...args: ToastUpdateArgs) => void;
 }
 
 export interface ToastComponent {
