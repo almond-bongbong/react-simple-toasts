@@ -178,7 +178,7 @@ export default function App() {
 
         <div className={styles.area}>
           <div className={styles.playground}>
-            <Button onClick={() => toast('Hello, World!', { theme: null, className: 'my-toast' })}>
+            <Button onClick={() => toast('Hello, World!', { theme: 'my-toast' })}>
               Custom toast
             </Button>
           </div>
@@ -198,7 +198,7 @@ import './my-style.css';
 
 export default function App() {
   return (
-    <button onClick={() => toast('Hello, World!', { className: 'my-toast' })}>
+    <button onClick={() => toast('Hello, World!', { theme: 'my-toast' })}>
       Show Toast
     </button>
   );

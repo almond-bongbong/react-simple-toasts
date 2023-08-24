@@ -112,10 +112,6 @@ const MENU: Menu[] = [
           },
         ],
       },
-      {
-        name: 'Custom Example',
-        hash: '#custom-example',
-      },
     ],
   },
   {

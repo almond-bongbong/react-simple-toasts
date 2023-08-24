@@ -16,7 +16,7 @@ export interface ToastOptions {
   maxVisibleToasts?: number | null;
   isReversedOrder?: boolean;
   render?: ((message: ReactNode) => ReactNode) | null;
-  theme?: Theme | null;
+  theme?: Theme | string | null;
   zIndex?: number | null;
   loading?: boolean | Promise<unknown>;
   onClick?: ToastClickHandler;

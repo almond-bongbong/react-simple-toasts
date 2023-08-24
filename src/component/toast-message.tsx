@@ -149,6 +149,7 @@ function ToastMessage({
     clickable ? styles['clickable'] : '',
     !render && moduleClassNames[`toast-${theme}`],
     !render && theme ? styles['toast-theme-content'] : '',
+    theme || '',
     className,
   );
 
