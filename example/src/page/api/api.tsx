@@ -85,7 +85,9 @@ export function MyComponent() {
           </table>
         </div>
         <br />
-        <h4>Options Object Properties</h4>
+        <h4>
+          <code>Options</code> Object Properties
+        </h4>
         <div className={styles.table_wrap}>
           <table className={styles.table}>
             <thead>
@@ -216,6 +218,18 @@ export function MyComponent() {
                 <td>5.1.0</td>
               </tr>
               <tr>
+                <td>loading</td>
+                <td>
+                  <code>boolean</code>, <code>Promise</code>
+                </td>
+                <td>
+                  The loading option provides the functionality to display a loading indicator
+                  within a toast message. It can be set as a boolean value or as a Promise object,
+                  allowing for more customized loading behavior.
+                </td>
+                <td>5.8.0</td>
+              </tr>
+              <tr>
                 <td>onClick</td>
                 <td>
                   <code>function</code>
@@ -312,14 +326,16 @@ export function MyComponent() {
                   <code>ToastUpdateOptions</code> object. This allows for more granular control over
                   the toast's content and behavior.
                 </td>
-                <td>6.0.0</td>
+                <td>5.8.0</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <br />
-        <h4>ToastUpdateOptions Object Properties</h4>
+        <h4>
+          <code>ToastUpdateOptions</code> Object Properties
+        </h4>
         <div className={styles.table_wrap}>
           <table className={styles.table}>
             <thead>
