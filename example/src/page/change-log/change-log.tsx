@@ -15,6 +15,44 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.8.2</h3>
+        <div className={styles.date}>{dayjs(1692873349604).format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Theme Option Type Update:</strong> Modified the theme option type to accept
+            string, and improved the ability to use custom themes through the theme option.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
+        <h3>5.8.1</h3>
+        <div className={styles.date}>{dayjs(1692873339604).format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Fix Theme Style Overlap with Render Option:</strong> Fixed a bug where the theme
+            style overlapped when using the render option.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
+        <h3>5.8.0</h3>
+        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Loading Option:</strong> Added a loading option. The loading option provides the
+            functionality to display a loading indicator within a toast message. It can be set as a{' '}
+            <code>boolean</code> value or as a <code>Promise</code> object, allowing for more
+            customized loading behavior.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.7.1</h3>
         <div className={styles.date}>{dayjs(1692359510375).format('YYYY.MM.DD')}</div>{' '}
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
