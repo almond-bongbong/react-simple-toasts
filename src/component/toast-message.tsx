@@ -147,8 +147,8 @@ function ToastMessage({
   const contentClassNames = classes(
     styles['toast-content'],
     clickable ? styles['clickable'] : '',
-    moduleClassNames[`toast-${theme}`],
-    theme ? styles['toast-theme-content'] : '',
+    !render && moduleClassNames[`toast-${theme}`],
+    !render && theme ? styles['toast-theme-content'] : '',
     className,
   );
 
