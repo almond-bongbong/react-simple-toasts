@@ -100,7 +100,7 @@ const MENU: Menu[] = [
         children: [
           {
             name: 'Promise Based Loading',
-            hash: '#Promise-based-loading',
+            hash: '#promise-based-loading',
           },
           {
             name: 'Infinity Duration',
