@@ -14,12 +14,11 @@
     "test:watch": "jest --watch",
     "prebuild:theme": "rm -rf src/theme/theme-classnames.json",
     "build:theme": "postcss src/theme/*.css -d dist/theme --env theme",
-    "prebuild": "npm run build:theme",
+    "prebuild": "yarn build:theme",
     "build": "rollup -c",
     "start:theme": "postcss src/theme/*.css -d dist/theme --env theme --watch",
-    "start": "concurrently \"rollup -c -w\" \"npm run start:theme\"",
-    "prepare": "npm run test",
-    "predeploy": "cd example && npm install && npm run build",
+    "start": "concurrently \"rollup -c -w\" \"yarn start:theme\"",
+    "predeploy": "cd example && yarn install && yarn build",
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {

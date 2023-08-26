@@ -1,12 +1,9 @@
-name: Publish NPM Package
+name: ✅ Test
 
 on:
-  release:
-    types: [created]
-#on:
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -27,7 +24,12 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Test package
+        run: yarn test
+
+      - name: Dispatch test done event
+        run: |
+          curl -X POST \
+               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/owner/repo/dispatches \
+               -d '{"event_type": "test-done"}'

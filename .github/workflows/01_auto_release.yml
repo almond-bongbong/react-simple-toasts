@@ -1,9 +1,8 @@
 name: Auto Release
 
 on:
-  push:
-    branches:
-      - master
+  repository_dispatch:
+    types: [test-done]
 
 jobs:
   create_release:
@@ -11,18 +10,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build package
-        run: yarn build
 
       - name: Get version from package.json
         id: version
