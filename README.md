@@ -7,6 +7,9 @@ React Simple Toasts is a lightweight, user-friendly toast message library for Re
 ![NPM Downloads](https://img.shields.io/npm/dw/react-simple-toasts.svg)
 ![Size](https://img.shields.io/bundlephobia/min/react-simple-toasts)
 ![License](https://img.shields.io/npm/l/react-simple-toasts)
+<br/>
+[![✅ Test](https://github.com/almond-bongbong/react-simple-toasts/actions/workflows/00_test.yml/badge.svg)](https://github.com/almond-bongbong/react-simple-toasts/actions/workflows/00_test.yml)
+[![Deploy to GitHub Pages](https://github.com/almond-bongbong/react-simple-toasts/actions/workflows/01_deploy_to_github_pages.yml/badge.svg)](https://github.com/almond-bongbong/react-simple-toasts/actions/workflows/01_deploy_to_github_pages.yml)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/preview.gif" alt="preview" />
