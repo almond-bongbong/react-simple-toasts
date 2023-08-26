@@ -29,7 +29,8 @@ jobs:
 
       - name: Dispatch test done event
         run: |
-          curl -X POST \
-               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-               https://api.github.com/repos/owner/repo/dispatches \
-               -d '{"event_type": "test-done"}'
+          curl -L \
+               -X POST \
+               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/almond-bongbong/react-simple-toasts/dispatches \
+               -d '{"event_type":"test-done"}'
