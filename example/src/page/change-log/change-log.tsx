@@ -15,6 +15,18 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.8.3</h3>
+        <div className={styles.date}>{dayjs(1693947426761).format('YYYY.MM.DD')}</div>{' '}
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Add Terser Plugin:</strong> Integrated Terser plugin into Rollup configuration
+            for code minification and optimization.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.8.2</h3>
         <div className={styles.date}>{dayjs(1692873349604).format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
