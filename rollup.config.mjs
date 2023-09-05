@@ -7,6 +7,7 @@ import postcss from 'rollup-plugin-postcss';
 import eslint from '@rollup/plugin-eslint';
 import json from '@rollup/plugin-json';
 import autoprefixer from 'autoprefixer';
+import terser from "@rollup/plugin-terser";
 
 import pkg from './package.json' assert { type: 'json' };
 
@@ -51,5 +52,6 @@ export default {
       use: ['sass'],
       plugins: [autoprefixer()],
     }),
+    terser(),
   ],
 };
