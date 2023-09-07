@@ -1,7 +1,6 @@
 # React Simple Toasts
 
-React Simple Toasts is a lightweight, user-friendly toast message library for React applications. Add beautiful notifications to your React apps.
-
+Instant, lightweight toast notifications for React. No providers or containers needed. 🍃
 
 [![NPM](https://img.shields.io/npm/v/react-simple-toasts.svg)](https://www.npmjs.com/package/react-simple-toasts)
 ![NPM Downloads](https://img.shields.io/npm/dw/react-simple-toasts.svg)
