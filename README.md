@@ -25,7 +25,7 @@ npm install react-simple-toasts
 ### 💡 Usage Example
 
 ```jsx
-import toast from 'react-simple-toasts';
+import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css'; // choose your theme
 
 toastConfig({ theme: 'dark' });
