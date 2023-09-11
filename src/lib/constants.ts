@@ -23,4 +23,6 @@ export const Themes = {
   CHROMA: 'chroma',
   BLUE_DUSK: 'blue-dusk',
   OCEAN_WAVE: 'ocean-wave',
+  SUNSET: 'sunset',
+  MOONLIGHT: 'moonlight',
 } as const;

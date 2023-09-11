@@ -41,6 +41,12 @@ function Preview() {
         <div className={styles.section}>
           <iframe src="/preview/section?theme=ocean-wave" />
         </div>
+        <div className={styles.section}>
+          <iframe src="/preview/section?theme=sunset" />
+        </div>
+        <div className={styles.section}>
+          <iframe src="/preview/section?theme=moonlight" />
+        </div>
       </div>
     </div>
   );
