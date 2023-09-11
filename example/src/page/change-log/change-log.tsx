@@ -15,6 +15,19 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.9.0</h3>
+        <div className={styles.date}>{dayjs(1694441587084).format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>New Themes:</strong> Introduced new themes: <code>Moonlight</code> and{' '}
+            <code>Sunset</code>. These themes offer a visually appealing experience and provide more
+            customization options for toast notifications.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.8.3</h3>
         <div className={styles.date}>{dayjs(1693947426761).format('YYYY.MM.DD')}</div>{' '}
         <h4 className={styles.sub_title}>⚙️ Improvements</h4>
