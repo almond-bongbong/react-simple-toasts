@@ -39,11 +39,9 @@ toastConfig({
 
 function App() {
   return (
-    <div>
-      <button onClick={() => toast('Hello, World!')}>
-        Show Toast
-      </button>
-    </div>
+    <button onClick={() => toast('Hello, World!')}>
+      Show Toast
+    </button>
   );
 }
 
