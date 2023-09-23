@@ -1,8 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
 import styles from './theme.module.css';
 import toast, { Themes, ToastOptions } from 'react-simple-toasts';
+import { Theme } from '../../../../src/type/common';
+
+const STANDARD_THEMES: Theme[] = [Themes.DARK, Themes.LIGHT, Themes.DARK_EDGE, Themes.LIGHT_EDGE];
 
 function Theme() {
   const themeList = Object.values(Themes);
@@ -41,59 +44,68 @@ export default function App() {
       <section id="built-in-themes">
         <h2>🎁 Built-in Themes</h2>
         <p>
-          react-simple-toasts comes with built-in themes:{' '}
-          {themeList.map((theme) => (
-            <Fragment key={theme}>
-              <code>'{theme}'</code>
-              {theme !== themeList[themeList.length - 1] ? ', ' : ''}
-            </Fragment>
-          ))}
-          . You can use these themes to quickly style your toasts. Here is how you can use these
-          themes:
+          react-simple-toasts comes with a variety of built-in themes for quick styling of your
+          toasts.
         </p>
 
-        <div className={styles.area}>
-          <div className={styles.playground}>
-            <div className={styles.button_list}>
-              {themeList.map((theme) => (
-                <div key={theme} className={styles.button_item}>
-                  <Button
-                    onClick={() => {
-                      toast('Hello, World!', {
-                        theme: theme as ToastOptions['theme'],
-                      });
-                    }}
-                  >
-                    {theme}
-                  </Button>
-                </div>
-              ))}
+        <br />
+        <h3>Standard Themes</h3>
+        <div className={styles.button_list}>
+          {STANDARD_THEMES.map((theme) => (
+            <div key={theme} className={styles.button_item}>
+              <Button
+                onClick={() => {
+                  toast('Hello, World!', {
+                    theme: theme as ToastOptions['theme'],
+                  });
+                }}
+              >
+                {theme}
+              </Button>
             </div>
-          </div>
-          <div className={styles.code}>
-            <CommonHighlighter>{`import toast, { Themes } from 'react-simple-toasts';
-${themeList.map((theme) => `import 'react-simple-toasts/dist/theme/${theme}.css';`).join('\n')}
+          ))}
+        </div>
+
+        <br />
+        <h3>Creative Themes</h3>
+        <div className={styles.button_list}>
+          {themeList
+            .filter((theme) => !STANDARD_THEMES.includes(theme))
+            .map((theme) => (
+              <div key={theme} className={styles.button_item}>
+                <Button
+                  onClick={() => {
+                    toast('Hello, World!', {
+                      theme: theme as ToastOptions['theme'],
+                    });
+                  }}
+                >
+                  {theme}
+                </Button>
+              </div>
+            ))}
+        </div>
+
+        <div className={styles.code}>
+          <CommonHighlighter>{`import toast, { Themes } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css'; // Import the 'dark' theme CSS
 
 export default function App() {
 
-  const handleToast = (theme) => {
-    toast('Hello, World!', { theme });
+  const handleToast = () => {
+    // Using a literal string to set the theme to 'dark'
+    toast('Hello, World!', { theme: 'dark' }); 
+
+    // Alternatively, you can import the Themes constant and use it like so:
+    // toast('Hello, World!', { theme: Themes.DARK });
   };
 
   return (
-    <>
-      ${themeList
-        .map(
-          (theme) =>
-            `<button onClick={() => handleToast(Themes.${theme
-              .toUpperCase()
-              .replace(/-/g, '_')})}>${theme}</button>`,
-        )
-        .join('\n      ')}
-    </>
+    <button onClick={handleToast}>
+      Show Toast
+    </button>
   );
 }`}</CommonHighlighter>
-          </div>
         </div>
       </section>
 
