@@ -3,12 +3,19 @@
   background: linear-gradient(15deg, #a6c1ff, #ffffff 60%, #ffffff);
 }
 
+.button_wrap {
+  padding: 10px;
+}
+
 .container {
-  overflow: hidden;
+  box-sizing: content-box;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1000px;
+  width: 1020px;
+  /*guide-line*/
+  /*border: 1px solid red;*/
+  padding-bottom: 10px;
   transform: translate(-50%, -50%);
 }
 
@@ -18,8 +25,16 @@
   border: 0;
 }
 
+.size {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  color: #666;
+  font-size: 14px;
+}
+
 .section {
   float: left;
-  width: 33.3333333333%;
+  width: 25%;
   height: 120px;
 }

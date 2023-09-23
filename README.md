@@ -56,7 +56,11 @@ Looking for more details, examples, and customization options? **Explore the ful
 React Simple Toasts offers fun built-in themes, and the flexibility doesn't stop there. Feel free to customize the themes to match your application's branding. Your toast, your style!
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/theme-showcase.gif" alt="theme-showcase" />
+  <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/theme_standard.gif" alt="standard theme showcase" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/theme_creative.gif" alt="creative theme showcase" />
 </p>
 
 ## 🤝 Support and Contribution
