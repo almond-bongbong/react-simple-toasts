@@ -77,7 +77,7 @@ prismjs/prism.js:
    * @namespace
    * @public
    *)
-*/const gv="_code_2hp4w_1",yv={code:gv};function oe({children:e,language:t="jsx"}){return i.jsx(mv,{language:t,code:e,theme:vp.github,children:({style:n,tokens:r,getLineProps:o,getTokenProps:l})=>i.jsx("pre",{style:n,className:yv.code,children:r.map((a,s)=>i.jsx("div",{...o({line:a}),children:a.map((u,d)=>i.jsx("span",{...l({token:u})},d))},s))})})}const vv="_benefits_1glmz_1",xv="_code_1glmz_6",Ul={benefits:vv,code:xv};function wv(){return i.jsxs("div",{children:[i.jsxs("section",{id:"installation",children:[i.jsx("h2",{children:"📦 Installation"}),i.jsx("p",{children:"To get started with React Simple Toasts, install the package using npm or yarn:"}),i.jsx("br",{}),i.jsx("div",{className:Ul.code,children:i.jsx(oe,{children:`// with npm
+*/const gv="_code_7qnq5_1",yv={code:gv};function oe({children:e,language:t="jsx"}){return i.jsx(mv,{language:t,code:e,theme:vp.github,children:({style:n,tokens:r,getLineProps:o,getTokenProps:l})=>i.jsx("pre",{style:n,className:yv.code,children:r.map((a,s)=>i.jsx("div",{...o({line:a}),children:a.map((u,d)=>i.jsx("span",{...l({token:u})},d))},s))})})}const vv="_benefits_1glmz_1",xv="_code_1glmz_6",Ul={benefits:vv,code:xv};function wv(){return i.jsxs("div",{children:[i.jsxs("section",{id:"installation",children:[i.jsx("h2",{children:"📦 Installation"}),i.jsx("p",{children:"To get started with React Simple Toasts, install the package using npm or yarn:"}),i.jsx("br",{}),i.jsx("div",{className:Ul.code,children:i.jsx(oe,{children:`// with npm
 npm install react-simple-toasts
 
 // with yarn
