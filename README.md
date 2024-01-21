@@ -83,10 +83,12 @@ Your style, your toast. Choose from built-in themes or create your own.
 
 Explore full [documentation](https://almond-bongbong.github.io/react-simple-toasts/) for in-depth guides, examples, and API details.
 
+<a name="Contribute"></a>
 ## Contribute 🤝
 
 Join our growing community! [Star us on GitHub](https://github.com/almond-bongbong/react-simple-toasts/stargazers) and contribute to making React Simple Toasts better.
 
+<a name="License"></a>
 ## License 📜
 
 React Simple Toasts is MIT licensed.
