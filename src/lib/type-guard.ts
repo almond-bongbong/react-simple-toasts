@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 import { ToastUpdateOptions } from '../type/common';
 
+/**
+ * Check if the updateOptions is a ToastUpdateOptions
+ * @param updateOptions
+ */
 export const isToastUpdateOptions = (
   updateOptions: ReactNode | ToastUpdateOptions,
 ): updateOptions is ToastUpdateOptions => {

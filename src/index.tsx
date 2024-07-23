@@ -278,7 +278,9 @@ function renderToast(
         const finalLoading = isToastUpdateOptions(messageOrOptions)
           ? messageOrOptions.loading ?? loading
           : false;
-        const finalTheme = isToastUpdateOptions(messageOrOptions) ? messageOrOptions.theme : theme;
+        const finalTheme = isToastUpdateOptions(messageOrOptions)
+          ? messageOrOptions.theme || theme
+          : theme;
 
         toastComponentList[index].message = finalMessage;
         toastComponentList[index].component = (
