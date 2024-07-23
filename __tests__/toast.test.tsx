@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import themeModuleClassNames from '../src/theme/theme-classnames.json';
-import toast, {toast as toastNamed} from '../src';
+import toast, { toast as toastNamed } from '../src';
 import { generateMessage } from '../src/lib/utils';
 
 const EXIT_ANIMATION_DURATION = 320;
