@@ -24,6 +24,10 @@
   margin-top: 10px;
 }
 
+.features a {
+  color: blue;
+}
+
 .features strong {
   font-weight: 400;
   color: #000;

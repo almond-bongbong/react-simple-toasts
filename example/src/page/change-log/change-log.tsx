@@ -15,6 +15,27 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>5.11.0</h3>
+        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🎉 New Features</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Named Export:</strong> Added a named export <code>toast</code> to resolve type
+            issues with the default export.
+            <a href="https://github.com/almond-bongbong/react-simple-toasts/pull/92">#92</a>
+          </li>
+        </ul>
+        <h4 className={styles.sub_title}>🐛 Bug Fixes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Maintain Theme on Update:</strong> Fixed an issue where the theme was not being
+            maintained after updates.
+            <a href="https://github.com/almond-bongbong/react-simple-toasts/pull/95">#95</a>
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>5.10.0</h3>
         <div className={styles.date}>{dayjs(1695454943400).format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🌈 Theme Expansion</h4>
