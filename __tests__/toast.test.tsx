@@ -257,4 +257,20 @@ describe('toast', () => {
 
     screen.getByText(TOAST_TEXT);
   });
+
+  it('should retain the theme when updating the toast with an options object', async () => {
+    const TOAST_TEXT = generateMessage();
+    const UPDATED_TEXT = generateMessage();
+    const toastContentClassName = 'toast-theme-content';
+
+    const toastInstance = await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
+
+    const toastDOM = screen.getByText(TOAST_TEXT);
+    expect(toastDOM).toHaveClass(toastContentClassName);
+
+    await act(() => toastInstance.update({ message: UPDATED_TEXT }));
+
+    const updatedToastDOM = screen.getByText(UPDATED_TEXT);
+    expect(updatedToastDOM).toHaveClass(toastContentClassName);
+  });
 });
