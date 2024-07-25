@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import themeModuleClassNames from '../src/theme/theme-classnames.json';
-import toast from '../src';
+import toast, { toast as toastNamed } from '../src';
 import { generateMessage } from '../src/lib/utils';
 
 const EXIT_ANIMATION_DURATION = 320;
@@ -242,6 +242,20 @@ describe('toast', () => {
     expect(toastElement).toBeInTheDocument();
 
     jest.useRealTimers(); // Revert to real timers
+  });
+
+  it('should renders a toast with the named export', async () => {
+    const TOAST_TEXT = generateMessage();
+    render(
+      <button type="button" onClick={() => toastNamed(TOAST_TEXT)}>
+        show
+      </button>,
+    );
+
+    const button = screen.getByText('show');
+    await act(() => button.click());
+
+    screen.getByText(TOAST_TEXT);
   });
 
   it('should retain the theme when updating the toast with an options object', async () => {

@@ -343,7 +343,7 @@ export const createToast = (options: ConfigArgs): typeof toast => {
 
 export default toast;
 
-export { Themes };
+export { Themes, toast };
 
 export type {
   ToastPosition,
