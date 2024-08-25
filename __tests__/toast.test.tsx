@@ -1,10 +1,9 @@
 import React from 'react';
 import { act, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import themeModuleClassNames from '../src/theme/theme-classnames.json';
 import toast, { toast as toastNamed } from '../src';
 import { generateMessage } from '../src/lib/utils';
 
-const EXIT_ANIMATION_DURATION = 320;
+const EXIT_ANIMATION_DURATION = 300;
 
 describe('toast', () => {
   it('renders a toast when the show button is clicked', async () => {
@@ -161,7 +160,7 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
-    expect(toastElement).toHaveClass(themeModuleClassNames['toast-light']);
+    expect(toastElement).toHaveClass('toast__light');
   });
 
   it('applies the specified zIndex to the toast', async () => {
@@ -198,7 +197,7 @@ describe('toast', () => {
 
   it('applies theme class to toast when theme is specified and does not apply it when theme is not specified', async () => {
     const TOAST_TEXT = generateMessage();
-    const toastContentClassName = 'toast-theme-content';
+    const toastContentClassName = ' toast__content toast__theme-content';
     await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
 
     const toastDOM = screen.getByText(TOAST_TEXT);
@@ -261,7 +260,7 @@ describe('toast', () => {
   it('should retain the theme when updating the toast with an options object', async () => {
     const TOAST_TEXT = generateMessage();
     const UPDATED_TEXT = generateMessage();
-    const toastContentClassName = 'toast-theme-content';
+    const toastContentClassName = 'toast__theme-content';
 
     const toastInstance = await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
 

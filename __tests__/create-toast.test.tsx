@@ -57,14 +57,14 @@ describe('createToast', () => {
     await act(() => myToast(TOAST_TEXT));
 
     const toastElement = screen.getByText(TOAST_TEXT);
-    expect(toastElement.parentElement).toHaveClass(POSITION);
+    expect(toastElement.parentElement).toHaveClass(`toast__message--${POSITION}`);
 
     const TOAST_TEXT_2 = generateMessage();
     const POSITION_2 = ToastPosition.BOTTOM_RIGHT;
     await act(() => myToast(TOAST_TEXT_2, { position: POSITION_2 }));
 
     const overridenPositionToastElement = screen.getByText(TOAST_TEXT_2);
-    expect(overridenPositionToastElement.parentElement).toHaveClass(POSITION_2);
+    expect(overridenPositionToastElement.parentElement).toHaveClass(`toast__message--${POSITION_2}`);
   });
 
   it('allows creating custom toast instances with specified clickClosable and overriding clickClosable', async () => {

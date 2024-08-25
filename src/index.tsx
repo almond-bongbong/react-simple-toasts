@@ -214,8 +214,8 @@ function renderToast(
 
   const handleClose = () => {
     toastComponentList = toastComponentList.filter((t) => t.id !== id);
-    onClose?.();
     renderDOM();
+    onClose?.();
   }
 
   const startCloseTimer = (duration = durationTime, callback?: () => void) => {

@@ -154,8 +154,8 @@ function ToastMessage({
   const contentClassNames = classes(
     'toast__content',
     clickable ? 'toast__content--clickable' : '',
-    !render ? `toast__${theme}` : '',
-    !render && theme ? 'toast__theme-content' : '',
+    !render && theme ? `toast__${theme}` : '',
+    !render ? 'toast__theme-content' : '',
     theme || '',
     className,
   );
