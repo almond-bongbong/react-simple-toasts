@@ -9,15 +9,28 @@
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./style.css.map": "./dist/style.css.map",
+    "./dist/style.css": "./dist/style.css",
+    "./dist/style.css.map": "./dist/style.css.map"
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "prebuild:theme": "rm -rf src/theme/theme-classnames.json",
     "build:theme": "postcss src/theme/*.css -d dist/theme --env theme",
-    "prebuild": "yarn build:theme",
+    "build:sass": "sass src/style.scss dist/style.css",
+    "postbuild:sass": "postcss dist/style.css --use autoprefixer -m -o dist/style.css",
+    "prebuild": "yarn build:theme && yarn build:sass",
     "build": "rollup -c",
     "start:theme": "postcss src/theme/*.css -d dist/theme --env theme --watch",
-    "start": "concurrently \"rollup -c -w\" \"yarn start:theme\"",
+    "start:sass": "sass src/style.scss dist/style.css --watch",
+    "start": "concurrently \"rollup -c -w\" \"yarn start:theme\" \"yarn start:sass\"",
     "predeploy": "cd example && yarn install && yarn build",
     "deploy": "gh-pages -d example/build"
   },
@@ -57,15 +70,13 @@
     "jest-environment-jsdom": "^29.5.0",
     "postcss": "^8.4.23",
     "postcss-cli": "^10.1.0",
-    "postcss-modules": "^6.0.0",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.10.0",
-    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
+    "sass": "^1.56.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"
   },
@@ -75,7 +86,9 @@
   "engines": {
     "node": ">=16.17.0 <=20.x"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "keywords": [
     "react",
     "toast",

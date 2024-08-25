@@ -1,5 +1,4 @@
 import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react';
-import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser, reverse } from './lib/utils';
@@ -21,9 +20,9 @@ import { isToastUpdateOptions } from './lib/type-guard';
 let toastComponentList: ToastComponent[] = [];
 
 const init = () => {
-  const toastContainer = isBrowser() && document.getElementById(styles['toast_container']);
+  const toastContainer = isBrowser() && document.getElementById('#toast__container');
   if (isBrowser() && !toastContainer) {
-    addRootElement(createElement(styles['toast_container']));
+    addRootElement(createElement('#toast__container'));
   }
   if (!toastComponentList || !Array.isArray(toastComponentList)) {
     toastComponentList = [];
@@ -124,7 +123,7 @@ function ToastContainer() {
 
 const renderDOM = () => {
   if (!isBrowser()) return;
-  const toastContainer = document.getElementById(styles['toast_container']);
+  const toastContainer = document.getElementById('#toast__container');
   if (!toastContainer) return;
 
   reactRender(<ToastContainer />, toastContainer);
