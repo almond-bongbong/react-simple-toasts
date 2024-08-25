@@ -38,6 +38,10 @@ export type ConfigArgs = Pick<
   | 'theme'
   | 'zIndex'
   | 'isReversedOrder'
+  | 'onClick'
+  | 'onCloseStart'
+  | 'onClose'
+  | 'loadingText'
 > & {
   offsetX?: number;
   offsetY?: number;

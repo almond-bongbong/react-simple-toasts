@@ -29,6 +29,10 @@ const init = () => {
   }
 };
 
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {}
+
 const defaultOptions: Required<ConfigArgs> = {
   duration: 3000,
   className: '',
@@ -42,6 +46,10 @@ const defaultOptions: Required<ConfigArgs> = {
   isReversedOrder: false,
   theme: null,
   zIndex: null,
+  loadingText: 'loading',
+  onClick: noop,
+  onCloseStart: noop,
+  onClose: noop,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
@@ -71,6 +79,10 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.offsetX != null) defaultOptions.offsetX = options.offsetX;
   if (options.offsetY != null) defaultOptions.offsetY = options.offsetY;
   if (options.gap != null) defaultOptions.gap = options.gap;
+  if (options.loadingText) defaultOptions.loadingText = options.loadingText;
+  if (options.onClick) defaultOptions.onClick = options.onClick;
+  if (options.onCloseStart) defaultOptions.onCloseStart = options.onCloseStart;
+  if (options.onClose) defaultOptions.onClose = options.onClose;
 };
 
 function ToastContainer() {
@@ -141,12 +153,6 @@ function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onClose
   }
   options.onCloseStart?.();
   renderDOM();
-
-  setTimeout(() => {
-    toastComponentList = toastComponentList.filter((t) => t.id !== id);
-    options.onClose?.();
-    renderDOM();
-  }, 300);
 }
 
 function renderToast(
@@ -181,10 +187,11 @@ function renderToast(
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
+    onClick = defaultOptions.onClick,
+    onClose = defaultOptions.onClose,
+    onCloseStart = defaultOptions.onCloseStart,
+    loadingText = defaultOptions.loadingText,
     loading,
-    onClick = undefined,
-    onClose = undefined,
-    onCloseStart = undefined,
   } = options || {};
   const durationTime = duration === undefined ? defaultOptions.duration : duration;
   const closeOptions = { onClose, onCloseStart };
@@ -204,6 +211,12 @@ function renderToast(
     }
     onClick?.(e);
   };
+
+  const handleClose = () => {
+    toastComponentList = toastComponentList.filter((t) => t.id !== id);
+    onClose?.();
+    renderDOM();
+  }
 
   const startCloseTimer = (duration = durationTime, callback?: () => void) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
@@ -240,7 +253,9 @@ function renderToast(
         theme={theme}
         zIndex={zIndex || undefined}
         loading={loading}
+        loadingText={loadingText}
         onClick={handleClick}
+        onClose={handleClose}
       />
     ),
   };
@@ -295,6 +310,7 @@ function renderToast(
             theme={finalTheme}
             loading={finalLoading}
             onClick={handleClick}
+            onClose={handleClose}
           />
         );
       }

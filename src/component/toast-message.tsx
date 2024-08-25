@@ -6,7 +6,7 @@ import { classes, rgbToRgba } from '../lib/utils';
 
 interface LoadingProps {
   color?: string;
-  children?: ReactNode
+  children: ReactNode
 }
 
 function Loading({ color, children }: LoadingProps) {
@@ -18,7 +18,7 @@ function Loading({ color, children }: LoadingProps) {
         className={'toast__spinner'}
         style={{ border: `2px solid ${translucentColor}`, borderTopColor: color }}
       >
-        {children || 'loading'}
+        {children}
       </span>
     </span>
   );
@@ -31,6 +31,7 @@ export interface ToastMessageProps
   > {
   id: number;
   message: ReactNode;
+  onClose: () => void
   isExit?: boolean;
   offsetX?: string;
   offsetY?: string;
@@ -39,6 +40,11 @@ export interface ToastMessageProps
   zIndex?: number;
   loading?: boolean | Promise<unknown>;
   _onEnter?: (e: ToastEnterEvent) => void;
+}
+
+const TransitionClassNames = {
+  enter: 'toast__message--enter-active',
+  exit: 'toast__message--exit-active',
 }
 
 function ToastMessage({
@@ -58,6 +64,7 @@ function ToastMessage({
   loading,
   loadingText,
   onClick,
+  onClose,
   _onEnter,
 }: ToastMessageProps): ReactElement {
   const messageDOM = useRef<HTMLDivElement>(null);
@@ -139,8 +146,8 @@ function ToastMessage({
     'toast__message',
     `toast__message--${position || 'bottom-center'}`,
     `toast__${theme}-wrapper`,
-    isEnter ? 'toast__message--enter-active' : '',
-    isExit ? 'toast__message--exit-active' : '',
+    isEnter ? TransitionClassNames.enter : '',
+    isExit ? TransitionClassNames.exit : '',
     localLoading ? 'toast__message--loading' : '',
   );
 
@@ -160,7 +167,11 @@ function ToastMessage({
   };
 
   return (
-    <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle}>
+    <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle} onTransitionEnd={() => {
+      if(messageClassNames.includes(TransitionClassNames.exit)) {
+        onClose();
+      }
+    }}>
       <div className={contentClassNames} {...(clickable && clickableProps)}>
         {localLoading && <Loading color={loadingColor}>{loadingText}</Loading>}
         {render ? render(message) : message}
