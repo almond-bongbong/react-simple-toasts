@@ -1,9 +1,11 @@
 import { createToast } from '../src';
 import { ToastPosition } from '../src/lib/constants';
-import { act, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { generateMessage } from '../src/lib/utils';
 
-const EXIT_ANIMATION_DURATION = 310;
+const EXIT_ANIMATION_DURATION = 300;
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('createToast', () => {
   it('allows creating custom toast instances with specified classNames and overriding className', async () => {
@@ -27,25 +29,27 @@ describe('createToast', () => {
 
   it('allows creating custom toast instances with specified durations and overriding duration', async () => {
     const TOAST_TEXT = generateMessage();
-    const DURATION = 1000;
+    const DURATION = 500;
     const myToast = createToast({
       duration: DURATION,
     });
     await act(() => myToast(TOAST_TEXT));
 
     const toastElement = screen.getByText(TOAST_TEXT);
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: DURATION + EXIT_ANIMATION_DURATION,
-    });
+    await waitFor(() => delay(DURATION + EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
 
     const TOAST_TEXT_2 = generateMessage();
-    const DURATION_2 = 500;
+    const DURATION_2 = 300;
     await act(() => myToast(TOAST_TEXT_2, { duration: DURATION_2 }));
 
     const toastElement2 = screen.getByText(TOAST_TEXT_2);
-    await waitForElementToBeRemoved(toastElement2, {
-      timeout: DURATION_2 + EXIT_ANIMATION_DURATION,
-    });
+    await waitFor(() => delay(DURATION_2 + EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement2);
+
+    expect(toastElement2).not.toBeInTheDocument();
   });
 
   it('allows creating custom toast instances with specified positions and overriding position', async () => {
@@ -64,7 +68,9 @@ describe('createToast', () => {
     await act(() => myToast(TOAST_TEXT_2, { position: POSITION_2 }));
 
     const overridenPositionToastElement = screen.getByText(TOAST_TEXT_2);
-    expect(overridenPositionToastElement.parentElement).toHaveClass(`toast__message--${POSITION_2}`);
+    expect(overridenPositionToastElement.parentElement).toHaveClass(
+      `toast__message--${POSITION_2}`,
+    );
   });
 
   it('allows creating custom toast instances with specified clickClosable and overriding clickClosable', async () => {

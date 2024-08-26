@@ -29,9 +29,8 @@ const init = () => {
   }
 };
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => {}
+const noop = () => {};
 
 const defaultOptions: Required<ConfigArgs> = {
   duration: 3000,
@@ -216,7 +215,7 @@ function renderToast(
     toastComponentList = toastComponentList.filter((t) => t.id !== id);
     renderDOM();
     onClose?.();
-  }
+  };
 
   const startCloseTimer = (duration = durationTime, callback?: () => void) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
