@@ -89,7 +89,7 @@ export default function App() {
 
         <div className={styles.code}>
           <CommonHighlighter>{`import toast, { Themes } from 'react-simple-toasts';
-          import 'react-simple-toasts/dist/style.css';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css'; // Import the 'dark' theme CSS
 
 export default function App() {
@@ -121,7 +121,7 @@ export default function App() {
           <p>You can directly specify a theme when calling the toast function.</p>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-            import 'react-simple-toasts/dist/style.css';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css';
 
 export default function App() {
@@ -147,7 +147,7 @@ toastConfig({
             <br />
             <br />
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-            import 'react-simple-toasts/dist/style.css';
+import 'react-simple-toasts/dist/style.css';
 
 export default function App() {
   return (
@@ -167,7 +167,7 @@ export default function App() {
           </p>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-            import 'react-simple-toasts/dist/style.css';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css';
 
 const darkToast = createToast({ theme: 'dark' });
@@ -211,7 +211,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-            import 'react-simple-toasts/dist/style.css';
+import 'react-simple-toasts/dist/style.css';
 import './my-style.css';
 
 export default function App() {
