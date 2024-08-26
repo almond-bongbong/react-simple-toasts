@@ -294,6 +294,7 @@ function renderToast(
             baseOffsetY={offsetY}
             render={render}
             theme={finalTheme}
+            zIndex={zIndex || undefined}
             loading={finalLoading}
             onClick={handleClick}
           />
