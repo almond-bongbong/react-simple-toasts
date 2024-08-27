@@ -5,7 +5,6 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import eslint from '@rollup/plugin-eslint';
 import json from '@rollup/plugin-json';
-import terser from '@rollup/plugin-terser';
 
 import pkg from './package.json' assert { type: 'json' };
 
@@ -43,6 +42,5 @@ export default {
     }),
     commonjs({ include: 'node_modules/**' }),
     json(),
-    terser(),
   ],
 };
