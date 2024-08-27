@@ -6,7 +6,7 @@ import { classes, rgbToRgba } from '../lib/utils';
 
 interface LoadingProps {
   color?: string;
-  children: ReactNode
+  children: ReactNode;
 }
 
 function Loading({ color, children }: LoadingProps) {
@@ -31,7 +31,7 @@ export interface ToastMessageProps
   > {
   id: number;
   message: ReactNode;
-  onClose: () => void
+  onClose: () => void;
   isExit?: boolean;
   offsetX?: string;
   offsetY?: string;
@@ -45,7 +45,7 @@ export interface ToastMessageProps
 const TransitionClassNames = {
   enter: 'toast__message--enter-active',
   exit: 'toast__message--exit-active',
-}
+};
 
 function ToastMessage({
   id,
@@ -155,7 +155,7 @@ function ToastMessage({
     'toast__content',
     clickable ? 'toast__content--clickable' : '',
     !render && theme ? `toast__${theme}` : '',
-    !render ? 'toast__theme-content' : '',
+    !render && theme ? 'toast__theme-content' : '',
     theme || '',
     className,
   );
@@ -167,11 +167,17 @@ function ToastMessage({
   };
 
   return (
-    <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle} onTransitionEnd={() => {
-      if(messageClassNames.includes(TransitionClassNames.exit)) {
-        onClose();
-      }
-    }}>
+    <div
+      ref={messageDOM}
+      id={id.toString()}
+      className={messageClassNames}
+      style={messageStyle}
+      onTransitionEnd={() => {
+        if (messageClassNames.includes(TransitionClassNames.exit)) {
+          onClose();
+        }
+      }}
+    >
       <div className={contentClassNames} {...(clickable && clickableProps)}>
         {localLoading && <Loading color={loadingColor}>{loadingText}</Loading>}
         {render ? render(message) : message}
