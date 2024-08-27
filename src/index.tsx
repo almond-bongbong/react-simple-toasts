@@ -1,21 +1,21 @@
-import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react';
+import React, { ReactNode, SyntheticEvent } from 'react';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
-import { createId, isBrowser, reverse } from './lib/utils';
+import { createId, isBrowser } from './lib/utils';
 import { SET_TIMEOUT_MAX, Themes, ToastPosition as Position } from './lib/constants';
 import {
-  ConfigArgs,
   Theme,
   Toast,
   ToastClickHandler,
   ToastComponent,
-  ToastEnterEvent,
   ToastOptions,
   ToastPosition,
+  ToastUpdateArgs,
   ToastUpdateOptions,
 } from './type/common';
 import ToastMessage from './component/toast-message';
 import { isToastUpdateOptions } from './lib/type-guard';
+import ToastContainer from './component/toast-container';
 
 let toastComponentList: ToastComponent[] = [];
 
@@ -32,7 +32,7 @@ const init = () => {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
-const defaultOptions: Required<ConfigArgs> = {
+const defaultOptions: Required<ToastOptions> = {
   duration: 3000,
   className: '',
   position: 'bottom-center',
@@ -44,11 +44,13 @@ const defaultOptions: Required<ConfigArgs> = {
   maxVisibleToasts: null,
   isReversedOrder: false,
   theme: null,
-  zIndex: null,
   loadingText: 'loading',
+  zIndex: 1000,
+  clickable: false,
   onClick: noop,
-  onCloseStart: noop,
   onClose: noop,
+  onCloseStart: noop,
+  loading: false,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
@@ -62,82 +64,27 @@ const isValidPosition = (position: ToastPosition): boolean => {
   return true;
 };
 
-export const toastConfig = (options: ConfigArgs) => {
-  if (!isBrowser()) return;
-
-  if (options.theme) defaultOptions.theme = options.theme;
-  if (options.duration) defaultOptions.duration = options.duration;
-  if (options.className) defaultOptions.className = options.className;
-  if (options.position && isValidPosition(options.position))
-    defaultOptions.position = options.position;
-  if (options.clickClosable) defaultOptions.clickClosable = options.clickClosable;
-  if (options.render) defaultOptions.render = options.render;
-  if (options.maxVisibleToasts) defaultOptions.maxVisibleToasts = options.maxVisibleToasts;
-  if (options.isReversedOrder) defaultOptions.isReversedOrder = options.isReversedOrder;
-  if (options.zIndex != null) defaultOptions.zIndex = options.zIndex;
-  if (options.offsetX != null) defaultOptions.offsetX = options.offsetX;
-  if (options.offsetY != null) defaultOptions.offsetY = options.offsetY;
-  if (options.gap != null) defaultOptions.gap = options.gap;
-  if (options.loadingText) defaultOptions.loadingText = options.loadingText;
-  if (options.onClick) defaultOptions.onClick = options.onClick;
-  if (options.onCloseStart) defaultOptions.onCloseStart = options.onCloseStart;
-  if (options.onClose) defaultOptions.onClose = options.onClose;
+const validateOptions = (options: ToastOptions) => {
+  options.position && isValidPosition(options.position);
 };
 
-function ToastContainer() {
-  const handleToastEnter = (t: ToastComponent, e: ToastEnterEvent) => {
-    toastComponentList.forEach((toast) => {
-      if (toast.id !== t.id) return;
-      toast.startCloseTimer();
-      toast.height = e.height;
-    });
+export const toastConfig = (options: ToastOptions) => {
+  if (!isBrowser()) return;
 
-    renderDOM();
-  };
+  validateOptions(options);
 
-  return (
-    <>
-      {toastComponentList.map((t) => {
-        const toastComponents = t.position.includes('top')
-          ? reverse(toastComponentList)
-          : toastComponentList;
-
-        const currentIndex = toastComponents.findIndex((toast) => toast.id === t.id);
-        const bottomToasts = toastComponents
-          .slice(currentIndex + 1)
-          .filter((toast) => toast.position === t.position && !toast.isExit);
-
-        const bottomToastsHeight = bottomToasts.reduce((acc, toast) => {
-          return acc + (toast.height ?? 0) + t.gap;
-        }, 0);
-
-        const offsetX = t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
-        const offsetYAlpha = t.position.includes('top') ? 1 : -1;
-        const baseOffsetY = bottomToastsHeight * offsetYAlpha;
-        const offsetY =
-          t.position === 'center' ? `calc(-50% - ${baseOffsetY * -1}px)` : `${baseOffsetY}px`;
-
-        return (
-          <Fragment key={t.id}>
-            {cloneElement(t.component, {
-              isExit: t.isExit,
-              offsetX,
-              offsetY,
-              _onEnter: (event: ToastEnterEvent) => handleToastEnter(t, event),
-            })}
-          </Fragment>
-        );
-      })}
-    </>
-  );
-}
+  Object.assign(defaultOptions, options);
+};
 
 const renderDOM = () => {
   if (!isBrowser()) return;
   const toastContainer = document.getElementById('#toast__container');
   if (!toastContainer) return;
 
-  reactRender(<ToastContainer />, toastContainer);
+  reactRender(
+    <ToastContainer toastComponentList={toastComponentList} onToastEnter={renderDOM} />,
+    toastContainer,
+  );
 };
 
 export const clearToasts = () => {
@@ -153,15 +100,7 @@ function closeToast(id: number) {
   renderDOM();
 }
 
-function renderToast(
-  message: ReactNode,
-  options?: ToastOptions & {
-    toastInstanceId?: number;
-    offsetX?: number;
-    offsetY?: number;
-    gap?: number;
-  },
-): Toast {
+function renderToast(message: ReactNode, _options?: ToastOptions): Toast {
   const dummyReturn = {
     close: () => null,
     updateDuration: () => null,
@@ -171,26 +110,27 @@ function renderToast(
 
   let closeTimer: number;
   const id = createId();
+
+  const options = {
+    ...defaultOptions,
+    ..._options,
+  };
+
   const {
-    duration,
-    clickable = false,
-    clickClosable = defaultOptions.clickClosable,
-    className = defaultOptions.className,
-    position = defaultOptions.position,
-    offsetX = defaultOptions.offsetX,
-    offsetY = defaultOptions.offsetY,
-    gap = defaultOptions.gap,
-    maxVisibleToasts = defaultOptions.maxVisibleToasts,
-    isReversedOrder = defaultOptions.isReversedOrder,
-    render = defaultOptions.render,
-    theme = defaultOptions.theme,
-    zIndex = defaultOptions.zIndex,
-    onClick = defaultOptions.onClick,
-    onClose = defaultOptions.onClose,
-    onCloseStart = defaultOptions.onCloseStart,
-    loadingText = defaultOptions.loadingText,
     loading,
+    loadingText,
+    onClose,
+    onCloseStart,
+    clickClosable,
+    position,
+    onClick,
+    gap,
+    theme,
+    duration,
+    isReversedOrder,
+    maxVisibleToasts,
   } = options || {};
+
   const durationTime = duration === undefined ? defaultOptions.duration : duration;
 
   if (!isValidPosition(position)) {
@@ -215,7 +155,7 @@ function renderToast(
     onClose?.();
   };
 
-  const startCloseTimer = (duration = durationTime) => {
+  const startCloseTimer = (duration = options.duration) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
@@ -233,18 +173,9 @@ function renderToast(
     gap,
     component: (
       <ToastMessage
+        {...options}
         id={id}
         message={message}
-        className={className}
-        clickable={clickable || clickClosable}
-        position={position}
-        baseOffsetX={offsetX}
-        baseOffsetY={offsetY}
-        render={render}
-        theme={theme}
-        zIndex={zIndex || undefined}
-        loading={loading}
-        loadingText={loadingText}
         onClick={handleClick}
         onClose={handleClose}
         onCloseStart={onCloseStart}
@@ -292,16 +223,10 @@ function renderToast(
         toast.message = finalMessage;
         toast.component = (
           <ToastMessage
+            {...options}
             id={id}
             message={finalMessage}
-            className={className}
-            clickable={clickable || clickClosable}
-            position={position}
-            baseOffsetX={offsetX}
-            baseOffsetY={offsetY}
-            render={render}
             theme={finalTheme}
-            zIndex={zIndex || undefined}
             loading={finalLoading}
             loadingText={loadingText}
             onClick={handleClick}
@@ -330,19 +255,15 @@ function toast(message: ReactNode, durationOrOptions?: number | null | ToastOpti
   return renderToast(message, options);
 }
 
-export const createToast = (options: ConfigArgs): typeof toast => {
-  const toastInstanceId = createId();
-
+export const createToast = (options: ToastOptions): typeof toast => {
   return (message, durationOrOptions) => {
     if (typeof durationOrOptions === 'number') {
       return renderToast(message, {
-        toastInstanceId,
         duration: durationOrOptions || options.duration,
       });
     }
     if (durationOrOptions === undefined || typeof durationOrOptions === 'object') {
       const mergedOptions = {
-        toastInstanceId,
         ...options,
         ...durationOrOptions,
       };
@@ -362,7 +283,8 @@ export type {
   Theme,
   ToastClickHandler,
   ToastOptions,
-  ConfigArgs,
   Toast,
   ToastComponent,
+  ToastUpdateOptions,
+  ToastUpdateArgs,
 };
