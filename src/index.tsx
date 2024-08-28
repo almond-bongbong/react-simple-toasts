@@ -215,7 +215,6 @@ function renderToast(
     onClose?.();
   };
 
-
   const startCloseTimer = (duration = durationTime) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
@@ -273,12 +272,13 @@ function renderToast(
       messageOrOptions: ReactNode | ToastUpdateOptions,
       updateDuration?: ToastOptions['duration'],
     ) => {
-      const index = toastComponentList.findIndex((t) => t.id === id);
-      const newDuration = isToastUpdateOptions(messageOrOptions)
-        ? messageOrOptions.duration
-        : updateDuration;
+      const toast = toastComponentList.find((t) => t.id === id && !t.isExit);
 
-      if (toastComponentList[index]) {
+      if (toast) {
+        const newDuration = isToastUpdateOptions(messageOrOptions)
+          ? messageOrOptions.duration
+          : updateDuration;
+
         const finalMessage =
           (isToastUpdateOptions(messageOrOptions) ? messageOrOptions.message : messageOrOptions) ??
           message;
@@ -289,8 +289,8 @@ function renderToast(
           ? messageOrOptions.theme || theme
           : theme;
 
-        toastComponentList[index].message = finalMessage;
-        toastComponentList[index].component = (
+        toast.message = finalMessage;
+        toast.component = (
           <ToastMessage
             id={id}
             message={finalMessage}
@@ -308,11 +308,12 @@ function renderToast(
             onCloseStart={onCloseStart}
           />
         );
-      }
-      renderDOM();
 
-      if (newDuration !== undefined) {
-        startCloseTimer(newDuration);
+        renderDOM();
+
+        if (newDuration !== undefined) {
+          startCloseTimer(newDuration);
+        }
       }
     },
   };
