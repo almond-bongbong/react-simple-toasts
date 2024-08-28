@@ -145,12 +145,11 @@ export const clearToasts = () => {
   renderDOM();
 };
 
-function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>) {
+function closeToast(id: number) {
   const index = toastComponentList.findIndex((t) => t.id === id);
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
   }
-  options.onCloseStart?.();
   renderDOM();
 }
 
@@ -193,7 +192,6 @@ function renderToast(
     loading,
   } = options || {};
   const durationTime = duration === undefined ? defaultOptions.duration : duration;
-  const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
     return dummyReturn;
@@ -206,7 +204,7 @@ function renderToast(
       if (closeTimer) {
         clearTimeout(closeTimer);
       }
-      closeToast(id, closeOptions);
+      closeToast(id);
     }
     onClick?.(e);
   };
@@ -217,19 +215,14 @@ function renderToast(
     onClose?.();
   };
 
-  const startCloseTimer = (duration = durationTime, callback?: () => void) => {
+
+  const startCloseTimer = (duration = durationTime) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
     }
     closeTimer = window.setTimeout(() => {
-      closeToast(id, {
-        ...closeOptions,
-        onCloseStart: () => {
-          callback?.();
-          closeOptions.onClose?.();
-        },
-      });
+      closeToast(id);
     }, duration);
   };
 
@@ -255,6 +248,7 @@ function renderToast(
         loadingText={loadingText}
         onClick={handleClick}
         onClose={handleClose}
+        onCloseStart={onCloseStart}
       />
     ),
   };
@@ -264,14 +258,14 @@ function renderToast(
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
     for (let i = 0; i < toastsToRemove; i++) {
-      closeToast(toastComponentList[i].id, closeOptions);
+      closeToast(toastComponentList[i].id);
     }
   }
 
   renderDOM();
 
   return {
-    close: () => closeToast(id, closeOptions),
+    close: () => closeToast(id),
     updateDuration: (newDuration = durationTime) => {
       startCloseTimer(newDuration);
     },
@@ -308,8 +302,10 @@ function renderToast(
             render={render}
             theme={finalTheme}
             loading={finalLoading}
+            loadingText={loadingText}
             onClick={handleClick}
             onClose={handleClose}
+            onCloseStart={onCloseStart}
           />
         );
       }

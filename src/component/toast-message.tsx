@@ -25,13 +25,12 @@ function Loading({ color, children }: LoadingProps) {
 }
 
 export interface ToastMessageProps
-  extends Pick<
-    ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick' | 'loadingText'
-  > {
+  extends Required<Pick<
+  ToastOptions,
+  'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick' | 'loadingText' | 'onClose' | 'onCloseStart'
+>> {
   id: number;
   message: ReactNode;
-  onClose: () => void;
   isExit?: boolean;
   offsetX?: string;
   offsetY?: string;
@@ -65,6 +64,7 @@ function ToastMessage({
   loadingText,
   onClick,
   onClose,
+  onCloseStart,
   _onEnter,
 }: ToastMessageProps): ReactElement {
   const messageDOM = useRef<HTMLDivElement>(null);
@@ -141,6 +141,12 @@ function ToastMessage({
     }
     setLocalLoading(!!loading);
   }, [loading]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (isExit) {
+      onCloseStart();
+    }
+  }, [isExit]);
 
   const messageClassNames = classes(
     'toast__message',
