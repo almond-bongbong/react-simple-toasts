@@ -1,10 +1,17 @@
-.toast-chroma {
+.toast__chroma {
   min-width: 200px;
   padding: 10px 20px;
   border-radius: 5px;
   color: #fff;
   text-align: center;
-  background: linear-gradient(135deg, #E63946 0%, #F4A261 25%, #F4E76E 50%, #52B788 75%, #5E60CE 100%);
+  background: linear-gradient(
+    135deg,
+    #e63946 0%,
+    #f4a261 25%,
+    #f4e76e 50%,
+    #52b788 75%,
+    #5e60ce 100%
+  );
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }

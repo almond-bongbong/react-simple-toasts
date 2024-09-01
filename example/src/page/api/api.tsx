@@ -18,7 +18,7 @@ function Api() {
         </p>
         <div className={styles.code}>
           <CommonHighlighter>{`import toast from 'react-simple-toasts';
-
+import 'react-simple-toasts/dist/style.css';
 export function MyComponent() {
   return (
     <button onClick={() => toast('Hello, world!')}>

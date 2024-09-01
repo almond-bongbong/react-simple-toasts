@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styles from './example.module.css';
 import CommonHighlighter from '../../component/common-highlighter';
 import Button from '../../component/button';
-import MyMessage from '../../component/example/my-message';
 
 function Example() {
   const [position, setPosition] = useState<ToastPosition>('bottom-center');
@@ -23,6 +22,7 @@ function Example() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css';
 
 toastConfig({
@@ -55,7 +55,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
-
+import 'react-simple-toasts/dist/style.css';
 toast('Hello, World!', 1000);
 
 // OR
@@ -85,6 +85,7 @@ toast('Hello, World!', { duration: 1000 })`}</CommonHighlighter>
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css';
 import 'react-simple-toasts/dist/theme/light.css';
 
@@ -143,6 +144,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 import 'my-style.css';
 
 export default function App() {
@@ -367,6 +369,7 @@ toast('Synchronizing...', { loading: taskPromise });`}</CommonHighlighter>
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/info.css';
 import 'react-simple-toasts/dist/theme/success.css';
 
@@ -415,6 +418,7 @@ taskPromise.then(() =>
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast, { Toast } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 
 export default function App() {
   const handleShowClick = () => {
@@ -454,6 +458,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast, { Toast } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 
 export default function App() {
   const [infiniteToast, setInfiniteToast] = useState<Toast | null>(null);
@@ -520,6 +525,7 @@ export default function App() {
           </div>
           <div className={styles.code}>
             <CommonHighlighter>{`import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 
 export default function App() {
   const handleClick = () => {

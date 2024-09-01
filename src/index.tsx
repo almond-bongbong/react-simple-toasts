@@ -1,5 +1,4 @@
 import React, { cloneElement, Fragment, ReactNode, SyntheticEvent } from 'react';
-import styles from './style.css';
 import { addRootElement, createElement } from './lib/generateElement';
 import { render as reactRender } from './lib/react-render';
 import { createId, isBrowser, reverse } from './lib/utils';
@@ -21,14 +20,17 @@ import { isToastUpdateOptions } from './lib/type-guard';
 let toastComponentList: ToastComponent[] = [];
 
 const init = () => {
-  const toastContainer = isBrowser() && document.getElementById(styles['toast_container']);
+  const toastContainer = isBrowser() && document.getElementById('#toast__container');
   if (isBrowser() && !toastContainer) {
-    addRootElement(createElement(styles['toast_container']));
+    addRootElement(createElement('#toast__container'));
   }
   if (!toastComponentList || !Array.isArray(toastComponentList)) {
     toastComponentList = [];
   }
 };
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
 
 const defaultOptions: Required<ConfigArgs> = {
   duration: 3000,
@@ -43,6 +45,10 @@ const defaultOptions: Required<ConfigArgs> = {
   isReversedOrder: false,
   theme: null,
   zIndex: null,
+  loadingText: 'loading',
+  onClick: noop,
+  onCloseStart: noop,
+  onClose: noop,
 };
 
 const isValidPosition = (position: ToastPosition): boolean => {
@@ -72,6 +78,10 @@ export const toastConfig = (options: ConfigArgs) => {
   if (options.offsetX != null) defaultOptions.offsetX = options.offsetX;
   if (options.offsetY != null) defaultOptions.offsetY = options.offsetY;
   if (options.gap != null) defaultOptions.gap = options.gap;
+  if (options.loadingText) defaultOptions.loadingText = options.loadingText;
+  if (options.onClick) defaultOptions.onClick = options.onClick;
+  if (options.onCloseStart) defaultOptions.onCloseStart = options.onCloseStart;
+  if (options.onClose) defaultOptions.onClose = options.onClose;
 };
 
 function ToastContainer() {
@@ -124,7 +134,7 @@ function ToastContainer() {
 
 const renderDOM = () => {
   if (!isBrowser()) return;
-  const toastContainer = document.getElementById(styles['toast_container']);
+  const toastContainer = document.getElementById('#toast__container');
   if (!toastContainer) return;
 
   reactRender(<ToastContainer />, toastContainer);
@@ -135,19 +145,12 @@ export const clearToasts = () => {
   renderDOM();
 };
 
-function closeToast(id: number, options: Pick<ToastOptions, 'onClose' | 'onCloseStart'>) {
+function closeToast(id: number) {
   const index = toastComponentList.findIndex((t) => t.id === id);
   if (toastComponentList[index]) {
     toastComponentList[index].isExit = true;
   }
-  options.onCloseStart?.();
   renderDOM();
-
-  setTimeout(() => {
-    toastComponentList = toastComponentList.filter((t) => t.id !== id);
-    options.onClose?.();
-    renderDOM();
-  }, 300);
 }
 
 function renderToast(
@@ -182,13 +185,13 @@ function renderToast(
     render = defaultOptions.render,
     theme = defaultOptions.theme,
     zIndex = defaultOptions.zIndex,
+    onClick = defaultOptions.onClick,
+    onClose = defaultOptions.onClose,
+    onCloseStart = defaultOptions.onCloseStart,
+    loadingText = defaultOptions.loadingText,
     loading,
-    onClick = undefined,
-    onClose = undefined,
-    onCloseStart = undefined,
   } = options || {};
   const durationTime = duration === undefined ? defaultOptions.duration : duration;
-  const closeOptions = { onClose, onCloseStart };
 
   if (!isValidPosition(position)) {
     return dummyReturn;
@@ -201,24 +204,24 @@ function renderToast(
       if (closeTimer) {
         clearTimeout(closeTimer);
       }
-      closeToast(id, closeOptions);
+      closeToast(id);
     }
     onClick?.(e);
   };
 
-  const startCloseTimer = (duration = durationTime, callback?: () => void) => {
+  const handleClose = () => {
+    toastComponentList = toastComponentList.filter((t) => t.id !== id);
+    renderDOM();
+    onClose?.();
+  };
+
+  const startCloseTimer = (duration = durationTime) => {
     if (duration === null || duration === 0 || duration > SET_TIMEOUT_MAX) return;
     if (closeTimer) {
       clearTimeout(closeTimer);
     }
     closeTimer = window.setTimeout(() => {
-      closeToast(id, {
-        ...closeOptions,
-        onCloseStart: () => {
-          callback?.();
-          closeOptions.onClose?.();
-        },
-      });
+      closeToast(id);
     }, duration);
   };
 
@@ -241,7 +244,10 @@ function renderToast(
         theme={theme}
         zIndex={zIndex || undefined}
         loading={loading}
+        loadingText={loadingText}
         onClick={handleClick}
+        onClose={handleClose}
+        onCloseStart={onCloseStart}
       />
     ),
   };
@@ -251,14 +257,14 @@ function renderToast(
   if (maxVisibleToasts) {
     const toastsToRemove = toastComponentList.length - maxVisibleToasts;
     for (let i = 0; i < toastsToRemove; i++) {
-      closeToast(toastComponentList[i].id, closeOptions);
+      closeToast(toastComponentList[i].id);
     }
   }
 
   renderDOM();
 
   return {
-    close: () => closeToast(id, closeOptions),
+    close: () => closeToast(id),
     updateDuration: (newDuration = durationTime) => {
       startCloseTimer(newDuration);
     },
@@ -266,12 +272,13 @@ function renderToast(
       messageOrOptions: ReactNode | ToastUpdateOptions,
       updateDuration?: ToastOptions['duration'],
     ) => {
-      const index = toastComponentList.findIndex((t) => t.id === id);
-      const newDuration = isToastUpdateOptions(messageOrOptions)
-        ? messageOrOptions.duration
-        : updateDuration;
+      const toast = toastComponentList.find((t) => t.id === id && !t.isExit);
 
-      if (toastComponentList[index]) {
+      if (toast) {
+        const newDuration = isToastUpdateOptions(messageOrOptions)
+          ? messageOrOptions.duration
+          : updateDuration;
+
         const finalMessage =
           (isToastUpdateOptions(messageOrOptions) ? messageOrOptions.message : messageOrOptions) ??
           message;
@@ -282,8 +289,8 @@ function renderToast(
           ? messageOrOptions.theme || theme
           : theme;
 
-        toastComponentList[index].message = finalMessage;
-        toastComponentList[index].component = (
+        toast.message = finalMessage;
+        toast.component = (
           <ToastMessage
             id={id}
             message={finalMessage}
@@ -296,14 +303,18 @@ function renderToast(
             theme={finalTheme}
             zIndex={zIndex || undefined}
             loading={finalLoading}
+            loadingText={loadingText}
             onClick={handleClick}
+            onClose={handleClose}
+            onCloseStart={onCloseStart}
           />
         );
-      }
-      renderDOM();
 
-      if (newDuration !== undefined) {
-        startCloseTimer(newDuration);
+        renderDOM();
+
+        if (newDuration !== undefined) {
+          startCloseTimer(newDuration);
+        }
       }
     },
   };

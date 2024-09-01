@@ -15,6 +15,7 @@ Elevate your React applications with ultra-sleek toast notifications! With React
 </p>
 
 ## Table of Contents
+
 - [Installation](#Installation)
 - [Usage](#Usage)
 - [Key Features](#Key-Features)
@@ -24,37 +25,35 @@ Elevate your React applications with ultra-sleek toast notifications! With React
 - [License](#License)
 
 <a name="Installation"></a>
+
 ## Installation 📦
 
 Get started in seconds!
-
-
 
 ```bash
 npm install react-simple-toasts
 ```
 
 <a name="Usage"></a>
+
 ## Usage 💡
 
 Integrate with ease. Customize with flair.
 
 ```jsx
 import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/style.css';
 import 'react-simple-toasts/dist/theme/dark.css';
 
 toastConfig({ theme: 'dark' });
 
 function MyComponent() {
-  return (
-    <button onClick={() => toast('Your toast is ready! 🍞')}>
-      Show Toast
-    </button>
-  );
+  return <button onClick={() => toast('Your toast is ready! 🍞')}>Show Toast</button>;
 }
 ```
 
 <a name="Key-Features"></a>
+
 ## Key Features 🌟
 
 - **Ease of Use**: Set up in minutes, not hours!
@@ -64,31 +63,37 @@ function MyComponent() {
 - **Multi-Toast Control**: Manage multiple notifications effortlessly.
 
 <a name="Themes"></a>
+
 ## Themes 🎨
 
 Your style, your toast. Choose from built-in themes or create your own.
 
 ### Standard Theme
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/theme_standard.gif" alt="standard theme showcase" />
 </p>
 
 ### Creative Theme
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/theme_creative.gif" alt="creative theme showcase" />
 </p>
 
 <a name="Documentation"></a>
+
 ## Documentation 📘
 
 Explore full [documentation](https://almond-bongbong.github.io/react-simple-toasts/) for in-depth guides, examples, and API details.
 
 <a name="Contribute"></a>
+
 ## Contribute 🤝
 
 Join our growing community! [Star us on GitHub](https://github.com/almond-bongbong/react-simple-toasts/stargazers) and contribute to making React Simple Toasts better.
 
 <a name="License"></a>
+
 ## License 📜
 
 React Simple Toasts is MIT licensed.

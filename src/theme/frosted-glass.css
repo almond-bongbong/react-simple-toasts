@@ -1,9 +1,9 @@
-.toast-frosted-glass {
+.toast__frosted-glass {
   min-width: 200px;
   padding: 10px 20px;
   text-align: center;
 }
-body .toast-frosted-glass-wrapper {
+body .toast__frosted-glass-wrapper {
   border-radius: 2px;
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.3);

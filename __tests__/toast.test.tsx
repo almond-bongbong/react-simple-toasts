@@ -1,10 +1,11 @@
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { act, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import themeModuleClassNames from '../src/theme/theme-classnames.json';
 import toast, { toast as toastNamed } from '../src';
 import { generateMessage } from '../src/lib/utils';
 
-const EXIT_ANIMATION_DURATION = 320;
+const EXIT_ANIMATION_DURATION = 300;
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('toast', () => {
   it('renders a toast when the show button is clicked', async () => {
@@ -27,9 +28,11 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, DURATION));
 
     const toastElement = screen.getByText(TOAST_TEXT);
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: DURATION + EXIT_ANIMATION_DURATION,
-    });
+
+    await waitFor(() => delay(DURATION + EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
   });
 
   it('renders toast with infinite duration until manually closed', async () => {
@@ -38,9 +41,11 @@ describe('toast', () => {
 
     const toastElement = screen.getByText(TOAST_TEXT);
     await act(() => infiniteToast.close());
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: EXIT_ANIMATION_DURATION,
-    });
+
+    await act(() => delay(EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
   });
 
   it('renders and removes toast based on specified duration in options', async () => {
@@ -49,9 +54,10 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { duration: DURATION }));
 
     const toastElement = screen.getByText(TOAST_TEXT);
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: DURATION + EXIT_ANIMATION_DURATION,
-    });
+    await waitFor(() => delay(DURATION + EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
   });
 
   it('applies custom className to toast container', async () => {
@@ -70,9 +76,10 @@ describe('toast', () => {
     const toastDOM = screen.getByText(TOAST_TEXT);
     await act(() => toastDOM.click());
 
-    await waitForElementToBeRemoved(toastDOM, {
-      timeout: EXIT_ANIMATION_DURATION,
-    });
+    await waitFor(() => delay(EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastDOM);
+
+    expect(toastDOM).not.toBeInTheDocument();
   });
 
   it('renders toast with specified position', async () => {
@@ -80,25 +87,26 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { position: 'top-center' }));
     const toastDOM1 = screen.getByText(TOAST_TEXT);
 
-    expect(toastDOM1.parentElement).toHaveClass('top-center');
+    expect(toastDOM1.parentElement).toHaveClass('toast__message--top-center');
   });
 
   it('limits visible toasts based on maxVisibleToasts', async () => {
     const TOAST_TEXT = generateMessage();
+    const DURATION = 500;
+
     await act(() => {
-      toast(TOAST_TEXT);
-      toast(TOAST_TEXT, { maxVisibleToasts: 1 });
+      toast(TOAST_TEXT, DURATION);
+      toast(TOAST_TEXT, { duration: DURATION, maxVisibleToasts: 1 });
     });
 
-    await waitFor(
-      () => {
-        const toasts = screen.getAllByText(TOAST_TEXT);
-        expect(toasts.length).toBe(1);
-      },
-      {
-        timeout: EXIT_ANIMATION_DURATION,
-      },
-    );
+    const toastDOM = screen.getAllByText(TOAST_TEXT);
+
+    toastDOM.forEach((toast) => {
+      fireEvent.transitionEnd(toast);
+    });
+
+    const toasts = screen.getAllByText(TOAST_TEXT);
+    expect(toasts.length).toBe(1);
   });
 
   it('renders custom toast content with render prop', async () => {
@@ -122,12 +130,17 @@ describe('toast', () => {
 
   it('calls onCloseStart and onClose when toast is clicked with clickClosable set to true', async () => {
     const TOAST_TEXT = generateMessage();
+    const DURATION = 500;
     const onCloseStart = jest.fn();
     const onClose = jest.fn();
-    await act(() => toast(TOAST_TEXT, { onCloseStart, onClose, clickClosable: true }));
+    await act(() =>
+      toast(TOAST_TEXT, { onCloseStart, onClose, clickClosable: true, duration: DURATION }),
+    );
 
     const toastDOM = screen.getByText(TOAST_TEXT);
     await act(() => toastDOM.click());
+    fireEvent.transitionEnd(toastDOM);
+
     expect(onCloseStart).toHaveBeenCalled();
     await waitFor(() => expect(onClose).toHaveBeenCalled());
   });
@@ -141,9 +154,10 @@ describe('toast', () => {
     toastInstance.updateDuration(NEW_DURATION);
     const toastElement = screen.getByText(TOAST_TEXT);
 
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: NEW_DURATION + EXIT_ANIMATION_DURATION,
-    });
+    await act(() => delay(NEW_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
   });
 
   it('updates the content of the displayed toast', async () => {
@@ -161,7 +175,7 @@ describe('toast', () => {
     await act(() => toast(TOAST_TEXT, { theme: 'light' }));
     const toastElement = screen.getByText(TOAST_TEXT);
 
-    expect(toastElement).toHaveClass(themeModuleClassNames['toast-light']);
+    expect(toastElement).toHaveClass('toast__light');
   });
 
   it('applies the specified zIndex to the toast', async () => {
@@ -182,9 +196,10 @@ describe('toast', () => {
     );
     const toastElement = screen.getByText(TOAST_TEXT);
     await act(() => toastElement.click());
-    await waitForElementToBeRemoved(toastElement, {
-      timeout: EXIT_ANIMATION_DURATION,
-    });
+    await waitFor(() => delay(EXIT_ANIMATION_DURATION));
+    fireEvent.transitionEnd(toastElement);
+
+    expect(toastElement).not.toBeInTheDocument();
   });
 
   it('renders second toast upper than first toast when isReversedOrder set to true', async () => {
@@ -198,7 +213,7 @@ describe('toast', () => {
 
   it('applies theme class to toast when theme is specified and does not apply it when theme is not specified', async () => {
     const TOAST_TEXT = generateMessage();
-    const toastContentClassName = 'toast-theme-content';
+    const toastContentClassName = 'toast__content toast__theme-content';
     await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
 
     const toastDOM = screen.getByText(TOAST_TEXT);
@@ -261,7 +276,7 @@ describe('toast', () => {
   it('should retain the theme when updating the toast with an options object', async () => {
     const TOAST_TEXT = generateMessage();
     const UPDATED_TEXT = generateMessage();
-    const toastContentClassName = 'toast-theme-content';
+    const toastContentClassName = 'toast__theme-content';
 
     const toastInstance = await act(() => toast(TOAST_TEXT, { theme: 'dark' }));
 

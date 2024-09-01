@@ -19,6 +19,7 @@ export interface ToastOptions {
   theme?: Theme | string | null;
   zIndex?: number | null;
   loading?: boolean | Promise<unknown>;
+  loadingText?: ReactNode;
   onClick?: ToastClickHandler;
   onClose?: () => void;
   onCloseStart?: () => void;
@@ -37,6 +38,10 @@ export type ConfigArgs = Pick<
   | 'theme'
   | 'zIndex'
   | 'isReversedOrder'
+  | 'onClick'
+  | 'onCloseStart'
+  | 'onClose'
+  | 'loadingText'
 > & {
   offsetX?: number;
   offsetY?: number;

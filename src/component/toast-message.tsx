@@ -1,35 +1,34 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react';
-import styles from '../style.css';
 import { ToastEnterEvent, ToastOptions } from '../type/common';
 import { ToastPosition } from '../lib/constants';
-import moduleClassNames from '../theme/theme-classnames.json';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 import { classes, rgbToRgba } from '../lib/utils';
 
 interface LoadingProps {
   color?: string;
+  children: ReactNode;
 }
 
-function Loading({ color }: LoadingProps) {
+function Loading({ color, children }: LoadingProps) {
   const translucentColor = color && rgbToRgba(color, 0.3);
 
   return (
-    <span className={styles['spinner-wrap']}>
+    <span className={'toast__spinner-wrap'}>
       <span
-        className={styles.spinner}
+        className={'toast__spinner'}
         style={{ border: `2px solid ${translucentColor}`, borderTopColor: color }}
       >
-        loading
+        {children}
       </span>
     </span>
   );
 }
 
 export interface ToastMessageProps
-  extends Pick<
-    ToastOptions,
-    'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick'
-  > {
+  extends Required<Pick<
+  ToastOptions,
+  'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick' | 'loadingText' | 'onClose' | 'onCloseStart'
+>> {
   id: number;
   message: ReactNode;
   isExit?: boolean;
@@ -41,6 +40,11 @@ export interface ToastMessageProps
   loading?: boolean | Promise<unknown>;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
+
+const TransitionClassNames = {
+  enter: 'toast__message--enter-active',
+  exit: 'toast__message--exit-active',
+};
 
 function ToastMessage({
   id,
@@ -57,7 +61,10 @@ function ToastMessage({
   baseOffsetY,
   zIndex,
   loading,
+  loadingText,
   onClick,
+  onClose,
+  onCloseStart,
   _onEnter,
 }: ToastMessageProps): ReactElement {
   const messageDOM = useRef<HTMLDivElement>(null);
@@ -135,20 +142,26 @@ function ToastMessage({
     setLocalLoading(!!loading);
   }, [loading]);
 
+  useIsomorphicLayoutEffect(() => {
+    if (isExit) {
+      onCloseStart();
+    }
+  }, [isExit]);
+
   const messageClassNames = classes(
-    styles['toast-message'],
-    styles[position || 'bottom-center'],
-    moduleClassNames[`toast-${theme}-wrapper`],
-    isEnter ? 'toast-enter-active' : '',
-    isExit ? 'toast-exit-active' : '',
-    localLoading ? styles['loading'] : '',
+    'toast__message',
+    `toast__message--${position || 'bottom-center'}`,
+    `toast__${theme}-wrapper`,
+    isEnter ? TransitionClassNames.enter : '',
+    isExit ? TransitionClassNames.exit : '',
+    localLoading ? 'toast__message--loading' : '',
   );
 
   const contentClassNames = classes(
-    styles['toast-content'],
-    clickable ? styles['clickable'] : '',
-    !render && moduleClassNames[`toast-${theme}`],
-    !render && theme ? styles['toast-theme-content'] : '',
+    'toast__content',
+    clickable ? 'toast__content--clickable' : '',
+    !render && theme ? `toast__${theme}` : '',
+    !render && theme ? 'toast__theme-content' : '',
     theme || '',
     className,
   );
@@ -160,9 +173,19 @@ function ToastMessage({
   };
 
   return (
-    <div ref={messageDOM} id={id.toString()} className={messageClassNames} style={messageStyle}>
+    <div
+      ref={messageDOM}
+      id={id.toString()}
+      className={messageClassNames}
+      style={messageStyle}
+      onTransitionEnd={() => {
+        if (messageClassNames.includes(TransitionClassNames.exit)) {
+          onClose();
+        }
+      }}
+    >
       <div className={contentClassNames} {...(clickable && clickableProps)}>
-        {localLoading && <Loading color={loadingColor} />}
+        {localLoading && <Loading color={loadingColor}>{loadingText}</Loading>}
         {render ? render(message) : message}
       </div>
     </div>
