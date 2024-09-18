@@ -15,6 +15,22 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>6.0.0</h3>
+        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🔄 Major Changes</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>BEM Styling Introduced:</strong> Switched from CSS Modules class-based styling
+            to BEM methodology. This change makes style overriding easier.
+          </li>
+          <li>
+            <strong>Explicit Style Import Required:</strong> From version 6.0.0, you need to
+            explicitly import the <code>style.css</code> file.
+          </li>
+        </ul>
+      </section>
+
+      <section>
         <h3>5.11.0</h3>
         <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🎉 New Features</h4>

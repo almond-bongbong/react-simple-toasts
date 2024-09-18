@@ -14,6 +14,13 @@ Elevate your React applications with ultra-sleek toast notifications! With React
   <img src="https://raw.githubusercontent.com/almond-bongbong/react-simple-toasts/master/docs/preview.gif" alt="preview" />
 </p>
 
+> **🚀 Version 6.0.0 Update Notice**
+>
+> We've made significant changes in version 6.0.0:
+>
+> - Switched to BEM styling for easier customization
+> - Now requires explicit import of `style.css`
+
 ## Table of Contents
 
 - [Installation](#Installation)
@@ -89,6 +96,9 @@ Explore full [documentation](https://almond-bongbong.github.io/react-simple-toas
 <a name="Contribute"></a>
 
 ## Contribute 🤝
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
 
 Join our growing community! [Star us on GitHub](https://github.com/almond-bongbong/react-simple-toasts/stargazers) and contribute to making React Simple Toasts better.
 
