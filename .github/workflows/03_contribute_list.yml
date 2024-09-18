@@ -3,7 +3,7 @@ name: Contributors readme action
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   contrib-readme-job:
