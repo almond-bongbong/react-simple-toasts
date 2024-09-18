@@ -98,6 +98,54 @@ Explore full [documentation](https://almond-bongbong.github.io/react-simple-toas
 ## Contribute 🤝
 
 <!-- readme: collaborators,contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/almond-bongbong">
+                    <img src="https://avatars.githubusercontent.com/u/42146674?v=4" width="100;" alt="almond-bongbong"/>
+                    <br />
+                    <sub><b>Max</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Kim-Yeon-ho">
+                    <img src="https://avatars.githubusercontent.com/u/81131715?v=4" width="100;" alt="Kim-Yeon-ho"/>
+                    <br />
+                    <sub><b>Hardy</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/hemengke1997">
+                    <img src="https://avatars.githubusercontent.com/u/49073282?v=4" width="100;" alt="hemengke1997"/>
+                    <br />
+                    <sub><b>Minko</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ammuench">
+                    <img src="https://avatars.githubusercontent.com/u/2099658?v=4" width="100;" alt="ammuench"/>
+                    <br />
+                    <sub><b>Alex Muench</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/THEmmanuel">
+                    <img src="https://avatars.githubusercontent.com/u/36299715?v=4" width="100;" alt="THEmmanuel"/>
+                    <br />
+                    <sub><b>Emmanuel Ayodele Bello</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/silverwind">
+                    <img src="https://avatars.githubusercontent.com/u/115237?v=4" width="100;" alt="silverwind"/>
+                    <br />
+                    <sub><b>silverwind</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: collaborators,contributors -end -->
 
 Join our growing community! [Star us on GitHub](https://github.com/almond-bongbong/react-simple-toasts/stargazers) and contribute to making React Simple Toasts better.
