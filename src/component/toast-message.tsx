@@ -25,19 +25,30 @@ function Loading({ color, children }: LoadingProps) {
 }
 
 export interface ToastMessageProps
-  extends Required<Pick<
-  ToastOptions,
-  'className' | 'clickable' | 'position' | 'render' | 'theme' | 'onClick' | 'loadingText' | 'onClose' | 'onCloseStart'
->> {
+  extends Required<
+    Pick<
+      ToastOptions,
+      | 'className'
+      | 'clickable'
+      | 'position'
+      | 'render'
+      | 'theme'
+      | 'onClick'
+      | 'clickClosable'
+      | 'offsetX'
+      | 'offsetY'
+      | 'zIndex'
+      | 'loading'
+      | 'loadingText'
+      | 'onClose'
+      | 'onCloseStart'
+    >
+  > {
   id: number;
   message: ReactNode;
   isExit?: boolean;
-  offsetX?: string;
-  offsetY?: string;
-  baseOffsetX?: number;
-  baseOffsetY?: number;
-  zIndex?: number;
-  loading?: boolean | Promise<unknown>;
+  deltaOffsetX?: string;
+  deltaOffsetY?: string;
   _onEnter?: (e: ToastEnterEvent) => void;
 }
 
@@ -50,15 +61,16 @@ function ToastMessage({
   id,
   message,
   className,
-  clickable,
+  clickable: clickableProp,
+  clickClosable,
   position,
   isExit,
   render,
   theme,
   offsetX,
   offsetY,
-  baseOffsetX,
-  baseOffsetY,
+  deltaOffsetX,
+  deltaOffsetY,
   zIndex,
   loading,
   loadingText,
@@ -67,6 +79,8 @@ function ToastMessage({
   onCloseStart,
   _onEnter,
 }: ToastMessageProps): ReactElement {
+  const clickable = clickableProp || clickClosable;
+
   const messageDOM = useRef<HTMLDivElement>(null);
   const hasTopPosition = position?.includes('top');
   const hasBottomPosition = position?.includes('bottom');
@@ -76,23 +90,23 @@ function ToastMessage({
   const isCenterPosition = position === ToastPosition.CENTER;
   const [isEnter, setIsEnter] = useState(false);
   const [messageStyle, setMessageStyle] = useState<React.CSSProperties>({
-    transform: `translate(${offsetX}, ${
+    transform: `translate(${deltaOffsetX}, ${
       isCenterPosition
         ? 'calc(50% - 20px)'
-        : `${parseInt(offsetY || '0') + 20 * (hasTopPosition ? -1 : 1)}px`
+        : `${parseInt(deltaOffsetY || '0') + 20 * (hasTopPosition ? -1 : 1)}px`
     })`,
   });
   const [localLoading, setLocalLoading] = useState<boolean>(!!loading);
   const [loadingColor, setLoadingColor] = useState<string>();
 
-  const top = isCenterPosition ? '50%' : hasTopPosition ? baseOffsetY : undefined;
-  const bottom = hasBottomPosition ? baseOffsetY : undefined;
-  const right = hasRightPosition ? baseOffsetX : undefined;
+  const top = isCenterPosition ? '50%' : hasTopPosition ? offsetY : undefined;
+  const bottom = hasBottomPosition ? offsetY : undefined;
+  const right = hasRightPosition ? offsetX : undefined;
   const left =
-    hasCenterPosition || isCenterPosition ? '50%' : hasLeftPosition ? baseOffsetX : undefined;
+    hasCenterPosition || isCenterPosition ? '50%' : hasLeftPosition ? offsetX : undefined;
 
   useIsomorphicLayoutEffect(() => {
-    const transform = `translate(${offsetX}, ${offsetY})`;
+    const transform = `translate(${deltaOffsetX}, ${deltaOffsetY})`;
 
     setMessageStyle({
       top,
@@ -103,7 +117,7 @@ function ToastMessage({
       transform,
       WebkitTransform: transform,
     });
-  }, [offsetX, offsetY, zIndex, top, right, bottom, left]);
+  }, [deltaOffsetX, deltaOffsetY, zIndex, top, right, bottom, left]);
 
   useIsomorphicLayoutEffect(() => {
     if (messageDOM.current?.clientHeight == null || isEnter) return;
