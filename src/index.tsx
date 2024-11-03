@@ -124,7 +124,7 @@ function ToastContainer() {
               offsetX,
               offsetY,
               _onEnter: (event: ToastEnterEvent) => handleToastEnter(t, event),
-            })}
+            } as unknown as React.ReactElement)}
           </Fragment>
         );
       })}

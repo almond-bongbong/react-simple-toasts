@@ -12,6 +12,8 @@ const fullClone = {
     usingClientEntryPoint?: boolean;
   };
   createRoot?: CreateRoot;
+  render?: (node: React.ReactElement, container: ContainerType) => void;
+  unmountComponentAtNode?: (container: ContainerType) => boolean;
 };
 
 type CreateRoot = (container: ContainerType) => Root;
@@ -46,18 +48,19 @@ type ContainerType = (Element | DocumentFragment) & {
   [MARK]?: Root;
 };
 
-function modernRender(node: React.ReactElement, container: ContainerType) {
+function modernRender(node: React.ReactNode, container: ContainerType) {
   toggleWarning(true);
   const root = container[MARK] || createRoot(container);
   toggleWarning(false);
 
-  root.render(node);
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  root.render(node as any);
 
   container[MARK] = root;
 }
 
 function legacyRender(node: React.ReactElement, container: ContainerType) {
-  reactRender(node, container);
+  reactRender?.(node, container);
 }
 
 /** @private Test usage. Not work in prod */
@@ -87,7 +90,7 @@ async function modernUnmount(container: ContainerType) {
 }
 
 function legacyUnmount(container: ContainerType) {
-  unmountComponentAtNode(container);
+  unmountComponentAtNode?.(container);
 }
 
 /** @private Test usage. Not work in prod */
