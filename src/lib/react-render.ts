@@ -1,10 +1,12 @@
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
 const fullClone = {
   ...ReactDOM,
+  ...ReactDOMClient,
 } as typeof ReactDOM & {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED?: {
     usingClientEntryPoint?: boolean;
@@ -33,8 +35,7 @@ function toggleWarning(skip: boolean) {
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED &&
     typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
   ) {
-    __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint =
-      skip;
+    __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint = skip;
   }
 }
 
