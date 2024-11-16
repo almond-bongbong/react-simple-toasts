@@ -15,6 +15,17 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>6.0.1</h3>
+        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>🔄 Compatibility</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>React 19 Support:</strong> Added compatibility support for React 19 RC version.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>6.0.0</h3>
         <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🔄 Major Changes</h4>
