@@ -1,15 +1,19 @@
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
 const fullClone = {
   ...ReactDOM,
+  ...ReactDOMClient,
 } as typeof ReactDOM & {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED?: {
     usingClientEntryPoint?: boolean;
   };
   createRoot?: CreateRoot;
+  render?: (node: React.ReactElement, container: ContainerType) => void;
+  unmountComponentAtNode?: (container: ContainerType) => boolean;
 };
 
 type CreateRoot = (container: ContainerType) => Root;
@@ -33,8 +37,7 @@ function toggleWarning(skip: boolean) {
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED &&
     typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
   ) {
-    __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint =
-      skip;
+    __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint = skip;
   }
 }
 
@@ -45,18 +48,19 @@ type ContainerType = (Element | DocumentFragment) & {
   [MARK]?: Root;
 };
 
-function modernRender(node: React.ReactElement, container: ContainerType) {
+function modernRender(node: React.ReactNode, container: ContainerType) {
   toggleWarning(true);
   const root = container[MARK] || createRoot(container);
   toggleWarning(false);
 
-  root.render(node);
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  root.render(node as any);
 
   container[MARK] = root;
 }
 
 function legacyRender(node: React.ReactElement, container: ContainerType) {
-  reactRender(node, container);
+  reactRender?.(node, container);
 }
 
 /** @private Test usage. Not work in prod */
@@ -86,7 +90,7 @@ async function modernUnmount(container: ContainerType) {
 }
 
 function legacyUnmount(container: ContainerType) {
-  unmountComponentAtNode(container);
+  unmountComponentAtNode?.(container);
 }
 
 /** @private Test usage. Not work in prod */
