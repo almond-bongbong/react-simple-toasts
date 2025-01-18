@@ -83,7 +83,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=16.17.0 <=20.x"
+    "node": ">=16.17.0"
   },
   "sideEffects": [
     "*.css"
