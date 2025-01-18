@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode, SyntheticEvent } from 'react';
 import { Themes, ToastPosition as Position } from '../lib/constants';
+import { ToastMessageProps } from '../component/toast-message';
 
 export type ToastPosition = (typeof Position)[keyof typeof Position];
 
@@ -13,11 +14,14 @@ export interface ToastOptions {
   clickable?: boolean;
   clickClosable?: boolean;
   position?: ToastPosition;
+  offsetX?: number;
+  offsetY?: number;
+  gap?: number;
   maxVisibleToasts?: number | null;
   isReversedOrder?: boolean;
   render?: ((message: ReactNode) => ReactNode) | null;
   theme?: Theme | string | null;
-  zIndex?: number | null;
+  zIndex?: number;
   loading?: boolean | Promise<unknown>;
   loadingText?: ReactNode;
   onClick?: ToastClickHandler;
@@ -26,27 +30,6 @@ export interface ToastOptions {
 }
 
 export type ToastEnterEvent = { target: HTMLDivElement; width: number; height: number };
-
-export type ConfigArgs = Pick<
-  ToastOptions,
-  | 'duration'
-  | 'className'
-  | 'clickClosable'
-  | 'position'
-  | 'maxVisibleToasts'
-  | 'render'
-  | 'theme'
-  | 'zIndex'
-  | 'isReversedOrder'
-  | 'onClick'
-  | 'onCloseStart'
-  | 'onClose'
-  | 'loadingText'
-> & {
-  offsetX?: number;
-  offsetY?: number;
-  gap?: number;
-};
 
 export type ToastUpdateOptions = {
   message?: ReactNode;
@@ -68,7 +51,7 @@ export interface ToastComponent {
   id: number;
   message: ReactNode;
   position: ToastPosition;
-  component: ReactElement;
+  component: ReactElement<ToastMessageProps>;
   isExit?: boolean;
   width?: number;
   height?: number;

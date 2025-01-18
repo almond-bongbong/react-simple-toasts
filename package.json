@@ -16,9 +16,14 @@
       "require": "./dist/index.js"
     },
     "./style.css": "./dist/style.css",
-    "./style.css.map": "./dist/style.css.map",
-    "./dist/style.css": "./dist/style.css",
-    "./dist/style.css.map": "./dist/style.css.map"
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "./*": [
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "test": "jest",
@@ -82,9 +87,6 @@
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=16.17.0"
-  },
   "sideEffects": [
     "*.css"
   ],
