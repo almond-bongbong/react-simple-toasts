@@ -1,6 +1,6 @@
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { createToast } from '../src';
 import { ToastPosition } from '../src/lib/constants';
-import { act, fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { generateMessage } from '../src/lib/utils';
 
 const EXIT_ANIMATION_DURATION = 300;
