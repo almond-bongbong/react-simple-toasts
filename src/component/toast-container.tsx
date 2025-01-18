@@ -4,11 +4,11 @@ import { ToastComponent, ToastEnterEvent } from '../type/common';
 
 export interface ToastContainerProps {
   toastComponentList: ToastComponent[];
-  onToastEnter: () => void
+  onToastEnter: () => void;
 }
 
 function ToastContainer(props: ToastContainerProps) {
-  const { toastComponentList, onToastEnter } = props
+  const { toastComponentList, onToastEnter } = props;
 
   const handleToastEnter = (t: ToastComponent, e: ToastEnterEvent) => {
     toastComponentList.forEach((toast) => {
@@ -36,7 +36,8 @@ function ToastContainer(props: ToastContainerProps) {
           return acc + (toast.height ?? 0) + t.gap;
         }, 0);
 
-        const deltaOffsetX = t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
+        const deltaOffsetX =
+          t.position.includes('left') || t.position.includes('right') ? '0%' : '-50%';
         const offsetYAlpha = t.position.includes('top') ? 1 : -1;
         const baseOffsetY = bottomToastsHeight * offsetYAlpha;
         const deltaOffsetY =
@@ -57,5 +58,4 @@ function ToastContainer(props: ToastContainerProps) {
   );
 }
 
-
-export default ToastContainer
+export default ToastContainer;

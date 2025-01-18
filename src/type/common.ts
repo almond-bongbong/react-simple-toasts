@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode, SyntheticEvent } from 'react';
 import { Themes, ToastPosition as Position } from '../lib/constants';
+import { ToastMessageProps } from '../component/toast-message';
 
 export type ToastPosition = (typeof Position)[keyof typeof Position];
 
@@ -50,7 +51,7 @@ export interface ToastComponent {
   id: number;
   message: ReactNode;
   position: ToastPosition;
-  component: ReactElement;
+  component: ReactElement<ToastMessageProps>;
   isExit?: boolean;
   width?: number;
   height?: number;
