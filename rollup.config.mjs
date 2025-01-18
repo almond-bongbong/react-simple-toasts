@@ -6,7 +6,12 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import eslint from '@rollup/plugin-eslint';
 import json from '@rollup/plugin-json';
 
-import pkg from './package.json' assert { type: 'json' };
+import fs from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const configPath = join(dirname(fileURLToPath(import.meta.url)), './package.json');
+const pkg = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
 const extensions = ['js', 'jsx', 'ts', 'tsx', 'mjs'];
 
