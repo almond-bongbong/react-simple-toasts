@@ -19,7 +19,6 @@
     "resolveJsonModule": true
   },
   "include": ["src"],
-  "exclude": ["./node_modules", "./dist", "./example",
-    "./rollup.config.mjs"
-  ]
+  "exclude": ["./node_modules", "./dist", "./example", "./rollup.config.mjs"],
+  "types": ["@testing-library/dom"]
 }
