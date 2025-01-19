@@ -15,8 +15,25 @@ function ChangeLog() {
       </section>
 
       <section className={styles.new}>
+        <h3>6.1.0</h3>
+        <div className={styles.date}>{dayjs('2025-01-19').format('YYYY.MM.DD')}</div>
+        <h4 className={styles.sub_title}>⚙️ Improvements</h4>
+        <ul className={styles.features}>
+          <li>
+            <strong>Code Refactoring:</strong> Enhanced code maintainability and reusability through
+            comprehensive refactoring.
+            <a href="https://github.com/almond-bongbong/react-simple-toasts/pull/100">#100</a>
+          </li>
+          <li>
+            <strong>Node.js Compatibility:</strong> Removed upper Node.js version constraint to
+            support latest Node.js versions.
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.new}>
         <h3>6.0.1</h3>
-        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <div className={styles.date}>{dayjs('2024-11-16').format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🔄 Compatibility</h4>
         <ul className={styles.features}>
           <li>
@@ -27,7 +44,7 @@ function ChangeLog() {
 
       <section className={styles.new}>
         <h3>6.0.0</h3>
-        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <div className={styles.date}>{dayjs('2024-09-18').format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🔄 Major Changes</h4>
         <ul className={styles.features}>
           <li>
@@ -42,8 +59,8 @@ function ChangeLog() {
       </section>
 
       <section>
-        <h3>5.11.0</h3>
-        <div className={styles.date}>{dayjs().format('YYYY.MM.DD')}</div>
+        <h3>5.10.1</h3>
+        <div className={styles.date}>{dayjs('2024-07-25').format('YYYY.MM.DD')}</div>
         <h4 className={styles.sub_title}>🎉 New Features</h4>
         <ul className={styles.features}>
           <li>
